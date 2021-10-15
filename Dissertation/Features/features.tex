@@ -1,0 +1,153 @@
+
+% Take from PyAudioAnalysis
+% short-term, mid-term features
+
+\chapter{Algorithms}
+\section{Time Analysis}
+\subsection{Convolution}
+\subsection{Cross-Correlation}
+\subsection{Auto-Correlation}
+
+% ESPNet \& Mirco Document
+\subsection{Sinc-Conv}
+
+% \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=0.99\textwidth]
+%     {./img/Comparison_convolution_correlation.svg}\label{fig:conv_vs_corr_plot}
+%     \caption{Convolution vs. Cross-Correlation vs. Auto-Correlation plot [Wikipedia]}
+% \end{figure}
+
+
+
+\section{Frequency Analysis}
+\subsection{DTFT}
+\begin{equation}
+    X_{2\pi}(\omega) = \sum_{n=-\infty}^{\infty} x[n] \,e^{-i \omega n}
+\end{equation}
+
+
+\subsection{IDTFT}
+\begin{equation}
+    x[n] = \frac{1}{2 \pi}\int_{2\pi} X_{2\pi}(\omega)\cdot e^{i \omega n} d\omega
+\end{equation}
+
+\subsection{DFT}
+\begin{equation}
+    \label{eq:dft}
+    X_k = \sum_{n=0}^{N-1} x_n \cdot e^{-\frac {i 2\pi}{N}kn}
+\end{equation}
+
+Taking Euler's identity:
+\begin{equation}
+    e^{ix} = \cos x + j\sin x
+\end{equation}
+
+Substituting the exponent power in Eq.\ref{eq:dft} with the Euler identity
+giving:
+\begin{equation}
+    X_k = \sum_{n=0}^{N-1} x_n \cdot \left[\cos\left(\frac{2 \pi}{N}kn\right)
+        - i \cdot \sin\left(\frac{2 \pi}{N}kn\right)\right]
+\end{equation}
+
+
+\subsection{IDFT}
+\begin{equation}
+    x[n] = \frac{1}{N} \sum_{k=0}^{N-1} X_k\cdot e^{i \frac{2 \pi}{N} k n}
+\end{equation}
+
+
+\subsection{FFT --- Fast Fourier Transform}
+
+\section{Time-Frequency Analysis}
+\subsection{STFT - Short Time Fourier Transfer}
+
+\section{Windows}
+\subsection{Overview}
+
+\subsection{Rect (boxcar)}
+\subsection{Triangle}
+\subsection{Bartlett}
+\subsection{Hamming}
+\subsection{Hann}
+\begin{align}
+    w[n] = 0.5 - 0.5\cos\left( \frac{ 2\pi n }{ M - 1 } \right) & \qquad 0 \leq n \leq M-1
+\end{align}
+
+
+\subsection{Kaiser}
+\subsection{Analog Filters}
+
+\subsection{Overlap + Add Reconstruction}
+\subsection{Wavelets}
+
+\section{Speech-Enhancement}
+See table
+% \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=0.99\textwidth]
+%     {./img/spc_enhance_tbl}\label{fig:asr_blocks_diagram}
+%     \caption{General E2E ASR System Blocks Diagram}
+% \end{figure}
+
+
+
+% DCT + MFCC Connection
+% DST - Discrete Sine Transforms
+% Hilbert Transform
+% Analytical Signal
+% Wavelates
+% Convolution / Correlation
+% Parseval's Theorm
+% PSD
+% Median Filter
+% ORder Filter
+% Wiener Filter
+% Hermitian FFTs
+
+
+
+
+\chapter{Features}
+\section{Cepstral Features}
+\subsection{FB --- FilterBanks}
+\subsection{MFCCs --- Mel-Frequency Cepstral Coefficients}
+
+% https://link.springer.com/content/pdf/bbm%3A978-3-319-03116-3/1.pdf
+\subsubsection{Pre-emphasis}
+% \subsubsection{Frame blocking}
+\subsubsection{Framing}
+\subsubsection{Windowing}
+\subsubsection{DFT spectrum}
+\subsubsection{Mel-spectrum}
+\subsubsection{Discrete Cosine Transform (DCT)}
+\subsubsection{Dynamic MFCC features}
+
+
+% Take from PyAudioAnalysis
+% PyAudioProcessing
+\subsection{Deltas}
+\subsection{Delta-Deltas}
+
+\subsection{GFCCs --- Gammatone-Frequency Cepstral Coefficients}
+\subsection{BFCCs --- Bark-Frequency Cepstral Coefficients}
+\subsection{LFCCs --- Linear-Frequency Cepstral Coefficients}
+\subsection{LPC --- Linear Predictive Coefficients}
+\subsection{MSRCC --- Magnitude-based Spectral Root Cepstral Coefficients}
+\subsection{NGCC --- Normalized Gammachirp Cepstral Coefficients}
+\subsection{PNCC --- Mel-Frequency Cepstral Coefficients}
+\subsection{PSRCC --- Mel-Frequency Cepstral Coefficients}
+\subsection{RPLP --- Mel-Frequency Cepstral Coefficients}
+% https://spafe.readthedocs.io/en/latest/features/_features.html
+\subsection{articulatory cepstral coefficients}
+ttt
+
+\subsection{Deltas}
+\subsection{Delta-Deltas}
+
+\section{Spectral Features}
+
+\section{Time-Domain Features}
+
+\section{Spatial Features}
+\subsection{VTLN - vocal track length norm}

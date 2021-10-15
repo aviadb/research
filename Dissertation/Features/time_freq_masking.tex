@@ -1,0 +1,38 @@
+\chapter{Time-Frequency Masking}
+\section{Introduction}
+
+\subsection{Ideal Binary Mask - IBM}
+
+
+\subsection{Optimal Ratio Mask - ORM}
+\subsection{Phase Sensitive Mask - PSM}
+
+\subsection{Ideal Ratio Mask - IRM}
+% \begin{align}
+%     \mathrm{IRM}(f;t) = \left( \frac{ || }{  } \right)
+% \end{align}
+
+\begin{align}
+    \mathbf{M}_{s}(j\omega, t) & = {\left( \frac{|\mathbf{S}(t,j\omega)|^2}{|\mathbf{S}(t,j\omega)|^2 + |\mathbf{N}(t,j\omega)|^2} \right)}^{\beta}                           \\
+    \mathbf{M}_{n}(j\omega, t) & = {\left( \frac{|\mathbf{N}(t,j\omega)|^2}{|\mathbf{S}(t,j\omega)|^2 + |\mathbf{N}(t,j\omega)|^2} \right)}^{\beta}
+\end{align}
+%
+Where \(\beta \) is a tunable parameter that controls the strength of the mask estimations. Ususally, a value of 0.5 is used 
+for a fair tradeoff between speech and noise mask estimations.
+%
+\begin{align}
+    \mathbf{M}_{s}(j\omega, t) & = \sqrt{\left( \frac{|\mathbf{S}(t,j\omega)|^2}{|\mathbf{S}(t,j\omega)|^2 + |\mathbf{N}(t,j\omega)|^2} \right)}                         \\
+    \mathbf{M}_{n}(j\omega, t) & \approx 1 - \mathbf{M}_{s}
+\end{align}
+%
+Thus, the covariance matrices are extracted by:
+\begin{align}
+    \mathbf{R}_{NN}(j\omega) & = \frac{1}{\sum\limits_{t=1}^{T}\mathbf{M}_{n_{(jw, t)}}}\sum_{t=1}^{T}\mathbf{M}_{n_{(jw, t)}}|\mathbf{R}_{x_{(jw, t)}}|^2\\
+    \mathbf{R}_{SS}(j\omega) & = \frac{1}{\sum\limits_{t=1}^{T}\mathbf{M}_{s_{(jw, t)}}}\sum_{t=1}^{T}\mathbf{M}_{s_{(jw, t)}}|\mathbf{R}_{x_{(jw, t)}}|^2
+\end{align}
+
+\subsection{Complex Ideal Ratio Mask - cIRM}
+\begin{align}
+    \mathbf{M}_{s}(j\omega, t) & = \frac{ \mathbb{R}e }{  }  {\left( \frac{|\mathbf{S}(t,j\omega)|^2}{|\mathbf{S}(t,j\omega)|^2 + |\mathbf{N}(t,j\omega)|^2} \right)}^{\beta}                           \\
+    \mathbf{M}_{n}(j\omega, t) & = {\left( \frac{|\mathbf{N}(t,j\omega)|^2}{|\mathbf{S}(t,j\omega)|^2 + |\mathbf{N}(t,j\omega)|^2} \right)}^{\beta}
+\end{align}
