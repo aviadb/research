@@ -1,0 +1,17 @@
+*.aux
+*/*.aux
+*.bbl
+*.blg
+*.fls
+*.lof
+*.log
+*.lot
+*.toc
+*-blx.bib
+*.out
+*.run.xml
+*pdfa.xmpi
+*.fdb_latexmk
+.synctex(busy)
+*.synctex.gz
+*.pdf
