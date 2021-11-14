@@ -1,3 +1,22 @@
+fname=main
+${fname}.pdf: ${fname}.tex \
+	General/abstract.tex \
+	General/acknowledgments.tex \
+	General/committee.tex \
+	ANN/ann.tex \
+	ANN/ann.bib \
+	Features/features.tex
+	if [ -e ${fname}.aux ]; \
+	then \
+	rm ${fname}.aux; \
+	fi;
+	pdflatex ${fname}
+	bibtex ${fname}
+	bibtex ${fname}1-blx
+	bibtex ${fname}2-blx
+	bibtex ${fname}3-blx
+	# Add more if you have more chapters
+	pdflatex ${fname}
 clean:
 	rm -f *.aux
 	rm -f */*.aux
