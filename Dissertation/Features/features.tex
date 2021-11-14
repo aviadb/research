@@ -5,8 +5,97 @@
 \chapter{Algorithms}
 \section{Time Analysis}
 \subsection{Convolution}
+A general use of the convolution operation
+is to evaluate the outputs of linear
+time-invariant systems.
+Taking the impulse response of a system, and
+applying the convolution with
+a given input, gives the system's output
+for that specific input.
+
+For continuous time dependent arguments,
+\(x\) as the input variable, and \(h\) as the
+system's impulse response, the convolution is given by:
+
+\begin{equation}
+    (x * h)(t) \triangleq \int^{\infty}_{-\infty} x(t)h(t-\tau) d\tau
+\end{equation}
+
+Due to the commutativity property of the convolution
+operation, the shifting over one of the arguments
+is interchangeable, thus one can write
+the same equation as:
+
+\begin{equation}
+    (x * h)(t) \triangleq \int^{\infty}_{-\infty} x(t-\tau)h(t) d\tau
+\end{equation}
+
+Likewise, working with discrete variables,
+the convolution operation can be written as:
+\begin{align}
+    (x * h)[n] \triangleq & \sum^{\infty}_{m=-\infty} x[m]h[n-m] \\
+    (x * h)[n] \triangleq & \sum^{\infty}_{m=-\infty} x[n-m]h[m]
+\end{align}
+
+
 \subsection{Cross-Correlation}
+Cross-correlation is an operation that can measure
+how similar two functions are. By ``shifting''
+one function over the other and measuring the amount
+of correlation at each given point, the output graph
+demonstrates at what ``distance''
+the maximum similarity occurs,
+in correspondence
+to the graph's maximum amplitude.
+
+\begin{align}
+    (x * h)(t) \triangleq & \int^{\infty}_{-\infty} x^{*}(t)h(t+\tau) d\tau \\
+    (x * h)(t) \triangleq & \int^{\infty}_{-\infty} x^{*}(t-\tau)h(t) d\tau
+\end{align}
+
+\begin{align}
+    (x * h)[n] \triangleq & \sum^{\infty}_{m=-\infty} x^{*}[m]h[n+m] \\
+    (x * h)[n] \triangleq & \sum^{\infty}_{m=-\infty} x^{*}[n-m]h[m]
+\end{align}
+
 \subsection{Auto-Correlation}
+In a case where the two input functions
+of the cross-correlation are the same input signals,
+the measure is then called ``auto-correlation''.
+In other words, this measure demonstrates
+at what ``distance'' the delayed version of the signal
+most matches the original version of it.
+
+This kind of measure is very useful in audio
+applications where multi-microphones are spread
+with varying distance from each other and from the
+source. Looking for the maxima point of the
+auto-correlation between the signal received by
+the microphones, one can deduce the lag time
+that best characterizes the microphones' formation.
+
+Several enhancement and manipulation techniques
+are then become available when the lagging
+time is known.
+For example the delay and sum algorithm beamforming
+algorithm for constructive summation of the different
+channels that translates
+to better SNR (signal-to-noise ratio).
+
+\subsubsection{Covariance Matrices}
+\begin{equation}
+    \mathbf{R}_{XY} \triangleq \mathbf{E}[XY^{tr}]
+\end{equation}
+
+\begin{align}
+    \mathbf{R}_{XX} & \triangleq \mathbf{E}[XX^{tr}] \\
+                    & = \frac{1}{T} \sum^{T-1}_{t=0}
+    {X}(t;j\omega){X}^{\mathbf{H}}(t;j\omega)
+\end{align}
+
+Where the \(\mathbb{H}\) operator
+is the \emph{Hermitian function} which stands for
+the complex conjugate.
 
 % ESPNet \& Mirco Document
 \subsection{Sinc-Conv}
@@ -43,8 +132,8 @@ Taking Euler's identity:
     e^{ix} = \cos x + j\sin x
 \end{equation}
 
-Substituting the exponent power in Eq.\ref{eq:dft} with the Euler identity
-giving:
+Substituting the exponent power in Equation\;\ref{eq:dft} with the Euler identity
+gives:
 \begin{equation}
     X_k = \sum_{n=0}^{N-1} x_n \cdot \left[\cos\left(\frac{2 \pi}{N}kn\right)
         - i \cdot \sin\left(\frac{2 \pi}{N}kn\right)\right]
@@ -58,6 +147,12 @@ giving:
 
 
 \subsection{FFT --- Fast Fourier Transform}
+
+\subsection{Discrete Cosine Transform (DCT)}
+
+\begin{equation}
+    y[n] = \sum^{}_{}
+\end{equation}
 
 \section{Time-Frequency Analysis}
 \subsection{STFT - Short Time Fourier Transfer}
@@ -112,6 +207,7 @@ See table
 \chapter{Features}
 \section{Cepstral Features}
 \subsection{FB --- FilterBanks}
+
 \subsection{MFCCs --- Mel-Frequency Cepstral Coefficients}
 
 % https://link.springer.com/content/pdf/bbm%3A978-3-319-03116-3/1.pdf
@@ -121,7 +217,6 @@ See table
 \subsubsection{Windowing}
 \subsubsection{DFT spectrum}
 \subsubsection{Mel-spectrum}
-\subsubsection{Discrete Cosine Transform (DCT)}
 \subsubsection{Dynamic MFCC features}
 
 
