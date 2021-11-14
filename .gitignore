@@ -15,3 +15,5 @@
 .synctex(busy)
 *.synctex.gz
 *.pdf
+
+*latexindent_temp*
