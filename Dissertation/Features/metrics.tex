@@ -1,13 +1,72 @@
 \chapter{E2E Evaluation Metrics}
 \section{Audio Metrics}
-\subsection{SNR}
+\subsection{SNR - Signal to Noise Ratio}
+The signal-to-noise ratio (SNR) metric evaluates how
+distinct is the desired signal out of the overall noise.
+
+Let \(y(t)\) denote a mixed time-domain signal consisted of
+both the desired speech signal and some inferences, referred as noise.
+That mixture is given by:
+\begin{align}
+    y(t) = x(t) + n(t)
+\end{align}
+
+Where \(x(t)\), \(n(t)\) denote the speech signal and the
+interference noise respectively.
+
+Ideal speech separation of the mixture is characterized by
+a perfect match between the predicted speech signal, \(\widehat{x}(t)\), 
+and the original (target) speech signal \(x(t)\).
+% Separating the speech out of the mixture,
+% the predicted speech signal, \(\widehat{x(t)}\), has to match the
+% original (target) speech signal \(x(t)\).
+
+Such a problem can be modeled and optimized by the MSE (L2) loss function as follows:
+\begin{align}
+    \ell(\widehat{x}, x) & = \sum_{t=0}^{T-1} \left[\widehat{x}(t) - x(t)\right]^{2} \\
+    & = \sum_{t=0}^{T-1} |r(t)|^{2}
+\end{align}
+
+The term \(\sum_{t} |r(t)|^{2}\) is the total energy of the residual error between 
+the predicted signal and the target speech, which translate to noise.
+
+According to Parseval's theorem, the residual energy in time equals the sum of
+the power difference between the predicted magnitude and the target speech magnitude
+in frequency domain.
+\begin{align}
+    \sum_{t} |r(t)|^{2} & = \frac{1}{T}\sum_{\tau=0}^{T-1}\sum_{f=0}^{T-1} \left[ \widehat{X}(\tau, f) - X(\tau, f)\right]^{2}
+\end{align}
+
+Since the residual energy is referred as the noise, minimizing the residuals, 
+or in other words minimizing the MSE loss function, translates into an increase in SNR.
+The SNR is therefore given by:
+\begin{align}
+    SNR & = 10\log_{10} \left( \frac{ \| x\|^{2}}{\|x - \widehat{x}\|^{2}}  \right) \nonumber \\
+    & =  10\log_{10} \left( \frac{ \| x \|^{2}}{\| r \|^{2}} \right)
+\end{align}
+\subsection{SI-SNR Scale Invariant SNR}
+To ensure that the SNR is susceptible to scale invariance,
+both the target and estimated signals are normalized to zero-mean.
+
+\begin{align}
+    SI-SNR & = 10\log_{10} \left( \frac{\left\| x - \mathbf{E}[x]\right\|^{2}}
+    {\left\| (x - \mathbf{E}[x]) - (x - \mathbf{E}[\widehat{x}]) \right\|^{2}} \right) \nonumber \\
+    & = 10\log_{10} \left( \frac{ \| x_{_{AC}}\|^{2}}{\|x_{_{AC}} - \widehat{x}_{_{AC}}\|^{2}}  \right) \nonumber \\
+    & =  10\log_{10} \left( \frac{ \| x_{_{AC}}\|^{2}}{\| r_{_{AC}} \|^{2}} \right)
+\end{align}
+
+
 \subsection{STOI}
 \subsection{PESQ}
 
 \section{ASR Metrics}
 \subsection{WER}
-\subsection{PER}
+\subsection{CER}
 
 \section{HW Metrics}
 \subsection{Computation time}
 \subsection{Utilization Ratio}
+\subsection{Power Estimation}
+\subsubsection{Internal Power}
+\subsubsection{Switching Power}
+\subsubsection{Leakage Power}
