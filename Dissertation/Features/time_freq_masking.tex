@@ -2,10 +2,32 @@
 \section{Introduction}
 
 \subsection{Ideal Binary Mask - IBM}
+Assuming that a simple voice activity detection
+can separate speech from noise effectively,
+the IBM technique is based on power differences.
+Whenever the power spectral density (PSD) of the speech
+is higher than any of the interferences PSD, 
+the speech is binary masked to ``1''.
+\begin{align}\label{eq:ibm_mask}
+    \mathbf{M}_{s}(j\omega, t) & = 
+        \begin{cases}
+            1, & if\;|\mathbf{S}(t,j\omega)|^2 - |\mathbf{N}(t,j\omega)|^2 > \epsilon \\
+            0, & otherwise
+        \end{cases}
+\end{align}
+Where \(\epsilon\) marks a changeable threshold value 
+for the speech activity detection over the noise.
 
-
-\subsection{Optimal Ratio Mask - ORM}
-\subsection{Phase Sensitive Mask - PSM}
+Equation~\ref{eq:ibm_mask} indicates that as a result of 
+applying the IBM masks, the speech and interference separated
+sources become complementary, in such a way that
+\[\mathbf{M}_{n} = 1 - \mathbf{M}_{s} \] and thus:
+\begin{align}
+    y(t) &= \begin{cases}
+        \hat{x_{s}}, &if\;\;\mathbf{M}_{s} = 1 \\
+        \hat{x_{n}}, &if\;\;\mathbf{M}_{s} = 0
+    \end{cases}
+\end{align}
 
 \subsection{Ideal Ratio Mask - IRM}
 % \begin{align}
@@ -13,15 +35,15 @@
 % \end{align}
 
 \begin{align}
-    \mathbf{M}_{s}(j\omega, t) & = {\left( \frac{|\mathbf{S}(t,j\omega)|^2}{|\mathbf{S}(t,j\omega)|^2 + |\mathbf{N}(t,j\omega)|^2} \right)}^{\beta}                           \\
+    \mathbf{M}_{s}(j\omega, t) & = {\left( \frac{|\mathbf{S}(t,j\omega)|^2}{|\mathbf{S}(t,j\omega)|^2 + |\mathbf{N}(t,j\omega)|^2} \right)}^{\beta} \\
     \mathbf{M}_{n}(j\omega, t) & = {\left( \frac{|\mathbf{N}(t,j\omega)|^2}{|\mathbf{S}(t,j\omega)|^2 + |\mathbf{N}(t,j\omega)|^2} \right)}^{\beta}
 \end{align}
 %
 Where \(\beta \) is a tunable parameter that controls the strength of the mask estimations. Ususally, a value of 0.5 is used 
-for a fair tradeoff between speech and noise mask estimations.
+for a fair trade off between speech and noise mask estimations.
 %
 \begin{align}
-    \mathbf{M}_{s}(j\omega, t) & = \sqrt{\left( \frac{|\mathbf{S}(t,j\omega)|^2}{|\mathbf{S}(t,j\omega)|^2 + |\mathbf{N}(t,j\omega)|^2} \right)}                         \\
+    \mathbf{M}_{s}(j\omega, t) & = \sqrt{\left( \frac{|\mathbf{S}(t,j\omega)|^2}{|\mathbf{S}(t,j\omega)|^2 + |\mathbf{N}(t,j\omega)|^2} \right)} \\
     \mathbf{M}_{n}(j\omega, t) & \approx 1 - \mathbf{M}_{s}
 \end{align}
 %
@@ -30,6 +52,11 @@ Thus, the covariance matrices are extracted by:
     \mathbf{R}_{NN}(j\omega) & = \frac{1}{\sum\limits_{t=1}^{T}\mathbf{M}_{n_{(jw, t)}}}\sum_{t=1}^{T}\mathbf{M}_{n_{(jw, t)}}|\mathbf{R}_{x_{(jw, t)}}|^2\\
     \mathbf{R}_{SS}(j\omega) & = \frac{1}{\sum\limits_{t=1}^{T}\mathbf{M}_{s_{(jw, t)}}}\sum_{t=1}^{T}\mathbf{M}_{s_{(jw, t)}}|\mathbf{R}_{x_{(jw, t)}}|^2
 \end{align}
+
+\subsection{Optimal Ratio Mask - ORM}
+\subsection{Phase Sensitive Mask - PSM}
+
+
 
 \subsection{Complex Ideal Ratio Mask - cIRM}
 \begin{align}
