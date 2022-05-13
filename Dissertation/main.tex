@@ -11,7 +11,7 @@
 
 %% This was the setup recommended at https://github.com/weitzner/jhu-thesis-template
 % \documentclass[12pt,oneside,final]{thesis}
-
+\usepackage[table]{xcolor}
 \pdfminorversion=4\relax
 \pdfobjcompresslevel=0\relax
 %% Followed the information from https://www.overleaf.com/latex/examples/creating-pdf-slash-a-and-pdf-slash-x-files/bbbycnbyqhnm#.Vw6_XBMrLm1 to create a PDF/A file in Overleaf
@@ -22,7 +22,14 @@
 % allows code insertion & formatting in LaTeX doc
 \usepackage{listings}
 % define colors, from: https://www.overleaf.com/learn/latex/Code_listing
-\usepackage{xcolor}
+% \usepackage{xcolor}
+
+\usepackage{xfrac}
+% \usepackage{sfrac}
+% \usepackage[nice]{nicefrac}
+\usepackage{tabularx}
+\usepackage{booktabs, makecell}
+\usepackage{multirow}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -117,6 +124,7 @@
 \usepackage{dcolumn}
 
 \usepackage{mathrsfs}
+\usepackage{multirow}
 
 % A math shortcut frequently used by John Muschelli
 \newcommand{\bbeta}{\mbox{\boldmath{\(\beta \)}}}
@@ -154,7 +162,20 @@
 }
 \makeatother
 
-\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\definecolor{wtbl}{HTML}{ffffff}%
+\definecolor{ytbl}{HTML}{fde9ce}%
+\definecolor{ytblborder}{HTML}{f69008}%
+\definecolor{ytblcaption}{HTML}{ffb800}%
+\definecolor{gtbl}{HTML}{edffc5}%
+\definecolor{gtblborder}{HTML}{46aa42}%
+\definecolor{gtblcaption}{HTML}{7fba00}%
+\definecolor{mtbl}{HTML}{ead1dc}%
+\definecolor{mtblA}{HTML}{fffbfb}%
+\definecolor{mtblborder}{HTML}{741b47}%
+\definecolor{mtblcaption}{HTML}{a64d79}%
+% \definecolor{grtbl}{rgb}{0.65, 0.65, 0.65}%
+\definecolor{grtbl}{HTML}{ececec}%
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}%
 \newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
 \newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
 \newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
@@ -212,14 +233,16 @@
 
 
 \usepackage{appendix}
-\usepackage[
-style = ieee, % follows http://ieeeauthorcenter.ieee.org/wp-content/uploads/IEEE-Reference-Guide.pdf
-sorting = none,
-dashed = false,
-maxbibnames = 99,
-backend = bibtex,
-natbib = true
-]{biblatex}
+% \usepackage[
+% style = numeric, % follows http://ieeeauthorcenter.ieee.org/wp-content/uploads/IEEE-Reference-Guide.pdf
+% sorting = none,
+% dashed = false,
+% maxbibnames = 99,
+% backend = bibtex, 
+% natbib = true
+% ]{biblatex}
+\usepackage[backend=biber,style=numeric,sortcites,sorting=nty,backref,natbib,hyperref]{biblatex}
+
 
 % If you want to exclude some portions from the bibliography
 \AtEveryBibitem{
@@ -264,10 +287,10 @@ natbib = true
   {\bf A thesis submitted to Johns Hopkins University\\
     in conformity with the requirements for the degree of\\
     Master of Science }\\
-  \vspace*{.75in}
+  \vspace*{.65in}
   {\bf Baltimore, Maryland} \\
   {\bf October 2021} \\
-  \vspace*{.5in}
+  \vspace*{.45in}
   \begin{small}
     {\bf \copyright{ }2021 by Aviad Ben-Haim} \\
     {\bf All rights reserved}
@@ -279,6 +302,7 @@ natbib = true
 \pagestyle{plain}
 \pagenumbering{roman}
 \setcounter{page}{2}
+
 \addcontentsline{toc}{chapter}{Abstract}
 \include{General/abstract}
 \addcontentsline{toc}{chapter}{Thesis Committee}
@@ -308,24 +332,65 @@ natbib = true
 %% TeX files or Rnw files (see rnw_chapter as an example) and please
 %% remember to update the makefile accordingly.
 
-% \begin{refsection}[01_intro_chapter/intro_chapter.bib]
-\include{Introfuction/Introduction}
-% \cleardoublepage
-% \printbibliography[title={References}]
-% \end{refsection}
+\begin{refsection}[Introduction/paper_ref.bib]
+  \include{Introduction/Introduction}
+  \cleardoublepage
+  \printbibliography[title={References}]
+\end{refsection}
 
-\include{ANN/ann}
+\begin{refsection}[Features/metrics_paper_ref.bib]
+  \include{Features/metrics}
+  \cleardoublepage
+  \printbibliography[title={References}]
+\end{refsection}
 
-\include{Features/features}
+\begin{refsection}[Scaling/scaling.bib]
+  \include{Scaling/scaling}
+  \cleardoublepage
+  \printbibliography[title={References}]
+\end{refsection}
 
-\include{Features/time_freq_masking}
+\begin{refsection}[Features/features.bib]
+  \include{Features/features}
+  \cleardoublepage
+  \printbibliography[title={References}]
+\end{refsection}
 
-\include{Beamformers/beamformers}
+\begin{refsection}[Features/time_freq_masking.bib]
+  \include{Features/time_freq_masking}
+  \cleardoublepage
+  \printbibliography[title={References}]
+\end{refsection}
 
-\include{Features/metrics}
+\begin{refsection}[Beamformers/beamformers.bib]
+  \include{Beamformers/beamformers}
+  \cleardoublepage
+  \printbibliography[title={References}]
+\end{refsection}
 
-\include{Features/Datasets}
 
+\begin{refsection}[ASR/asr.bib]
+  \include{ASR/asr}
+  \cleardoublepage
+  \printbibliography[title={References}]
+\end{refsection}
+
+
+\begin{refsection}[Datasets/Datasets.bib]
+  \include{Datasets/Datasets}
+  \cleardoublepage
+  \printbibliography[title={References}]
+\end{refsection}
+
+\begin{refsection}[General/conclusion.bib]
+  \include{General/conclusion}
+  \cleardoublepage
+  \printbibliography[title={References}]
+\end{refsection}
+
+
+% % \include{ANN/ann}
+% \include{Experiments/experiments}
 
 
 

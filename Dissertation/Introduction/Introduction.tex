@@ -1,0 +1,389 @@
+\chapter{Introduction}
+
+Speech recognition systems
+started several decades ago.
+It began with simple decoding capabilities through keyword
+spotting to the modern Automatic Speech Recognition (ASR) systems
+that are common nowadays\cite{asrBriefHistory}.
+
+\bigskip
+
+Recent advances in the field of speech recognition and acoustic modeling are
+due to the introduction of 
+Deep Neural Networks (DNN) 
+based alternatives vice the traditional
+Hidden-Markov Models---Gaussian Mixtures Models (HMM-GMM) approaches\cite{7472778, 6296526}.
+
+\bigskip
+
+In recent years, the latest research 
+interest has been in 
+End-to-End (E2E) ASR systems\cite{boeddeker2018exploring}.
+The E2E approach consists of the ``complete'' pipeline process, starting with
+the audio domain physical signal reception up to the recognition engine.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{Introduction/images/asr_blocks}
+	\caption{General E2E ASR System Blocks Diagram}\label{fig:asr_blocks_diagram}
+\end{figure}
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[width=0.99\textwidth]
+% 	{./images/asr_blocks}
+% 	\caption{General E2E ASR System Blocks Diagram}\label{fig:asr_blocks_diagram}
+% \end{figure}
+\vspace{-0.5cm}
+
+Figure~\ref{fig:asr_blocks_diagram} shows 
+a general skeleton of
+an End-to-End ASR system. This general form describes the
+internal partitioning and the pipeline process.
+However, most importantly, it emphasizes
+the distinction between the two domains of interest,
+``Audio-related'' and ``Speech-related''.
+These two domains are sometimes referenced
+as ``Audio-Enhancement'' and ``Speech-Enhancement'', respectively.
+Notwithstanding the acknowledgment that 
+the name references describe each domain's 
+primary intention, they actually overlap.
+Therefore, ``Audio-related'' and ``Speech-related'' are more precise.
+% Figure~\ref{fig:asr_blocks_diagram} shows what an End-to-End ASR system is
+% generally constructed of. In addition, there is a non-strict distinction between
+% two extensive areas in themselves. 
+
+\bigskip
+
+Although overlap exists between the two domains,
+the distinction between the two indicates the separation
+border concerning metrics characterizations.
+Typically, speech-recognition performance is evaluated
+using the Word Error Rate (WER) and
+Character Error Rate (CER) metrics.
+
+\medskip
+
+On the other hand, audio-related performance,
+measured on the enhanced version of the input signal,
+whether it be a speech separated or noise suppressed
+sort,
+is evaluated using different metrics.
+If such audio enhancing processing is applied, metrics
+like Clarity (C50), Definition (D50),
+Reverberation-Time (T50), and other standard signal processing metrics
+such as Signal to Noise Ratio (SNR) and Signal to Distortion Ratio (SDR) are used.
+
+% Although there is a kind of distinction between these two domains of interest, sometimes the
+% distinction line is not strongly put between the ``speech enhancements'' to the ``acoustic features''
+% building blocks, nor the requirement to have all these components in an E2E ASR system.
+
+% \bigskip
+
+% With that said, it is still very important
+% to distinguish between the different metrics
+% that are used to evaluate the performance of such systems. Where speech-recognition related 
+% performance is mostly evaluated using the Word Error Rate (WER) and Phone Error Rate (PER) metrics.
+
+% \bigskip
+
+% On the other hand, audio related performance,
+% which is measured on the ``enhanced'' version
+% of the input signal (if such processing is applied),
+% is evaluated using different metrics like 
+% Clarity (C50), Definition (D50), Reverberation-Time (T50) 
+% and other common signal processing metrics
+% as Signal to Noise Ratio (SNR) and Signal to Distortion Ratio (SDR).
+
+\bigskip
+
+In turn, the first building block shown 
+in Figure~\ref{fig:asr_blocks_diagram}
+can be evaluated with 
+different sets of performance metrics 
+such as Directivity Factor (DF),
+Noise Gain (NG) and more.
+
+\bigskip
+
+With the introduction of DNN algorithms,
+E2E ASR systems performance significantly improved
+compared to the conventional HMM-GMM 
+based speech recognition approach\cite{7472778, 6296526}.
+In addition, integration with deep beamformers,
+which are also DNN-based, improves
+the front-end performance in a way that is
+eventually projected to lower WER results.
+
+\bigskip
+
+Different neural network (NN) 
+architectures can be used to
+implement of ASR engine building blocks.
+Usually, the NN used to train the ASR engine 
+is the same NN used
+in the implementation of the
+front-end components, microphones, channel management,
+and beamformers.
+
+% in the implementation of the front-end components 
+% the same NN is used in the front-end components, Microphones, channel management, and beamformers.
+
+% Different neural network architectures can be applied for
+% both the recognition engine, i.e. ASR building block,
+% and the front-end components, i.e. Microphones, channel management, and beamformers.
+
+\bigskip
+
+Compared to a reference and a specific performance metric, 
+each change might improve performance. 
+On the other hand,
+performance in one metric can cause degradation in other metrics.
+Hence, some cross-correlation and trade-off estimations
+should be performed before an E2E ASR system design stage.
+Furthermore, other performance metrics can be embraced.
+For example, metrics like computation time and resources utilization
+can assist in having a more comprehensive overview of how the system operates given a
+static pipeline with different algorithms.
+Thus, application
+developers can benefit from such metrics estimations,
+especially when dealing with strict 
+application requirements or resource-limited platforms.
+
+% when their platforms have limited resources, or when 
+% their application requirement are strict.
+% for such metrics can be useful for application
+% developers, who target for resource limited platforms 
+% or are constrained to specific application requirements. 
+
+\section{Literature Review}
+References~\cite{7472778, 7952160} are 
+two pioneering research papers focusing on 
+studying neural networks usages
+for beamforming in the front-end
+before the acoustic features extraction and
+recognition engine stages.
+
+\bigskip
+
+In both papers, the researchers built the applications
+upon the principles of almost a complete E2E ASR pipeline.
+These applications share a similar baseline 
+architecture but have different
+DNN-type beamformers, ASR engines,
+and beamformer filters.
+
+% \begin{figure}[H]
+% 	\centering
+% 	\begin{subfigure}[b]{0.41\textwidth}
+% 		\includegraphics[width=\textwidth, keepaspectratio=true]
+% 		{./images/gcc_dnn_BF_blocks}
+% 		\caption{System Architecture Used In~\cite{7472778}}\label{fig:gcc_dnn_BF_blocks}
+% 	\end{subfigure}
+% 	\begin{subfigure}[b]{0.55\textwidth}
+% 		\includegraphics[width=\textwidth, keepaspectratio=true]
+% 		{./images/lstm_BF_blocks}
+% 		\caption{System Architecture Used In~\cite{7952160}}\label{fig:lstm_BF_blocks}
+% 	\end{subfigure}
+% \end{figure}
+
+\bigskip
+
+Experiments in ~\cite{7472778, 7952160}
+focus on WER performance evaluations to express
+the system's capabilities under 
+different test-cases and inputs.
+Naming few, a single microphone 
+with single channel input,
+a single microphone with multi-channel inputs,
+and a microphones array.
+
+\bigskip
+
+\subsection{Recent Work}
+Recently, new techniques have been introduced~\cite{900384911,20202222222,9003849,7471664,8466865},
+such as
+different NN architectures that serve as the basis for
+the ASR engines.  
+% \begin{itemize}[noitemsep]
+% 	\item ASR Engine alternatives
+% 	\item biasing
+% 	\item Low Latency Beamformers
+% 	\item Masking operations
+% \end{itemize}
+
+\subsubsection{ASR Engine Alternatives}
+Performance comparisons between different recognition
+engines are described in~\cite{900384911}. 
+The recognition engines mentioned in this paper
+do not make use of both the 
+Listen, Attend, and Spell (LAS)~\cite{7472621}
+and the 
+Connectionist Temporal 
+Classification (CTC)~\cite{hannun2017sequence}
+recognition models.
+
+\bigskip
+
+In~\cite{900384911}, the primary metric used for evaluation is WER.
+The different ASR engines include 
+Recurrent neural network-transducer (RNN-T), 
+Recurrent neural network-attention encoder decoder (RNN-AED),
+and Transformer-AED.
+These architectures belong to the right side
+of the extended E2E ASR structure shown in 
+Figure~\ref{fig:asr_blocks_diagram}, 
+also referred to as the
+Back-end (BE).
+BE engines are complex systems by themselves
+and thus can be split into multiple smaller
+blocks to ease integration.
+Despite being very comprehensive, this research paper 
+concentrates on
+the ``Speech related'' domain
+without considering the front-end
+effect and its correlation to performance.
+
+\subsubsection{Biasing}
+Reference paper~\cite{20202222222} explores the effect of biasing
+on a complete pipeline E2E ASR system. 
+First, masking operations were
+applied in the frequency domain.
+In addition, biasing information was fed
+into the system in combination with the 
+masked frequency output.
+
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[width=0.99\textwidth]
+% 	{./images/e2e_bias_blocks}
+% 	\caption{System Architecture Used In~\cite{20202222222}}\label{fig:e2e_bias_blocks}
+% \end{figure}
+
+
+\subsubsection{Low Latency Beamformers}
+Low latency beamformers were studied in~\cite{9003849}.
+The research results show 
+"audio-related" performance comparisons
+as a function of the beamformer type and the number
+of microphones in the array.
+Moreover, each setup's latency w
+as measured to determine 
+its time to process and propagate.
+The authors of this paper used
+two different datasets for their experiments.
+
+\subsubsection{Masking Operations}
+Reference paper~\cite{7471664} demonstrates experiments on estimations of spectral masks effects
+with neural networks based beamformers.
+Two different beamformers,  Generalized Eigenvector (GEV)
+and Minimum Variance Distortionless Response (MVDR) were tested with and without Bi-directional Long Short-Term Memory (BLSTM)
+spectral masks concerning the PSD and SNR.
+However, this paper does not include an E2E pipeline nor the recognition engine.
+In other words, this research focuses on the ``Audio related'' domain.
+Indeed, SNR belongs to the
+``audio-related'' metric set rather than the
+``speech-related'' metric set,
+as shown in Figure~\ref{fig:asr_blocks_diagram}.
+\bigskip
+
+Another comprehensive research 
+that studies masking operations
+is described in~\cite{8466865}.
+In this paper, the architecture does not include
+the ASR engine. 
+Instead, it mainly deals with the enhanced output signal,
+signifying that it is also in the ``Audio-related'' domain.
+However, this research is unique in the presence of both the WER and SDR metrics measurements
+for different engines that were plugged at the back-end stage.
+
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[width=0.75\textwidth]
+% 	{./images/robust_mask_blocks}
+% 	\caption{System Architecture Used In~\cite{8466865}}\label{fig:robust_mask_blocks}
+% \end{figure}
+
+% Here, the engine is not present in the architecture, but only the enhanced 
+% output signal which is also in the ``Audio related'' domain.
+
+
+\section{Proposed Work}
+
+\subsection{Project Outline}
+A way to estimate Hardware (HW) requirements for speech
+applications
+based on other speech or audio-related metric sets
+can be helpful to developers of such platforms.
+Applications have requirements and limitations
+that are dictated by their platform or available hardware.
+Therefore, optimizations of a given E2E ASR architecture by careful
+trade-off selections can lead to more robust and rapidly
+developed applications or setups.
+That is a significant advance towards fast setup constructions for different HW platforms.
+As such, in this research project, the effects of changing different
+building blocks and applying various enhancement techniques
+in a given E2E ASR system will be evaluated.
+The effects of such replacements and
+fine-tunes will be presented with respect to different
+performance metrics. Based on the results, one will be able to deduce the trade-offs
+that can be selected to optimize the implementation process for a specific
+application, platform, requirement, feasibility, and other specifications.
+
+\bigskip
+
+Potential performance metrics that will be evaluated
+are shown in Figure~\ref{fig:proj_blocks}
+% , where the goals of the research are
+% to produce a cross-correlation between the different
+% metric sets and trade-offs that can be used to select an optimal design.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Introduction/images/metrics_cross_blocks}
+    \caption{Project Outline Summary Diagram}\label{fig:metrics_cross_blocks}
+\end{figure}
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[width=0.7\textwidth]
+% 	{./images/metrics_cross_blocks}
+% 	\caption{Project Outline Summary Diagram}\label{fig:metrics_cross_blocks}
+% \end{figure}
+
+\bigskip
+
+% Hardware metrics estimations based on the other metric sets
+% can be useful for application developers. Usually applications have requirements 
+% and limitations that are constrained to their platform or available hardware.
+% Therefore, some trade-offs
+
+% \bigskip
+
+
+% that can be selected in order to optimize a given E2E ASR
+% architecture can lead to more robust and rapidly developed applications or setups.
+% That is a big advance towards fast setup constructions for different hardware platforms. 
+
+
+% In this research project, I want to study the effects as described in the project outline section.
+The approach is to set up an architecture 
+that follows the architecture presented in
+Figure~\ref{fig:proj_blocks}.
+% but also includes 
+% masking operations 
+% Figure~\ref{fig:e2e_bias_blocks}, with some changes that will be described below. 
+% The system should follow the baseline pipeline as shown in 
+% Figure~\ref{fig:gcc_dnn_BF_blocks} and Figure~\ref{fig:lstm_BF_blocks}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.99\textwidth]
+	{Introduction/images/proj_blocks}
+	\caption{Project Proposed Architecture}\label{fig:proj_blocks}
+\end{figure}
+
+A comprehensive performance metrics table that contains the Audio,
+Speech, and HW characteristics
+of an E2E ASR system, will be composed.
+Such tables make it easier to detect cross-correlations between the metric sets.
+In consequence, 
+deduction of each metric's
+projection on others can be estimated.

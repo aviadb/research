@@ -1,4 +1,91 @@
 \chapter*{Abstract}
+\vspace*{-1cm}
+Automatic Speech Recognition (ASR) functionality,
+the automatic translation of
+speech into text, 
+is on the rise today and is required for 
+various use-cases,
+scenarios, and applications.
+However, 
+an ASR engine by itself will face difficulties 
+performing decently, 
+regardless of how sophisticated and advanced it may be.
+That is true, 
+especially under the circumstances 
+such as having a noisy ambient environment,
+multiple speakers, or faulty microphones.
+These kinds of challenges characterize 
+a realistic scenario for an ASR system.
 
-Abstract
+In time, the idea of ASR functionality evolved
+to a more comprehensive, End-to-End (E2E) solution.
+One that is robust, to some extent, to 
+external interferences, 
+flexible, so that it can be extended 
+to adapt to new scenarios or for performance increase,
+and modular enough to 
+conveniently reform and be compatible 
+with new applications.
+Such an E2E ASR solution may include 
+several additional micro-modules 
+of speech enhancements besides the ASR engine, 
+which is very complicated by itself. 
+Adding these micro-modules can enhance the robustness 
+and improve the overall system's performance.
+Examples of such possible micro-modules include 
+noise cancelation and speech separation, 
+multi-microphone arrays, and adaptive beamformer(s).
+Being a comprehensive solution built of
+numerous micro-modules is technologically 
+challenging to implement
+and challenging to integrate into resource-limited
+mobile systems. 
+By offloading the complex computations to a server
+on the cloud, 
+the system can fit more easily in less capable computing devices. 
+Nevertheless, that compute offloading comes with the cost of
+giving up on real-time analysis. 
+In addition, offloading to a server must have continuous
+connectivity to the cloud over the internet.
+
+To find the optimal trade-offs between performance,
+Hardware (HW) and Software (SW) 
+requirements or limitations, 
+maximal computation time 
+allowed for real-time analysis,
+and the detection accuracy,
+one should first define the different metrics 
+used for the evaluation 
+of such an E2E ASR system.
+Secondly, one needs to determine 
+the extent of correlation between those 
+metrics, plus the ability to forecast the
+impact each variation in one has on the others.
+
+In this research, we present novel progress
+in the direction of optimally designing a
+robust E2E-ASR system, possibly targeted for
+mobile, resources-limited devices.
+First, we describe the possible 
+available evaluation metrics
+for each of the different domains, which spread
+over vast engineering subjects
+emphasizing any bindings between 
+the metrics and degree of impact
+derived from a change in 
+the system's specifications
+or constraints.
+Second, we will present the effectiveness
+of applying machine learning techniques 
+that can generalize and provide results 
+of improved overall performance and robustness.
+Third, we present an approach of substituting
+architectures, changing algorithms,
+and approximating complex computations
+by utilizing 
+a custom dedicated hardware acceleration 
+in order to replace the 
+traditional state-of-the-art SW-based 
+solutions, thus providing real-time 
+analysis capabilities to resource-limited systems.
 
