@@ -1,0 +1,148 @@
+\chapter{Conclusions}
+\vspace{-1cm}
+In this research we have 
+investigated some possible 
+explicitly or implicitly direct links
+between
+several metrics that are measured 
+in different stages along an E2E ASR system.
+
+\bigskip
+
+We also investigated the 
+impact of speech enhancement 
+where we have seen how
+a multi-channel microphone array beamformer
+combined with a T-F masking algorithm
+can improve an existing E2E ASR system detection rates.
+This provided insights into a correlation 
+between improvements in SNR, PESQ, and STOI
+leading 
+to an improvement in WER and CER whom
+are ASR metrics.
+
+\bigskip
+
+We also present 
+the magnitude of influence
+that different scaling methods have 
+on ASR system's performance and requirements,
+especially when the implementation is targeted for
+a hardware device rather than a software based solution.
+In such cases, the requirements for
+computation efficiency, low power consumption
+and wise utilization of limited resources
+are taken into account and affect the 
+ranks that different configuration sets
+get. For example, slim models for the
+beamformer, masking or the ASR engine 
+would be ranked higher than heavy and 
+larger models
+when the target device has limited
+scanty memory resources. 
+Alternatively, when storage memory is
+not considered an issue, a better performing
+algorithm would be more preferable
+for higher detection rates.
+
+\bigskip
+
+To evaluate the End-to-End speech enhancement
+plus the ASR engine performance, we divided
+the effort into two sections, where each has been
+evaluated separately. Later, the two sections 
+were connected together and the evaluation was
+taken from input to the ASR output.
+
+\bigskip
+
+During experiments,
+multiple ASR engines were trained against
+different carefully selected feature sets,
+each time alternating one parameter,
+whether the features' combination,
+scaling method, the computation for feature extraction
+or the neural network's shape and structure.
+A clear advantage, 
+in terms of ASR performance (WER, CER), 
+has been observed for a combination of the
+Delta, Deltas-Delta \((\Delta, \Delta\Delta)\) 
+and the companion
+cepstral coefficients, over the increase in the
+number of filters and coefficients, 
+or the usage of only FilterBanks.
+Adding temporal context to the mixture,
+resulted in a slightly better ASR performance.
+These insights reflected mainly in 
+the effort of model's simplifications.
+In accordance, simplifications such as
+approximations for the scaling methods
+and the reduction in filters and coefficients
+were made possible while maintaining
+equal detection rates and sometimes
+even better than highly dense
+FilterBank based ASR systems.
+On the other hand, root cepstral coefficients
+extraction did not yield any gain in performance
+over the natural or log based coefficients, nor
+the suggested approximations.
+
+\bigskip
+
+Those trained ASR engines were attached to
+a processing FE (Front-End), that serves as
+a speech enhancing stage. The speech enhancing
+is applied by multi channel multi microphones array
+deep beamformers combined with T-F maskins.
+That combination between an GEV beamformer 
+and a T-F masking extraction later attached to
+an ASR engine led to much improved
+performance compared to the ASR performance
+measured as a standalone unit.
+Deeper analysis of the various T-F masking alogirthms
+yielded a conclusion that the audio domain metrics
+such as SNR and STOI have direct impact on 
+the ability of the ASR engine to be more precise.
+This actually strengthen the intuition that 
+better speech quality or cleaner speech
+is easier to perceive, and thus 
+ASR transcripts would be more accurate for it.
+
+\bigskip
+
+Some very important questions arise with regard to 
+adding a FE stage in front of the ASR engine,
+that is what would be the cost? What could be traded
+in favor of performance or higher detection ratios?
+In this research we used the same configuration
+for the feature extractions in both the
+FE and the ASR engine itself. 
+Doing so, we manage to combine the feature extraction
+mechanism and save on resources by reusing
+the same modules. The computation overload
+for the FE part becomes negligible since it is 
+already implemented for the ASR, thus
+only the extraction of the beamformer coefficients is
+what left for computation. Despite saving on resources,
+an increase in memory is anticipated to hold
+the beamformer's and the T-F masking NN model parameters.
+
+\bigskip
+
+Also presented in this research trade-off options,
+all together with the expected gains in some metrics
+side by side with the improvements in WER and CER.
+For systems that are not designed with limited resources,
+like memory and slow operating clock frequency, 
+the more advanced, but complex algorithms for T-F masking
+as cIRM, PSM, and ORM can be used.
+Leading to higher perception rates at the ASR output
+as mentioned before due to higher SNR levels. However,
+trading-off complex T-F masking with the simpler and
+lighter IRM implementation while selecting more optimized
+ASR engine and feature set can yield quietly matched
+WER and CER results. According to the results presented
+in this research, speech to text systems can be optimized
+by wise selection 
+of configurations for certain
+modules and yet achieving desired quality of performance.
