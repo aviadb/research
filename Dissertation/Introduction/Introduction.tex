@@ -301,10 +301,7 @@ for different engines that were plugged at the back-end stage.
 % Here, the engine is not present in the architecture, but only the enhanced 
 % output signal which is also in the ``Audio related'' domain.
 
-
-\section{Proposed Work}
-
-\subsection{Project Outline}
+\section{Project Outline}
 A way to estimate Hardware (HW) requirements for speech
 applications
 based on other speech or audio-related metric sets
@@ -369,10 +366,11 @@ Figure~\ref{fig:proj_blocks}.
 % The system should follow the baseline pipeline as shown in 
 % Figure~\ref{fig:gcc_dnn_BF_blocks} and Figure~\ref{fig:lstm_BF_blocks}.
 \begin{figure}[H]
+	\vspace{-2.65cm}
 	\centering
-	\includegraphics[width=0.99\textwidth]
-	{Introduction/images/proj_blocks}
-	\caption{Project Proposed Architecture}\label{fig:proj_blocks}
+	\includegraphics[width=\textwidth]
+	{Introduction/images/proj_blocks2}
+	\caption{Project's Proposed Architecture}\label{fig:proj_blocks}
 \end{figure}
 
 A comprehensive performance metrics table that contains the Audio,
@@ -382,3 +380,13 @@ Such tables make it easier to detect cross-correlations between the metric sets.
 In consequence, 
 deduction of each metric's
 projection on others can be estimated.
+
+This paper's structure follows the architecture
+presented in Figure~\ref{fig:proj_blocks}.
+First in Chapter~\ref{ch:metrics}, 
+we introduce the selected performance evaluation metrics
+of interest and how they relate to these domains. 
+A detailed explanation of how each performance metric is
+extracted and calculated is provided as well
+for a better understanding of the motivation behind
+these metrics selection.
