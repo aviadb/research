@@ -130,11 +130,10 @@ Moreover, the reconstructed signal is not aligned
 with the noisy mixture either. 
 These misalignments 
 are a side effect of the time-domain 
-to the frequency domain transformation, 
+to the frequency-domain transformation, 
 the processing manipulations on the transformed signal, 
 and the reconstruction of the signal in 
 the time-domain using the inverse-transform technique. 
-
 Therefore, without any alignments, extraction of the Segmental-SNR
 is meaningless and most probably inaccurate. 
 Due to that limitation, an alignment process should be applied
@@ -147,16 +146,18 @@ the intelligibility of a speech signal.
 The intelligibility is measured by taking the correlation
 coefficient between the temporal envelopes of the clean
 and degraded speech. In our case, the term degraded might
-be confusing since it is the outcome of the beamformer
-and T-F maskings front-end. However, relatively to the clean
-speech, it is indeed degraded, nevertheless
-considered as an enhanced version of the noisy mixture.
+be confusing since the degraded speech input
+is actually the outcome of the beamformer
+following the T-F masking at the front-end.
+However, relatively to the clean speech, 
+the beamformer's output is indeed degraded, altough
+being considered as an enhanced version of the noisy mixture.
 
 The naming convention \emph{Short-Time} comes from the time frame length
 of the overlapping segments, which is \(384 ms\).  
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Features/images/stoi_blocks_diagram}
+    \includegraphics[width=\linewidth]{Features/images/stoi_blocks_diagram}
     \caption{STOI flow diagram}\label{fig:stoi_blocks_diagram}
     \source{Adapted from \cite{5495701}}
 \end{figure}
@@ -252,14 +253,15 @@ to the reference. Therefore, special care for \emph{Insertions}
 and \emph{Deletions} should be carried out as well, without neglecting
 the detected \emph{Substitutions}.
 
-The WER is then can be described by:
+The WER is described by:
 \begin{align}
     WER & = \frac{S + D + I}{N}
 \end{align}
 
 Where \(N\) is the total count of words in the reference,
 and \(S,D,I\) are the number of \emph{Substitutions} (wrong word detection),
-\emph{Deletions} (Omitting words), \emph{Insertions} (Wrong words insertions).
+\emph{Deletions} (Omitting words),
+and \emph{Insertions} (Wrong words insertions).
 
 \subsection{CER - Character Error Rate}
 CER is another metric with some similarities to the 
@@ -303,27 +305,29 @@ in the system feeds the different components with energy.
 However, the total supplied energy is not purely consumed over time, 
 and some energy is lost and wasted due to power dissipation.
 
-Power dissipation is a side effect of conductors' resistive nature, 
-which "resists" the transition of current through.
-As a result, part of the energy converts 
+Power dissipation is a side effect of a conductors' resistive nature, 
+which "resists" the transition of current through it.
+As a result, part of the energy in the system is converted 
 to heat energy.
 
-Since dissipated power is a waste of energy and the main cause 
-of degradation in the performance of electronic systems at high temperatures,
-engineers want to mitigate as much as possible any power
-consumption that is not used for the main functionality of the system but
-dissipated and converted to heat.
-
-Therefore, power analysis is crucial in any system 
+Since dissipated power is a waste of energy it is also 
+considered as one of the main causes 
+to electronic systems' performance degradation at high temperatures.
+Therefore, engineers want to mitigate 
+as much as possible any dissipated power that
+is not used for the main functionality of the system. % but dissipated and converted to heat.
+For that end, power analysis is crucial in any system 
 design phase to ensure efficiency and correctness while maintaining 
 robustness over time and under different working conditions.
 
-Electrical circuits' power dissipation depends on many arguments, 
-mainly when speaking of digital logic designs. 
-But overall, in general, it can still be modeled 
+Electrical circuit power dissipation depends on many arguments. % mainly when speaking of digital logic designs. 
+However, in general, it can be modeled 
 accurately according to three scenarios divided into two main groups:
 \begin{enumerate}
-    \item Static Power (Leakage)
+    \item Static Power
+    \begin{itemize}
+        \item Intrinsic Leakage Power
+    \end{itemize}
     \item Dynamic Power
     \begin{itemize}
         \item Internal Power
@@ -331,7 +335,7 @@ accurately according to three scenarios divided into two main groups:
     \end{itemize}
 \end{enumerate}
 
-\subsubsection{Leakage Power}
+\subsubsection{Intrinsic Leakage Power}
 Leakage power is the power that dissipates due to the 
 structure of a CMOS device, 
 where a thin layer of metal oxide isolates
@@ -359,9 +363,9 @@ but the leakage power is increasing as a side effect.
     \centering
     \includegraphics[width=0.55\linewidth]{Features/images/leak_vs_nm}
     \caption{Leakage Power vs. Process Technology}\label{fig:leak_vs_nm}
-    \source{Adapted from Soitec FinFet presentation}
+    \source{Adapted from Soitec FinFet presentation\cite{processnodeleak}}
 \end{figure}
-Therefore, the overall leakage power is a function 
+The overall leakage power is a function 
 of the total number of voltage sources and their voltage levels, 
 the physical dimensions of the CMOS device, 
 and the threshold value set to switch between on-off states.

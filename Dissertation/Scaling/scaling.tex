@@ -13,53 +13,51 @@ As a result of aging, the hearing system's dynamic range
 as to the detectable bandwidth decreases,
 and by middle-age are set at about
 \(20Hz \div 14KHz\)\cite{Wiley2008ChangesIH}.
-That is the maximum hearable frequency
+As such, the maximum hearable frequency
 declines with age.
 
 The human ear's ability to distinguish 
 between two different frequencies 
 is not symmetric. 
 For example, the spectral distance between two 
-different frequencies in one distinction region does 
+different frequencies in one distinct region does 
 not equal the spectral distance 
-between two additional frequencies in other distinctive regions.
-
-Therefore, the conventional linear 
+between two additional frequencies in other regions.
+Due to that asymmetry, the conventional linear 
 spectral mapping is impractical for
 speech analysis applications.
 Thus, a different spectral mapping 
 based on a different scaling system
 that mimics the human hearing as possible
-is applied as an alternative.
+is applied instead as an alternative.
 
 \section{Mel-Scaling}
 The Mel-scaling method 
 is a suggested solution to mapping 
 standard audio frequencies to perceived frequencies.
-The basic idea that lies underneath is that for
-different pitches, we assign varying bandwidth,
-such that they were chosen to be equal in distance
+The basic idea that lies underneath it is that for
+different pitches we assign varying bandwidth,
+such that they are equal in distance
 from each other, as rated by listeners.
 The reference point has been chosen to be 
 \(1000 Hz = 1000 Mels\).
 
-Mel-scale has been described first in \cite{Volkmann} by Stevens and Volkmann.
-In \cite{Volkmann}, the authors presented different curves
-that best describe the Mel-scaling.
+Mel-scale was first described in \cite{Volkmann} by Stevens and Volkmann,
+where the authors presented different curves for Mel-scaling.
 
 Two common tables were composed
-according to those curves. One table by 
+according to the Mel-scaling curves. One table by 
 Beranek in 1949 \cite{beranek1988acoustical} 
 and the second by Umesh et al. in 1999 \cite{UmeshMel}.
 
 The most popular equation that models the Mel-scale
-is given by \cite{o1987speech}:
-
+is given by \cite{o1987speech} and is typically referenced as
+the "Logarithm based Mel scale":
 \begin{equation}\label{eq:mel_1}
     Mel = \ln \left( 1 + \frac{f}{700} \right) \cdot \frac{1000}{\ln(1+\frac{1000}{700})} 
 \end{equation}
 
-This equation\;[\ref{eq:mel_1}] can be simplified as follows:
+Equation\;[\ref{eq:mel_1}] can be simplified as follows:
 \begin{align}
     Mel & = 1127 \ln \left( 1 + \frac{f}{700} \right) \nonumber \\
     Mel & = 2595 \log_{10}\left( 1 + \frac{f}{700} \right)
@@ -72,28 +70,27 @@ can be written as:
     f[Hz] & = 700 \left( 10^{\frac{Mel}{2595}} -1  \right)
 \end{align}
 
-\subsection{Logarithm based Mel scale}
-The most popular equation that models the Mel-scale
-is given by \cite{o1987speech}:
-\begin{equation}
-    Mel = \ln \left( 1 + \frac{f}{700} \right) \cdot \frac{1000}{\ln(1+\frac{1000}{700})} 
-\end{equation}
-This can be simplified as follows:
-\begin{align}
-    Mel & = 1127 \ln \left( 1 + \frac{f}{700} \right) \nonumber \\
-    Mel & = 2595 \log_{10}\left( 1 + \frac{f}{700} \right)
-\end{align}
-Then, the reverse equation, converting Mels back to Hz,
-can be written as:
-\begin{align}
-    f[Hz] & = 700 \left( 10^{\frac{Mel}{2595}} -1  \right)
-\end{align}
-These modeling equations became de-facto the default way to
-map audio frequencies to Mels.
+% \subsection{Logarithm based Mel scale}
+% The most popular equation that models the Mel-scale
+% is given by \cite{o1987speech}:
+% \begin{equation}
+%     Mel = \ln \left( 1 + \frac{f}{700} \right) \cdot \frac{1000}{\ln(1+\frac{1000}{700})} 
+% \end{equation}
+% This can be simplified as follows:
+% \begin{align}
+%     Mel & = 1127 \ln \left( 1 + \frac{f}{700} \right) \nonumber \\
+%     Mel & = 2595 \log_{10}\left( 1 + \frac{f}{700} \right)
+% \end{align}
+% Then, the reverse equation, converting Mels back to Hz,
+% can be written as:
+% \begin{align}
+%     f[Hz] & = 700 \left( 10^{\frac{Mel}{2595}} -1  \right)
+% \end{align}
+% These modeling equations became de-facto the default way to
+% map audio frequencies to Mels.
 
 \subsection{Mel scale approximations}
-
-However, computing a logarithm for hardware devices, 
+Computing a logarithm for hardware devices, 
 whether it is the natural logarithm or any other base, 
 is not very straightforward.
 For example, this kind of computation might require special
@@ -143,17 +140,22 @@ while in Equation \ref{eq:melapproxb} \(a\), \(b\) are:
     \caption{Mel scale comparisons with Beranek \& Umesh tables}\label{fig:mel_methods_comp}
 \end{figure}
 
-In Figure \ref{fig:mel_methods_comp}, each Mel scaling implementation is than 
-the tables suggested by Beranek \& Umesh, respectively. The first column represents
+Figure \ref{fig:mel_methods_comp} has comparisons of three different 
+Mel-scale implementations with Beranek \& Umesh tables.
+The first column, Log Based Mel, represents
 O'Shaugnessy's famous log-based Mel modeling.
-The second and third columns follow the suggested approximations
-given in Equations \ref{eq:melapproxb} and \ref{eq:melapproxa}, respectively.
-
+The Mel option \#1, and Mel option \#2 columns 
+follow the suggested approximations
+given in Equations \ref{eq:melapproxa} 
+and \ref{eq:melapproxb}, respectively.
 
 From the last row of graphs, we can deduce that the approximation
-in Equation \ref{eq:melapproxb} is the closest along with the range of audio frequencies
-to the tables provided by Beranek \& Umesh. Saying that, the more simplified 
-approximation seems to yield high margins of error.
+in Equation \ref{eq:melapproxb} 
+is the closest along with the range of audio frequencies
+to the tables provided by Beranek \& Umesh.
+On the other hand, the more simplified approximation 
+in Equation\ref{eq:melapproxa} seems 
+to yield the highest errors.
 
 \begin{figure}[H]
     \centering
@@ -167,8 +169,8 @@ approximation seems to yield high margins of error.
     \caption{Mel approx. \#1 FPGA implementation results}\label{fig:mel_approx_no_opt}
 \end{figure}
 
-In Figures \ref{fig:mel_lut}, \ref{fig:mel_approx_no_opt} 
-presented are the results of FPGA implementations
+Figures \ref{fig:mel_lut}, \ref{fig:mel_approx_no_opt} 
+present the results of FPGA implementations
 of O'Shaugnessy's log-based Mel and Mel approximation \#1.
 Nonetheless, high precision quantization settings were chosen
 for the Mel approximation, U32.22,  
@@ -184,14 +186,16 @@ additional resources.
 
 Instead, two optimization workarounds were tested.
 The first is the multiplication of the \(a, b\) coefficients
-by 1000. 
-The second is reorganizing the equation and storing the 
-result in a sufficient precision and lower resolution.  
+in \ref{eq:melapproxb} by 1000. 
+The second optimization is reorganizing the equation
+and storing the result in a sufficient precision
+for the fractional part but lower resolution for the integer part.  
 These optimizations lead to a reduction in the 
 required number of bits for the fractional part.
 As a result, both the frequency shifting error 
-and the overall resources' utilization are greatly improved.
-Yet, the split in frequency band results in two multiplied sets
+and the overall resource utilization are greatly improved.
+
+Yet, the split in frequency bands results in two multiplied sets
 of coefficients for each band calculation.
 Therefore, choosing a more generalized set 
 of coefficients for the entire audio band can help 
@@ -199,7 +203,7 @@ in the reduction of redundant LUTs and other combinational logic,
 such as selectors and multi-bus multiplexer cells.
 
 Selection of \(a=0.24,\;b=0.741\), showed better results
-as can be seen in figure \ref{fig:mel_approx_logic_opt_generic}.
+as can be seen in Figure \ref{fig:mel_approx_logic_opt_generic}.
 The accuracy estimation for the non-generic implementation
 is shown in Figure\;\ref{fig:mel_approx_logic_opt}.
 
@@ -289,7 +293,7 @@ is shown in Figure\;\ref{fig:mel_approx_logic_opt}.
     \hline
 
     \hline
-    \rowcolor{wtbl} Mel \#1 Generic     & 47(0.02\%) & 269(0.19\%) & 1(<1\%) & 0(0\%)  & 0(0\%)    \\
+    \rowcolor{wtbl} Mel \#1 Generic     & \color{gtblcaption}47(0.02\%) & \color{gtblcaption}269(0.19\%) & \color{gtblcaption}1(<1\%) & \color{gtblcaption}0(0\%)  & \color{gtblcaption}0(0\%)    \\
     \hline
 
     \hline
@@ -333,7 +337,7 @@ is shown in Figure\;\ref{fig:mel_approx_logic_opt}.
     \hline
     
     \hline
-    \rowcolor{gtbl} \(\mathbf{P_{dynmic}}\) & \textbf{29.697} & \textbf{38.290} & \textbf{13.983}  & \textbf{\color{gtblborder}12.379} \\
+    \rowcolor{gtbl} \(\mathbf{P_{dynmic}}\) & \textbf{29.697} & \textbf{38.290} & \textbf{13.983}  & \textbf{\colorbox{Goldenrod!70}{\color{MidnightBlue}12.379}} \\
     \hline
 
     % \hline
@@ -353,7 +357,7 @@ is shown in Figure\;\ref{fig:mel_approx_logic_opt}.
     \hline
 
     \hline
-    \rowcolor{gtbl} \(\mathbf{P_{static}}\) & \textbf{2.432} & \textbf{2.537} & \textbf{0.519} & \textbf{\color{gtblborder}0.517}  \\
+    \rowcolor{gtbl} \(\mathbf{P_{static}}\) & \textbf{2.432} & \textbf{2.537} & \textbf{0.519} & \textbf{\colorbox{Goldenrod!70}{\color{MidnightBlue}0.517}}  \\
     \hline
 
     \hline\hline
@@ -361,7 +365,7 @@ is shown in Figure\;\ref{fig:mel_approx_logic_opt}.
     \hline
 
     \hline
-    \rowcolor{gtbl} \(\mathbf{P_{total}}\)  & \textbf{32.13} & \textbf{40.827} & \textbf{14.502} & \textbf{\color{gtblborder}12.896}  \\
+    \rowcolor{gtbl} \(\mathbf{P_{total}}\)  & \textbf{32.13} & \textbf{40.827} & \textbf{14.502} & \textbf{\colorbox{Goldenrod!70}{\color{MidnightBlue}12.896}}  \\
     \hline
 \end{tabular}
 \arrayrulecolor{black}
@@ -401,9 +405,9 @@ plus the power estimation reports.
 These reports were taken from the Xilinx Vivado Suit application.
 
 \section{Bark-Scaling}
-Another scaling method is the bark scale which is based on
+Another scaling method is the Bark scale which is based on
 the same principle of retaining the same perceptual distances.
-The bark scale is divided into critical 
+The Bark scale is divided into critical 
 bands corresponding to the critical hearing bands. 
 Each band has a bandwidth similar 
 to the psychoacoustic band of the corresponding 
@@ -414,28 +418,25 @@ and is ranked with a unique number.
 Like the Mel scale, several equations were proposed to model best
 the Bark scale and its critical bands.
 
-The first method was introduced in \cite{doi:10.1121/1.1908630}.
-A proposed approximation to the bark scaling is described in 
-\cite{doi:10.1121/1.399849}. This paper also introduces the 
+The first method was introduced in \cite{1908630}.
+A proposed approximation to the Bark scaling is described in 
+\cite{TraunmullerScale}; this paper also introduces the 
 correction of the band boundaries to ensure more 
-correctness with the original bark scaling.
+correctness with the original Bark scaling.
 
 Four different equations were proposed to model
 the Bark scale.
 
 The first by Zwicker is well described in\cite{1908630} and
 is given by the following equation:
-
-% Zwicker Eq
-\begin{align}
+\begin{align}% Zwicker Eq
     Bark & = \tan^{-1}\left\{ 0.00073f \right\} + 3.5 \tan^{-1}\left\{ 
             \left( \frac{f}{7500} \right)^{2}
         \right\}
 \end{align}
 
 Another proposed equation by Traunmuller \cite{TraunmullerScale} is:
-% Traunmuller Eq + Correction
-\begin{align}\label{eq:traunmuller_no_fix}
+\begin{align}\label{eq:traunmuller_no_fix}% Traunmuller Eq + Correction
     Bark & = \frac{26.81f}{1960 + f} - 0.53
 \end{align}
 
