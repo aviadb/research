@@ -1,4 +1,4 @@
-\chapter{ASR --- Automatic Speech Recognition}\label{ch:asr_ch}
+\chapter{ASR -- Automatic Speech Recognition}\label{ch:asr_ch}
 \section{Introduction}
 Speech recognition (SR) stands for recognizing 
 natural speech and translating 
@@ -16,7 +16,7 @@ and higher detection ratios measured with \emph{WER},
 \emph{CER}
 and \emph{PER},
 as described in Chapter\;\ref{ch:features}.
-Other algorithms target increasing to increase
+Other algorithms target increasing
 the system's robustness, which means
 how well the system can still function adequately
 given that the environmental conditions
@@ -31,7 +31,7 @@ whether a male or a female and the speaker's age.
 Moreover, different speakers of the same 
 gender and age range may still present variances 
 in the vocal range, pitch, and formant frequencies.
-Likewise, we can say that Gender-independent 
+Likewise, we can say that gender-independent 
 characteristics such as accent, style of speech, emotional state, 
 or health conditions, 
 which are examples of social and geographical factors, 
@@ -40,12 +40,11 @@ introduce some degree of variability.
 
 Due to the high dependency that natural speech has on so many factors, 
 an ASR system must have high endurance to fluctuations in these 
-previously mentioned artifacts. Also, the ability to perform adequately in a wide range of scenarios is very crucial.  
+previously mentioned environments and states. Also, the ability to perform adequately in a wide range of scenarios is very crucial.  
 In particular, the cases of high background noise levels in low SNR scenarios and multiple reverberations due to poor room acoustics.
 
 Traditional ASR engines 
-are usually built of several sets, 
-where each set contains a module or several 
+are usually built of several 
 modules designated for a specific task.
 An ASR engine as a whole is a chain of these modules connected in a pipeline. 
 A common structure of an ASR system
@@ -125,12 +124,12 @@ can be applied to improve different aspects of the model.
 Such a helpful technique that is 
 called CTC (Connectionist Temporal Classification) 
 by Maas et al. is presented \cite{maas-etal-2015-lexicon}.
-This method demonstrates which characters get the highest 
+For example, this method demonstrates which characters get the highest 
 probability for specific phonemes, 
 as shown in
 Figure\;\ref{fig:CTC_maas_graph}. 
-Therefore, a more accurate selection of 
-letters is achievable by utilizing a \emph{beam-search}.
+% Therefore, a more accurate selection of 
+% letters is achievable by utilizing a \emph{beam-search}.
 
 \begin{figure}[H]
     \centering
@@ -140,7 +139,6 @@ letters is achievable by utilizing a \emph{beam-search}.
 
 Additional paradigm by Chan et al. known as Seq2Seq (Sequence-to-Sequence) or sometimes as Attention Encoder-Decoder (AED) networks
 is presented in \cite{44926}.
- more known as
 This approach is based on an LSTM transducer.
 A more advanced model that is known for its self-attention mechanism 
 was later suggested by Vasawani et al. in 2017 \cite{vaswani2017attention}.
@@ -198,7 +196,7 @@ or in Multi-Head Attention.
 The transformer backend used in this work is
 a Multi-Head Attention-based utilizing
 eight heads in the attention model. The Encoder 
-and decoder parts consist of a variable
+and Decoder parts consist of a variable
 number of linear layers ranging from four to eight.
 The activation function used
 with the transformer is the \emph{GELU} (Gaussian
@@ -414,7 +412,7 @@ given to the Seq2Seq loss \(\ell_{_{seq}}\).
 \label{tbl:asr_engines}
 \end{table}
 \vspace{-0.7cm}
-ASR engines 100, 101 were heavily 
+ASR engines \#9, \#10 were heavily 
 optimized in terms of the neural network structures, 
 leading to smaller models having two times fewer learnable parameters.
 For comparison, differences between ASR engines 101
@@ -430,8 +428,8 @@ Table\;\ref{tbl:engine_101_72}.
 
     \hline
     \rowcolor{ytblcaption} \color{white}\bf{Parameter} 
-    & \color{white}\bf{Engine \#101} 
-    & \color{white}\bf{Engine \#72} \\
+    & \color{white}\bf{Engine \#10} 
+    & \color{white}\bf{Engine \#6} \\
     % & \color{white}\bf{ORM} 
     % & \color{white}\bf{Clean} \\
     \hline
@@ -506,7 +504,7 @@ Table\;\ref{tbl:engine_101_72}.
     \hline
 \end{tabular}
 \arrayrulecolor{black}
-\caption{ASR engines \#101, \#72 comparison table}
+\caption{ASR engines \#10, \#6 comparison table}
 \label{tbl:engine_101_72}
 \end{table}
 
@@ -514,21 +512,21 @@ Table\;\ref{tbl:engine_101_72}.
 % \begin{figure}[H]
 %     \centering
 %     \includegraphics[width=0.75\linewidth]{Experiments/images/asr_5}
-%     \caption{ASR \#5 training }\label{fig:asr_5}
+%     \caption{ASR \#1 training }\label{fig:asr_5}
 % \end{figure}
 
 % \begin{figure}[H]
 %     \centering
 %     \includegraphics[width=0.75\linewidth]{ASR/images/asr5_wer.png}
-%     \caption{ASR \#5 WER, CER results}\label{fig:asr5_wer}
+%     \caption{ASR \#1 WER, CER results}\label{fig:asr5_wer}
 % \end{figure}
 
 \subsection{Trained Engines}
-\subsubsection{ASR Engine \#5 --- RMFCC(0.1), \(\Delta,\;\Delta\Delta\)}
-ASR engine \#5 had been trained over fifteen epochs,
+\subsubsection{ASR Engine \#1 -- RFCC(0.1), \(\Delta,\;\Delta\Delta\)}
+ASR engine \#1 had been trained over fifteen epochs,
 against a \(400K\) recordings table, with a minibatch size 
 of four per iteration. 
-The engine was trained against the RMFCCs, 
+The engine was trained against the RFCCs, 
 when \(\gamma=0.1\),
 with the \(\Delta,\;\Delta\Delta\) features, utilizing
 the Log-Mel scale. A preprocessing STFT enframing
@@ -537,7 +535,7 @@ block was set with
 Overall the number of features
 per T-F unit is 20 cepstral coefficients plus the
 first and second derivatives.
-Figure\;\ref{fig:asr_5} shows ASR engine \#5 training results
+Figure\;\ref{fig:asr_5} shows ASR engine \#1 training results
 for the test and validation subsets.
 In Figure\;\ref{fig:asr5_wer},
 we present the evaluated WER and CER measures
@@ -551,14 +549,14 @@ taken every five epochs during the training process.
     \vspace{-0.3cm}
     \subfloat[\label{fig:asr5_wer}]{%
         \includegraphics[width=0.85\linewidth]{ASR/images/asr5_wer}}
-    \caption{(a) ASR \#5 training accuracy and loss plot;\;\;
-        (b) ASR \#5 WER, CER evaluation plot.}\label{fig:asr5_wer_subplot} 
+    \caption{(a) ASR \#1 training accuracy and loss plot;\;\;
+        (b) ASR \#1 WER, CER evaluation plot.}\label{fig:asr5_wer_subplot} 
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{ASR/images/asr5_wer_masks.png}
-    \caption{ASR \#5 WER, CER vs. T-F masks, noisy and clean inputs}\label{fig:asr5_wer_masks}
+    \caption{ASR \#1 WER, CER vs. T-F masks, noisy and clean inputs}\label{fig:asr5_wer_masks}
 \end{figure}
 
 In Figure\;\ref{fig:asr5_wer_masks}, we present the engine's
@@ -574,8 +572,8 @@ CommonVoice datasets validation and test subsets.
 The red line is for the test measurement
 and the blue line marks the validation measurement.
 
-\subsubsection{ASR Engine \#15 --- RMFCC(0.08), \(\Delta,\;\Delta\Delta\)}
-ASR engine \#15 had been trained over fifteen epochs,
+\subsubsection{ASR Engine \#2 -- RMFCC(0.08), \(\Delta,\;\Delta\Delta\)}
+ASR engine \#2 had been trained over fifteen epochs,
 along a \(400K\) recordings table, with a minibatch size 
 of four per iteration. 
 The engine was trained against the RMFCCs,
@@ -584,11 +582,11 @@ Gamma has been set to
 \(\gamma=0.08\), as this setting proved to be
 the optimized value as stated in \cite{rmfcc1}.
 The rest of the settings are similar to
-ASR engine \#5. 
+ASR engine \#1. 
 \bigskip
 
 Figures\;\ref{fig:asr_15} and \;\ref{fig:asr15_wer} show
-the training results of ASR engine \#15 and its
+the training results of ASR engine \#2 and its
 WER and CER benchmarks for the validation and test subsets.
 \begin{figure}[H]
     \centering
@@ -598,21 +596,21 @@ WER and CER benchmarks for the validation and test subsets.
     \vspace{-0.3cm}
     \subfloat[\label{fig:asr15_wer}]{%
         \includegraphics[width=0.85\linewidth]{ASR/images/asr15_wer}}
-    \caption{(a) ASR \#15 training accuracy and loss plot;\;\;
-        (b) ASR \#15 WER, CER evaluation plot.}\label{fig:asr15_wer_subplot} 
+    \caption{(a) ASR \#2 training accuracy and loss plot;\;\;
+        (b) ASR \#2 WER, CER evaluation plot.}\label{fig:asr15_wer_subplot} 
 \end{figure}
 
-In Figure\;\ref{fig:asr15_wer_masks} presented the T-F mask based
-beamformed enhanced recordings evaluations.
+Figure\;\ref{fig:asr15_wer_masks} presents the T-F mask based
+beamformed enhanced recordings evaluations for ASR \#2.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{ASR/images/asr15_wer_masks.png}
-    \caption{ASR \#15 WER, CER vs. T-F masks, noisy and clean inputs }\label{fig:asr15_wer_masks}
+    \caption{ASR \#2 WER, CER vs. T-F masks, noisy and clean inputs }\label{fig:asr15_wer_masks}
 \end{figure}
 
-\subsubsection{ASR Engine \#12 --- RBFCC(0.1), \(\Delta,\;\Delta\Delta\)}
-ASR engine \#12 trained similarly to the previous
-engines, \#5 and \#15 but with some distinctions.
+\subsubsection{ASR Engine \#3 -- RBFCC(0.1), \(\Delta,\;\Delta\Delta\)}
+ASR engine \#3 trained similarly to the previous
+engines, \#1 and \#2 but with some distinctions.
 The feature set utilizes the Bark scale instead of the previously
 used Log-Mel scale, and the number of extracted cepstral 
 coefficients has been reduced to 18. 
@@ -633,20 +631,20 @@ the noisy mixture and the clean speech references.
     \vspace{-0.3cm}
     \subfloat[\label{fig:asr12_wer}]{%
         \includegraphics[width=0.85\linewidth]{ASR/images/asr12_wer}}
-    \caption{(a) ASR \#12 training accuracy and loss plot;\;\;
-        (b) ASR \#12 WER, CER evaluation plot.}\label{fig:asr12_wer_subplot} 
+    \caption{(a) ASR \#3 training accuracy and loss plot;\;\;
+        (b) ASR \#3 WER, CER evaluation plot.}\label{fig:asr12_wer_subplot} 
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{ASR/images/asr12_wer_masks.png}
-    \caption{ASR \#12 WER, CER vs. T-F masks, noisy and clean inputs }\label{fig:asr12_wer_masks}
+    \caption{ASR \#3 WER, CER vs. T-F masks, noisy and clean inputs }\label{fig:asr12_wer_masks}
 \end{figure}
 
 
 % Mel
-\subsubsection{ASR Engine \#72 --- MFCC, \(\Delta,\;\Delta\Delta\)}
-ASR engine \#72 as opposed to ASR engine \#12, had been trained against
+\subsubsection{ASR Engine \#6 -- MFCC, \(\Delta,\;\Delta\Delta\)}
+ASR engine \#6 as opposed to ASR engine \#3, had been trained against
 the Mel cepstral coefficients. All the other settings are retained.
 
 \bigskip
@@ -662,18 +660,18 @@ and the T-F based beamforming results, respectively.
     \vspace{-0.3cm}
     \subfloat[\label{fig:asr72_wer}]{%
         \includegraphics[width=0.85\linewidth]{ASR/images/asr72_wer}}
-    \caption{(a) ASR \#72 training accuracy and loss plot;\;\;
-        (b) ASR \#72 WER, CER evaluation plot.}\label{fig:asr72_wer_subplot} 
+    \caption{(a) ASR \#6 training accuracy and loss plot;\;\;
+        (b) ASR \#6 WER, CER evaluation plot.}\label{fig:asr72_wer_subplot} 
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{ASR/images/asr72_wer_masks.png}
-    \caption{ASR \#72 WER, CER vs. T-F masks, noisy and clean inputs }\label{fig:asr72_wer_masks}
+    \caption{ASR \#6 WER, CER vs. T-F masks, noisy and clean inputs }\label{fig:asr72_wer_masks}
 \end{figure}
 
-\subsubsection{ASR Engine \#100 --- MFCC, \(\Delta,\Delta\Delta\), Context(3, 3)}
-ASR engine \#100 is an optimized Log-Mel scale based engine
+\subsubsection{ASR Engine \#9 -- MFCC, \(\Delta,\Delta\Delta\), Context(3, 3)}
+ASR engine \#9 is an optimized Log-Mel scale based engine
 that has been trained against the Mel cepstral coefficients
 with their first and second derivatives. These extracted features
 were also taken from six additional adjacent T-F units, three
@@ -683,7 +681,7 @@ total number of Bartlett filters covering the spectrum of each T-F bin.
 
 \bigskip
 
-In contrast to the previous engines, engine \#100
+In contrast to the previous engines, engine \#9
 underwent heavy optimization to fit a target hardware device.
 In the process, the engine's learnable parameters were quantized
 to the U16/8 format from the default 64bit floating point, which is the default.
@@ -712,18 +710,18 @@ T-F based beamforming results respectively.
     \vspace{-0.3cm}
     \subfloat[\label{fig:asr100_wer}]{%
         \includegraphics[width=0.85\linewidth]{ASR/images/asr100_wer}}
-    \caption{(a) ASR \#100 training accuracy and loss plot;\;\;
-        (b) ASR \#100 WER, CER evaluation plot.}\label{fig:asr100_wer_subplot} 
+    \caption{(a) ASR \#9 training accuracy and loss plot;\;\;
+        (b) ASR \#9 WER, CER evaluation plot.}\label{fig:asr100_wer_subplot} 
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{ASR/images/asr100_wer_masks.png}
-    \caption{ASR \#100 WER, CER vs. T-F masks, noisy and clean inputs }\label{fig:asr100_wer_masks}
+    \caption{ASR \#9 WER, CER vs. T-F masks, noisy and clean inputs }\label{fig:asr100_wer_masks}
 \end{figure}
 
-\subsubsection{ASR Engine \#101 --- Approx. Mel-FCC, \(\Delta,\Delta\Delta\), Context(3, 3)}
-ASR Engine \#101 is identical to ASR engine \#100 except for the
+\subsubsection{ASR Engine \#10 -- Approx. Mel-FCC, \(\Delta,\Delta\Delta\), Context(3, 3)}
+ASR Engine \#10 is identical to ASR engine \#9 except for the
 actual implementation of the Mel scale. This engine has been
 trained against the same features 
 utilizing 
@@ -745,19 +743,19 @@ T-F based beamforming results respectively.
     \vspace{-0.3cm}
     \subfloat[\label{fig:asr101_wer}]{%
         \includegraphics[width=0.85\linewidth]{ASR/images/asr101_wer.png}}
-    \caption{(a) ASR \#12 training accuracy and loss plot;\;\;
-        (b) ASR \#12 WER, CER evaluation plot.}\label{fig:asr101_wer_subplot} 
+    \caption{(a) ASR \#3 training accuracy and loss plot;\;\;
+        (b) ASR \#3 WER, CER evaluation plot.}\label{fig:asr101_wer_subplot} 
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{ASR/images/asr101_wer_masks.png}
-    \caption{ASR \#101 WER, CER vs. T-F masks, noisy and clean inputs }\label{fig:asr101_wer_masks}
+    \caption{ASR \#10 WER, CER vs. T-F masks, noisy and clean inputs }\label{fig:asr101_wer_masks}
 \end{figure}
 
 
 \subsubsection{Other ASR Engines}
-ASR engines \#13, \#70, \#22, \#23
+ASR engines \#4, \#5, \#7, \#8
 were not tested with the enhanced beamformed recordings.
 The reason is that the performance of these ASR engines
 is degraded compared to the previously described ASR engines.
@@ -769,60 +767,60 @@ and test subsets of the CommonVoice dataset.
 
 Figures\;\ref{fig:asr_22},\;\ref{fig:wer_22}
 present the training results and the WER and CER
-metrics measures for ASR engine \#22.
+metrics measures for ASR engine \#7.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{Experiments/images/asr_22}
-    \caption{ASR \#22 training accuracy and loss plot}\label{fig:asr_22}
+    \caption{ASR \#7 training accuracy and loss plot}\label{fig:asr_22}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{ASR/images/asr22_wer.png}
-    \caption{ASR \#22 WER, CER evaluation plot}\label{fig:wer_22}
+    \caption{ASR \#7 WER, CER evaluation plot}\label{fig:wer_22}
 \end{figure}
 
 Figures\;\ref{fig:asr_23},\;\ref{fig:wer_23}
 present the training results and the WER and CER
-metrics measures for ASR engine \#23.
+metrics measures for ASR engine \#8.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{Experiments/images/asr_23}
-    \caption{ASR \#23 training accuracy and loss plot}\label{fig:asr_23}
+    \caption{ASR \#8 training accuracy and loss plot}\label{fig:asr_23}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{ASR/images/asr23_wer.png}
-    \caption{ASR \#23 WER, CER evaluation plot}\label{fig:wer_23}
+    \caption{ASR \#8 WER, CER evaluation plot}\label{fig:wer_23}
 \end{figure}
 
 Figures\;\ref{fig:asr_70},\;\ref{fig:wer_70}
 present the training results and the WER and CER
-metrics measures for ASR engine \#70.
+metrics measures for ASR engine \#5.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{Experiments/images/asr_70}
-    \caption{ASR \#70 training accuracy and loss plot}\label{fig:asr_70}
+    \caption{ASR \#5 training accuracy and loss plot}\label{fig:asr_70}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{ASR/images/asr70_wer.png}
-    \caption{ASR \#70 WER, CER evaluation plot}\label{fig:wer_70}
+    \caption{ASR \#5 WER, CER evaluation plot}\label{fig:wer_70}
 \end{figure}
 
-The training statistics were not gathered for ASR engine \#13,
+The training statistics were not gathered for ASR engine \#4,
 so only the WER and CER measures for the validation
 and test datasets are presented in Figure\;\ref{fig:wer_13}.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{ASR/images/asr13_wer.png}
-    \caption{ASR \#13 WER, CER evaluation plot}\label{fig:wer_13}
+    \caption{ASR \#4 WER, CER evaluation plot}\label{fig:wer_13}
 \end{figure}
 
 

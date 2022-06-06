@@ -13,13 +13,13 @@ based alternatives vice the traditional
 Hidden-Markov Models---Gaussian Mixtures Models (HMM-GMM) 
 approaches\cite{7472778, 6296526}.
 With the introduction of DNN algorithms,
-E2E ASR systems performance significantly improved
+ASR systems performance significantly improved
 compared to the conventional HMM-GMM 
 based speech recognition approach\cite{7472778, 6296526}.
 In addition, integration with deep beamformers,
 which are also DNN-based, improves
-the front-end performance in a way that is
-eventually projected to lower WER results.
+the front-end (FE) performance in a way that is
+eventually projected to lower error rates in results.
 Different neural network (NN) 
 architectures can be used to
 implement ASR engine building blocks.
@@ -50,7 +50,7 @@ the audio domain physical signal reception up to the recognition engine.
 
 Figure~\ref{fig:asr_blocks_diagram} shows 
 a general skeleton of
-an End-to-End ASR system. This general form describes the
+an E2E ASR system. This general form describes the
 internal partitioning and the pipeline process.
 However, most importantly, it emphasizes
 the distinction between the two domains of interest,
@@ -120,7 +120,7 @@ Noise Gain (NG) and more.
 
 Compared to a reference and a specific performance metric, 
 a change in any of the building blocks 
-shown in igure~\ref{fig:asr_blocks_diagram} may 
+shown in Figure~\ref{fig:asr_blocks_diagram} may 
 improve or degrade performance. 
 On the other hand,
 performance increase in one metric can cause 
@@ -129,7 +129,7 @@ Hence, some cross-correlation and trade-off estimations
 over the given metric constrains should be performed
 before and during the design stage of an E2E ASR system. 
 The outcomes may pour light on what would be a better
-and suffice solution for a given usecase. 
+and sufficient solution for a given usecase. 
 Furthermore, other performance metrics can be examined.
 For example, metrics like computation time and resources utilization
 can assist in having a more comprehensive overview of how the system operates given a
@@ -196,17 +196,16 @@ two pioneering research papers focusing on
 studying neural networks usages
 for beamforming in the front-end, right
 before the acoustic features extraction and
-recognition engine stages in E2e ASR systems.
+recognition engine stages in E2E ASR systems.
 In both papers, the researchers built their architecture
 upon the principles of an E2E ASR pipeline.
-Those architecures share a similar baseline form of
-architecture but have different
-DNN-type beamformers, the beamformer's filters and ASR engines.
+Those architectures share a similar baseline but have different
+DNN-type beamformers, filters, and ASR engines.
 Experiments in ~\cite{7472778, 7952160}
 focus on WER performance evaluations to express
 the system's capabilities under 
 different test-cases and inputs.
-Few test-cases for example are a single microphone 
+Few of the test-cases, for example, are a single microphone 
 with single channel input,
 a single microphone with multi-channel inputs,
 and a microphones array.
@@ -264,7 +263,7 @@ Back-end (BE).
 BE engines are complex systems by themselves
 and thus can be split into multiple smaller
 blocks to ease integration.
-Despite being very comprehensive, this research paper 
+Despite being very comprehensive, reference~\cite{900384911} 
 concentrates on
 the ``Speech related'' domain,
 such that the primary metric used for evaluation is WER,
@@ -274,7 +273,7 @@ In addition, the recognition engines in this paper
 do not make use of the 
 Listen, Attend, and Spell (LAS)~\cite{7472621}
 nor the Connectionist Temporal 
-Classification (CTC)~\cite{hannun2017sequence}
+Classification (CTC)~\cite{hannun2017sequence},
 which are now considered as integral components in modern 
 ASR engines after proving to enhance recognition rates drastically. 
 % \bigskip
@@ -299,14 +298,15 @@ ASR engines after proving to enhance recognition rates drastically.
 % effect and its correlation to performance.
 
 \subsubsection{Biasing}
-Reference paper~\cite{20202222222} explores the effect of biasing
+Reference~\cite{20202222222} explores the effect of biasing
 on a complete E2E ASR system pipeline. 
 First, masking operations were
 applied in the frequency domain.
 Then, biasing information was fed
 into the system in combination with the 
-masked frequency output. The added biasing information
-all together with the T-F masking and the beamformer
+masked frequency output. 
+The added biasing information
+together with the T-F masking and the beamformer
 in the front-end showed a substantial reduction
 in error rate detections.
 
@@ -328,8 +328,8 @@ Moreover, each setup's latency was measured to determine
 its time to process. 
 The authors of this paper used
 two different datasets for their experiments.
-The TIMIT dataset for the generations of noisy reverberant
-inputs to the microphone array and the CHiME 3 dataset
+The TIMIT dataset~\cite{timitDS} for the generations of noisy reverberant
+inputs to the microphone array and the CHiME 3~\cite{chime3DS} dataset
 for ASR evaluations.
 
 
@@ -338,7 +338,8 @@ Reference paper~\cite{7471664} demonstrates experiments on estimations of spectr
 with neural networks based beamformers.
 Two different beamformers,  Generalized Eigenvector (GEV)
 and Minimum Variance Distortionless Response (MVDR) were tested with and without Bi-directional Long Short-Term Memory (BLSTM)
-spectral masks concerning the PSD and SNR.
+spectral masks concerning the Power Spectral Distribution (PSD)
+and SNR.
 However, this paper does not include an E2E pipeline nor the recognition engine.
 In other words, this research focuses on the ``Audio-related'' domain.
 Indeed, SNR belongs to the
@@ -378,7 +379,7 @@ Therefore, optimizations of a given E2E ASR architecture by careful
 trade-off selections can lead to more robust and rapidly
 developed applications or setups.
 That is a significant advance towards fast setup constructions for different HW platforms.
-As such, in this research project, the effects of changing different
+As such, in this thesis, the effects of changing different
 building blocks and applying various enhancement techniques
 in a given E2E ASR system will be evaluated.
 The effects of such replacements and
@@ -389,7 +390,7 @@ application, platform, requirement, feasibility, and other specifications.
 
 \bigskip
 
-Evaluated performance metrics that
+Evaluated performance metrics
 are shown in Figure~\ref{fig:metrics_cross_blocks}
 % , where the goals of the research are
 % to produce a cross-correlation between the different
@@ -429,7 +430,7 @@ projection on others can be estimated.
 
 
 % In this research project, I want to study the effects as described in the project outline section.
-Our approach is to set up an architecture 
+Our approach is to setup an architecture 
 that follows the entire E2E ASR pipeline including
 the beamforming FE as presented in
 Figure~\ref{fig:proj_blocks}.
@@ -463,45 +464,48 @@ that are commonly used in audio processing and analysis.
 We also present detailed performance comparisons in this chapter based on
 the evaluation metrics that we described in Chapter~\ref{ch:metrics}.
 
-The understanding of audio frequency scaling and their differences
-is essential for Chapter~\ref{ch:features}. 
+The understanding of audio frequency scaling and 
+the differences between scaling methods
+are essential for Chapter~\ref{ch:features}. 
 Key features analysis is given in this chapter along with
 the considerations and the importance of every feature
 for the sake of accurate speech classification and audio processing. 
 
 Chapter~\ref{ch:tf_mask_ch} surrounds Time-Frequency (TF) 
 masking techniques which is a preliminary process taken prior
-an applied beamformer. In this chapter we cover four
-dominant masking technique. Starting with background theory,
+to beamforming. 
+In this chapter, we cover four
+dominant masking technique, starting with background theory,
 through implemntation to measured performance evalutaions.
 The T-F masking outputs are dynamically estimated
-by a deep neural-network subsystem 
+by a DNN subsystem 
 and serve as the input weights
 to a beamformer that is connected next.
 
 Beamforming concepts and 
-common beamformer architectures for speech
+common beamforming architectures for speech
 are described in Chapter~\ref{ch:beamformers}.
 This chapter follows the T-F masking chapter
-since it actually work on the inputs that predicted
+since it actually work on the outputs that are produced
 by the T-F masking DNN system.
 
 General background about 
 ASR systems is given in
-Chapter~\ref{ch:beamformers}.
+Chapter~\ref{ch:asr_ch}.
 After that we go thorugh history in the evolvment process
-of ASR systems to what we know today as End-to-End ASR.
-We give great weight on the benefits of using E2E solutions
-and what other advancements were done in this field of research lately.
-Then we present our general approach of an ASR engine implementation,
+of ASR systems to what we know today as E2E ASR system.
+We emphasize the benefits of using E2E solutions
+and what other advancements were done in this field of research.
+Then, we present our general approach of an ASR engine implementation,
 followed by multiple variants of 
 suggested ASR engines and their measurement evaluations.
 
-Chapter~\ref{ch:dataset_ch} describes the datasets that
+Chapter~\ref{ch:datasets} describes the datasets that
 we use for training and evaluations of our various
-DNN systems. We make use of the multi-microphone CHiME datasets
+DNN systems. We make use of the multi-microphone CHiME datasets~\cite{chime3DS}
 for the T-F masking and beamforming parts, 
-and the CommonVoice V7 dataset for the ASR engine module.
+and the CommonVoice V7 dataset~\cite{commonVoiceDS}
+for the ASR engine module.
 
-In Chapter~\ref{ch:concl_ch} we give our conclusions to the study
-we did during this research and what is planned for future work.
+In Chapter~\ref{ch:concl_ch}, we provide conclusions to the study
+and our plan for future work.

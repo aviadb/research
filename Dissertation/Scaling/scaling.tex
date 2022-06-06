@@ -48,7 +48,7 @@ where the authors presented different curves for Mel-scaling.
 Two common tables were composed
 according to the Mel-scaling curves. One table by 
 Beranek in 1949 \cite{beranek1988acoustical} 
-and the second by Umesh et al. in 1999 \cite{UmeshMel}.
+and the second by Umesh et al. in 1999 \cite{fitmelscale}.
 
 The most popular equation that models the Mel-scale
 is given by \cite{o1987speech} and is typically referenced as
@@ -63,9 +63,14 @@ Equation\;[\ref{eq:mel_1}] can be simplified as follows:
     Mel & = 2595 \log_{10}\left( 1 + \frac{f}{700} \right)
 \end{align}
 
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+\bigskip
 Then, the reverse equation, converting Mels back to Hz,
 can be written as:
-
 \begin{align}
     f[Hz] & = 700 \left( 10^{\frac{Mel}{2595}} -1  \right)
 \end{align}
@@ -89,7 +94,7 @@ can be written as:
 % These modeling equations became de-facto the default way to
 % map audio frequencies to Mels.
 
-\subsection{Mel scale approximations}
+\subsection{Mel-scale approximations}
 Computing a logarithm for hardware devices, 
 whether it is the natural logarithm or any other base, 
 is not very straightforward.
@@ -137,7 +142,7 @@ while in Equation \ref{eq:melapproxb} \(a\), \(b\) are:
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{Scaling/images/mel_methods_comp}
-    \caption{Mel scale comparisons with Beranek \& Umesh tables}\label{fig:mel_methods_comp}
+    \caption{Mel-scale comparisons with Beranek \& Umesh tables}\label{fig:mel_methods_comp}
 \end{figure}
 
 Figure \ref{fig:mel_methods_comp} has comparisons of three different 
@@ -150,11 +155,11 @@ given in Equations \ref{eq:melapproxa}
 and \ref{eq:melapproxb}, respectively.
 
 From the last row of graphs, we can deduce that the approximation
-in Equation \ref{eq:melapproxb} 
+in Equation~\ref{eq:melapproxb} 
 is the closest along with the range of audio frequencies
 to the tables provided by Beranek \& Umesh.
 On the other hand, the more simplified approximation 
-in Equation\ref{eq:melapproxa} seems 
+in Equation~\ref{eq:melapproxa} seems 
 to yield the highest errors.
 
 \begin{figure}[H]
@@ -172,23 +177,23 @@ to yield the highest errors.
 Figures \ref{fig:mel_lut}, \ref{fig:mel_approx_no_opt} 
 present the results of FPGA implementations
 of O'Shaugnessy's log-based Mel and Mel approximation \#1.
-Nonetheless, high precision quantization settings were chosen
-for the Mel approximation, U32.22,  
-the shifting error received is higher compared 
+Nonetheless, a high precision quantization, U32.22 was chosen
+for the Mel approximation, where 
+the shifting error received is higher when compared 
 to the conventional Log Mel scaling implementation.
 Although this error shift is compensated 
 just by selecting the approximation method, 
 the straightforward approach 
 turned out to be the non-optimized solution 
 in terms of HW resources and power consumption,
-which utilized four times higher wattage on top of \(25 \div 30 \%\) 
+which utilized four times higher wattage on top of \(25 - 30 \%\) 
 additional resources.
 
 Instead, two optimization workarounds were tested.
 The first is the multiplication of the \(a, b\) coefficients
-in \ref{eq:melapproxb} by 1000. 
+in Equation~\ref{eq:melapproxb} by 1000. 
 The second optimization is reorganizing the equation
-and storing the result in a sufficient precision
+and storing the result in a sufficient precision structure in memory
 for the fractional part but lower resolution for the integer part.  
 These optimizations lead to a reduction in the 
 required number of bits for the fractional part.
@@ -435,15 +440,25 @@ is given by the following equation:
         \right\}
 \end{align}
 
+Zwicker's bark scale and it's corresponding critical bands
+are shown in Figure \ref{fig:Zwicker_bark}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{Experiments/images/Zwicker}
+    \caption{Zwicker's bark scale and critical bands}\label{fig:Zwicker_bark}
+\end{figure}
+
 Another proposed equation by Traunmuller \cite{TraunmullerScale} is:
 \begin{align}\label{eq:traunmuller_no_fix}% Traunmuller Eq + Correction
     Bark & = \frac{26.81f}{1960 + f} - 0.53
 \end{align}
 
+Traunmuller's bark scale and it's corresponding critical bands
+are shown in Figure \ref{fig:Traunmuller_nofix}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Experiments/images/Traunmuller_nofix}
-    \caption{Traunmuller no fix}\label{fig:Traunmuller_nofix}
+    \caption{Traunmuller's original bark scale and critical bands}\label{fig:Traunmuller_nofix}
 \end{figure}
 
 Denoting Traunmuller's original
@@ -458,10 +473,12 @@ the fixed form for Traunmuller's Bark equation is:
     \end{cases}
 \end{align}
 
+Traunmiller's fixed bark scale and its corresponding critical bands
+are shown in Figure \ref{fig:Traunmuller_fix}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Experiments/images/Traunmuller_fix}
-    \caption{Traunmuller fix}\label{fig:Traunmuller_fix}
+    \caption{Traunmuller's fixed bark scale and critical bands}\label{fig:Traunmuller_fix}
 \end{figure}
 
 The fourth possible modeling equation is proposed by
@@ -471,39 +488,48 @@ Schroeder in \cite{SchroederScale} and is as follows:
     Bark & = 7\ln \left( \frac{f}{650} + \sqrt{1 + \frac{f^{2}}{422500} }  \right)
 \end{align}
 
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{Experiments/images/bark_comparison}
-    \caption{Bark comparisons}\label{fig:bark_comparison}
-\end{figure}
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{Experiments/images/bark_comparison2}
-    \caption{Bark comparison}\label{fig:wer_23}
-\end{figure}
-
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{Experiments/images/Zwicker}
-    \caption{Zwicker}\label{fig:Zwicker}
-\end{figure}
-
+Schroeder's bark scale and it's corresponding critical bands
+are shown in Figure \ref{fig:Schroeder_bark}
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Experiments/images/Schroeder}
-    \caption{Schroeder}\label{fig:Schroeder}
+    \caption{Schroeder's bark scale and critical bands}\label{fig:Schroeder_bark}
 \end{figure}
 
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=0.75\linewidth]{Experiments/images/bark_comparison}
+%     \caption{Bark comparisons}\label{fig:bark_comparison}
+% \end{figure}
+Figure \ref{fig:bark_comparison} shows a comparison between the four
+bark scaling methods.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\linewidth]{Experiments/images/bark_comparison2}
+    \caption{Bark Scale comparisons}\label{fig:bark_comparison}
+\end{figure}
+
+We see in Figure \ref{fig:bark_comparison} that Schroeder's bark scale
+has a large error term when compared to the other suggested bark scales.
+On the other hand, when we omit Schroeder's scale
+and measure the maximum distance between the other three,
+we see that the error is comparatively lower. 
+% Thus, we deduce that these three are very close in value and just differ
+% in their mathimatical expression.
+
+We intend to simplify our implementations in hardware as much as possible.
+Simplifications are expressed in utilizing less hardware resources.
+This is possible especially when using basic arithmetic operations.
+Therefore, we decide to focus on Traunmuller's original bark scale
+given in Equation \ref{eq:traunmuller_no_fix}
+
+The accuracy estimation for Traunmuller's original bark scale
+is shown in Figure \ref{fig:bark_traunmuller_no_fix}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{Scaling/images/bark_traunmuller_no_fix}
-    \caption{Schroeder}\label{fig:bark_traunmuller_no_fix}
+    \includegraphics[width=0.95\linewidth]{Scaling/images/bark_traunmuller_no_fix.png}
+    \caption{Traunmuller's original bark scale FPGA implementation results}\label{fig:bark_traunmuller_no_fix}
 \end{figure}
 
 \begin{table}[H]
@@ -646,10 +672,9 @@ to rescale the audio spectrum in different
 bandwidths corresponding to the human hearing ``filters''.
 
 This approach slightly differs from the Bark scale
-because the filters' model is according
+because the filter is modeled according
 to a rectangular filter with an equivalent
 bandwidth.
-
 \begin{align}\label{eq:erb_eq}
     ERBs = 11.17\ln (47.065 - \frac{676170.42}{f + 14678.5})    
 \end{align}
@@ -661,6 +686,9 @@ A proposed approximation is given by:
 
 
 % \subsection{ERB Critical Bands}
+The accuracy estimation for the LUT based ERB scale
+and the LUT based ERB approximation are shown in Figures 
+\ref{fig:erb_fpga}, \ref{fig:erb_approx} respectively.
 
 \begin{figure}[H]
     \centering
@@ -668,11 +696,10 @@ A proposed approximation is given by:
     \caption{LUT based ERB FPGA implementation results}\label{fig:erb_fpga}
 \end{figure}
 
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Scaling/images/erb_approx}
-    \caption{LUT based ERB approx. FPGA implementation results}\label{fig:erb_approx}
+    \caption{LUT based ERB approximation FPGA implementation results}\label{fig:erb_approx}
 \end{figure}
 
 
@@ -716,7 +743,6 @@ and \ref{eq:erb_approx_eq}, respectively. The error terms
 for the ERBs are measured in \(\Delta C\), indicating the
 error in Cams rather than in frequency units (Hz). 
 Equation\;\ref{eq:cams_hz} can be used to convert Cams to Hz.
-
 \begin{align}\label{eq:cams_hz}
     f = \frac{676170.42}{47.065 - e^{0.0895\cdot C}} - 14678.5
 \end{align}
@@ -750,7 +776,7 @@ Equation\;\ref{eq:cams_hz} can be used to convert Cams to Hz.
     \hline
 \end{tabular}
 \arrayrulecolor{black}
-\caption{Mel scaling methods resource utilization table}
+\caption{ERB scaling methods resource utilization table}
 \label{tbl:ERB_resource_util}
 \end{table}
 
