@@ -1,24 +1,24 @@
 \chapter{Time-Frequency Masking}\label{ch:tf_mask_ch}
 \section{Introduction}
-Speech separation, in similarity to other 
-prevalent enhancement applications, such as the 
-Computational Auditory Scene Analysis (CASA)\cite{BROWN1994297}
-and Blind Speech Separation (BSS)\cite{6709849},
-makes use of various
+Speech separation, makes use of various
 algorithms in order to distinguish in one way or another
 between desired speech and interferences.
+It is similar to other 
+prevalent enhancement applications, such as the 
+Computational Auditory Scene Analysis (CASA)\cite{BROWN1994297}
+and Blind Speech Separation (BSS)\cite{6709849}.
 The advantages of precise distinction 
 between speech and interference include, among others,
 the ability to apply speech enhancements, 
 noise cancelation or reduction, speech corrections, and more.
 With ASR systems, these abilities are expressed in 
 improved performance of precisely detecting words
-with higher detection rates.
+at higher rates.
 
-A typical algorithm in CASA applications is the 
-Time-Frequency Masking (T-F Masking). 
+A typical algorithm in CASA applications is 
+time-frequency masking (T-F masking).
 Since speech signals vary with time, 
-as described in chapter \;\ref{ch:features}, 
+as described in Chapter \;\ref{ch:features}, 
 they are not considered stationary. 
 Hence, a unique representation is required 
 for conducting an accurate analysis of such signals. 
@@ -27,9 +27,13 @@ A T-F representation means presenting a speech
 signal in time-frequency composition, 
 where each T-F unit contains the 
 speech's spectral elements at a certain time window bin. 
-As described in chapter\;\ref{ch:features}, 
+As described in Chapter\;\ref{ch:features}, 
 the T-F presentation of a signal 
-arrives by using the STFT or auditory filtering\cite{Xia2017UsingOR}.
+is produced by using the STFT or auditory filtering\cite{Xia2017UsingOR}.
+
+Examples of STFT outputs for a noisy speech mixture and
+a clean reference of the same speech are given in
+Figures \ref{fig:noisy_specgram} and \ref{fig:clean_specgram} respectively. 
 
 \begin{figure}[H]
     \centering
@@ -50,25 +54,25 @@ as interference (mainly noise).
 Based on this classification, 
 appropriate weights are associated with each segment bin.
 In that way, speech elements can be extracted 
-by separating of the classified speech 
+by separating the classified speech 
 out of the mixture, or alternatively, 
-the attenuation of non-speech elements 
+attenuation the non-speech elements 
 in certain activity areas 
 along the length of the audio signal.
 In general, the association of weights for classifying different
 elements in a signal is called T-F masking. 
 This process of T-F masking takes a 
 significant role in CASA and BSS applications, 
-and in recent years, they proved to be 
+and in recent years, they have proved to be 
 very useful in E2E-ASR systems.
 
-Additional use of T-F masking 
+An additional use of T-F masking 
 is to tie it as input to a beamformer that
 in turn, filters interferences based 
 on the classification received 
 by the masking operation.
 
-\section{IBM --- Ideal Binary Mask}
+\section{IBM -- Ideal Binary Mask}
 Assuming that a voice activity detection algorithm
 can separate speech from noise effectively,
 the IBM technique is based on power differences.
@@ -97,7 +101,7 @@ sources become complementary in such a way that
     \end{cases}
 \end{align}
 
-\section{IRM --- Ideal Ratio Mask}
+\section{IRM -- Ideal Ratio Mask}
 % \begin{align}
 %     \mathrm{IRM}(f;t) = \left( \frac{ || }{  } \right)
 % \end{align}
@@ -126,6 +130,11 @@ for a fair trade-off between speech and noise mask estimations.
     \mathbf{M}_{n}(j\omega, t) & \approx 1 - \mathbf{M}_{s}
 \end{align}
 
+Example of the IRM masked outputs of a speech signal
+are given in Figures \ref{fig:irm_mask} and \ref{fig:irm_mask_noise}. 
+Figure \ref{fig:irm_mask} shows the IRM speech mask \(\mathbf{M}_{s}(j\omega, t)\)
+and Figure \ref{fig:irm_mask_noise} shows the IRM noise mask \(\mathbf{M}_{s}(j\omega, t)\).
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{Features/images/irm_mask}
@@ -144,7 +153,9 @@ Thus, the covariance matrices are extracted by:
     \mathbf{R}_{SS}(j\omega) & = \frac{1}{\sum\limits_{t=1}^{T}\mathbf{M}_{s_{(jw, t)}}}\sum_{t=1}^{T}\mathbf{M}_{s_{(jw, t)}}|\mathbf{R}_{x_{(jw, t)}}|^2
 \end{align}
 
-\subsection{Masks Estimations}
+\subsection{Masks Predictions}
+Predicting T-F masks is possible using neural network models that are
+trained against a training dataset of idealy masked signals.
 The IRM masks, \(\mathbf{M}_{s}(j\omega, t)\), \(\mathbf{M}_{n}(j\omega, t)\)
 given in Equations\;\ref{eq:irm_speech}, \ref{eq:irm_noise} are bounded
 in the range of [0, 1]. 
@@ -208,28 +219,33 @@ Figure\;\ref{fig:irm_nn}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{Beamformers/images/irm_nn}
-    \caption{Proposed DNN for IRM T-F masking estimations}\label{fig:irm_nn}
+    \caption{Implemented DNN for IRM T-F masking estimations}\label{fig:irm_nn}
 \end{figure}
 
+Figures \ref{fig:irm_s_ref}  \ref{fig:irm_n_ref} 
+shows the speech and noise spectrograms results of ideally
+IRM masked signal. We use these masks as a reference for comparison
+with the estimated speech and noise masks produced by our DNN model shown in
+Figures \ref{fig:irm_s_nn}  \ref{fig:irm_n_nn}.
 
 \begin{figure}[H]
     \centering
-    \subfloat[\label{irm_s_ref}]{%
+    \subfloat[\label{fig:irm_s_ref}]{%
        \includegraphics[width=0.45\linewidth]{Beamformers/images/irm_s_ref}}
     \hspace{0.1cm}
-    \subfloat[\label{irm_s_nn}]{%
+    \subfloat[\label{fig:irm_s_nn}]{%
         \includegraphics[width=0.45\linewidth]{Beamformers/images/irm_s_nn}}
     \vspace{-0.35cm}
-    \subfloat[\label{irm_n_ref}]{%
+    \subfloat[\label{fig:irm_n_ref}]{%
         \includegraphics[width=0.45\linewidth]{Beamformers/images/irm_n_ref}}
     \hspace{0.1cm}
-    \subfloat[\label{irm_n_nn}]{%
+    \subfloat[\label{fig:irm_n_nn}]{%
         \includegraphics[width=0.45\linewidth]{Beamformers/images/irm_n_nn}}
         \caption{(a) and (b) are the ``IRM'' 
-        reference vs. estimation masks of the speech.
-        \(\mathbf{\widehat{M}}^{(s)}_{j\omega, t}\), \(\mathbf{M}^{(s)}_{j\omega, t}\);\;\;
+        reference vs. estimation masks of the speech
+        \(\mathbf{M}^{(s)}_{j\omega, t}\), \(\mathbf{\widehat{M}}^{(s)}_{j\omega, t}\);\;\;
         (c) and (d) are the ``IRM'' reference vs. estimation masks 
-        of the noise \(\mathbf{\widehat{M}}^{(n)}_{j\omega, t}\), \(\mathbf{M}^{(n)}_{j\omega, t}\).}\label{fig:irm_ref_s_n} 
+        of the noise \(\mathbf{M}^{(n)}_{j\omega, t}\), \(\mathbf{\widehat{M}}^{(n)}_{j\omega, t}\).}\label{fig:irm_ref_s_n} 
 \end{figure}
 
 
@@ -249,26 +265,33 @@ Figure\;\ref{fig:irm_nn}.
 \end{figure}
 
 Figure\;\ref{fig:irm_enh_noisy_snr} shows two measurements of the SNR \&
-Segmental-SNR metrics for two subject signals, 
-an ``IRM'' enhanced beamformed
+Segmental-SNR metrics for two subject signals.
+We took both the 
+clean reference and the noisy mixture of a randomaly
+selected entry from the CHiME dataset.
+The noisy mixture is enhanced by a beamformer with filter coefficients
+resulting from the implemented IRM mask predicting DNN. 
+Figure \;\ref{fig:irm_enh_noisy_snr} shows the 
+``IRM'' enhanced beamformed
 version of the noisy mixture and the noisy mixture itself
 with respect to the clean reference speech.
 The overall improvements in SNR and Segmental-SNR 
 are the ratios between the enhanced beamformed signal
 and the noisy mixture. Thus, from Figure\;\ref{fig:irm_enh_noisy_snr}
-the accumulated improvement in SNR is:
+the accumulated improvement in SNR for is extracted from the difference between
+the two measurements as follows:
 \[|SNR_{noisy}| - |SNR_{enh}| = 5.1725\;[dB]\]
 Likewise, the improvement in Segmental-SNR is \(9.2675\;[dB]\).
 It is important to note that the enhanced beamformed signal
 does not align in time with the clean speech reference. 
 In a worst-case scenario, we measured a delay of \(-0.0014\;[s]\),
 which equals approximately \(22\) samples. 
-A perfectly aligned comparison considers being more 
+A perfectly aligned comparison would be more 
 accurate, but since the frame lengths' (400 samples)
 are much larger than the worst measured delay, 
 the impact of this time misalignment is less acute.
-The Segmental-SNR calculation involves 
-a VAD (voice activity detection) algorithm
+The Segmental-SNR calculation make use of 
+a VAD (voice activity detection) algorithm 
 for dropping segments where the detected speech activity is negligible.
 These dropped segments are red colored in Figure\;\ref{fig:irm_enh_noisy_snr}.
 
@@ -278,8 +301,9 @@ These dropped segments are red colored in Figure\;\ref{fig:irm_enh_noisy_snr}.
     \caption{IRM beamformer PESQ vs. MOSLQ}\label{fig:irm_pesq_mosq}
 \end{figure}
 
-In Figure\;\ref{fig:irm_pesq_mosq} presented the ``PESQ'' and ``MOSLQ'' 
-metrics for the IRM beamformer. The results are shown in a pair-plot
+Figure\;\ref{fig:irm_pesq_mosq} presents the ``PESQ'' and 
+the Mean Opinion Score Listening Quality (``MOS-LQ'') 
+metrics for the IRM beamformed output. The results are shown in a pair-plot
 diagram, where the correlations between each pair of metrics are plotted.
 On the diagonal, the distributions of the measured values are shown.
 On top of the plots also shown are the mean values for both 
@@ -331,10 +355,11 @@ subset distribution is narrower with lower variance.
 \end{figure}
 
 In order to evaluate the generalization of the prediction model,
-the DNN estimations are compared to the ideal mask enhancement.
-In Figure\;\ref{fig:irm_ideal_snr}, shown is the measurements of 
+the DNN estimations are compared to the ideal mask enhancement derived from
+directly applying the masking algorithm on the noisy mixture.
+Figure\;\ref{fig:irm_ideal_snr}, shown is the measurements of 
 the SNR and ``Segmental-SNR'' for an ideal IRM mask.
-SNR measurement.
+SNR measurement are shown.
 
 \begin{figure}[H]
     \centering
@@ -344,25 +369,24 @@ SNR measurement.
 
 
 
-\section{cIRM --- Complex Ideal Ratio Mask}\label{ssec:cirm}
+\section{cIRM -- Complex Ideal Ratio Mask}\label{ssec:cirm}
 Both IBM and IRM utilize the noise and speech magnitudes only
 while completely neglecting the phase arguments.
 The outcome of the STFT operation is a complex pair
 representation of each T-F unit. Recent studies
-showed the importance of 
+have shown the importance of 
 the phase element in 
 speech seperation\cite{7364200,Xia2017UsingOR}.
 
 In that manner, further extension of the IRM mask 
-to include the imaginary part 
-altogether with the magnitudes forms the cIRM. 
+to include the complex pair to form the cIRM. 
 Thus, instead of having a magnitude only based mask matrix, a complex
-pair of masking matrices that make use of the phase element too is given.
+pair of masking matrices that makes use of the phase element is given.
 
 The mixture \(y(t)\) after being processed by
 the STFT operation can be described as a complex sum
-whether in polar coordinates as seen in Equation\ref{eq:ystft_polar}
-or in the general form as in Equation\ref{eq:ystft_general}.
+whether in polar coordinates as seen in Equation\;\ref{eq:ystft_polar}
+or in the general form as in Equation\;\ref{eq:ystft_general}.
 \begin{align}\label{eq:ystft_polar}
     \mathbf{Y}(j\omega, t)  & = \mathcal{STFT} \{ y(t) \} := \mathbf{Y}_{j\omega, t} \nonumber \\
                             & = |\mathbf{A}_{_{\mathbf{Y}}}|\cos(\bm{\theta}_{_{\mathbf{Y}}}) 
@@ -497,15 +521,17 @@ diagram is shown in Figure\;\ref{fig:cirm_nn}.
 
 Figure\;\ref{fig:cirm_nn_vs_ref} shows the reference real speech cIRM mask
 compared to the estimated real speech mask predicted by the DNN model.
-Looking at the figure, one can conclude that the model generalized correctly
+Carefully examining the figure, one can conclude that the model generalized correctly
 as the estimated mask resembles the reference to a great extent.
 Compared to the ``IRM'' DNN performance, the cIRM model 
-with a compression in the range of \([-10, 10]\) performs better.
+with a compression in the range of \([-10, 10]\) 
+performs better in producing mask predictions that are closer
+to the ideally computed masks.
 
 \subsection{Measurements}
 Due to the complexity of the cIRM DNN model, 
 it did not generalize properly for the evaluation dataset
-with a number of epochs settings set to 50.
+with 50 epochs.
 The results hence, are not accurate as a reference nor for comparison,
 unless a retraining process is initialized with a sufficient number of epochs
 to let the model generalize.
@@ -521,7 +547,7 @@ to drop the cIRM measurements.
 %     \caption{IRM beamformer PESQ vs. MOSLQ}\label{fig:irm_pesq_mosq}
 % \end{figure}
 
-\section{PSM --- Phase Sensitive Mask}
+\section{PSM -- Phase Sensitive Mask}
 The PSM T-F masking makes use of the magnitude ratios and phase differences
 rather than requiring a complex multiplication.
 In that way, the multiplication is taken in the real domain only,
@@ -555,9 +581,8 @@ instead of branching to four outputs at the final layer.
 One output for the speech mask and the other for the noise mask. 
 The same as we did for the ``IRM'' but without the Sigmoids.
 In addition, to deal with the unbounded range of values, 
-we also apply apply a compression algorithm to the reference masks as well.
-The compression mechanism is the same as 
-described in Equation\;\ref{eq:cirm_compress}.
+we also apply a compression algorithm to the reference masks as well
+same as described in Equation\;\ref{eq:cirm_compress}.
 
 Following this architecture, the cost function can be set
 to take two masks in the calculation of the error term,
@@ -603,13 +628,17 @@ Figure\;\ref{fig:psm_nn}.
 
 
 \section{ORM --- Optimal Ratio Mask}
-The realization of the phase component importance along with 
-the desire to keep the masking as simple as possible in terms of number 
-of matrices and the simplicity of multiplication for separation,
-the IRM masking is further developed.
+IRM masking can be furtherly improved following the
+realization of the phase component importance. 
+
+% In addition, with 
+% the desire to keep the masking as simple as possible in terms of the number 
+% of matrices and the simplicity of multiplication for separation,
+% the IRM masking is further developed.
 
 Trying to minimize the general MSE loss function for T-F masking,
-same as with the ``Weiner filter'' that the IRM masking approximates, we get:
+same as with the ``Weiner filter'' that the IRM masking approximates, 
+we get\cite{Xia2017UsingOR}:
 \begin{align}
     \mathbf{M}^{(s)}_{j\omega, t} & = \frac{
         |\mathbf{S}(t,j\omega)|^{2}
@@ -731,8 +760,8 @@ and the cost function is given in Equation\;\ref{eq:psm_costf}.
 
 % \subsection{ORM}
 
-\section{Conclusions}
-In Table\;\ref{tbl:masks_l_params} are presented
+\section{T-F masks Conclusions}
+Table\;\ref{tbl:masks_l_params} presents
 the model's sizes in terms of memory requirement
 and the number of learnable parameters.
 The model's parameters were quantized

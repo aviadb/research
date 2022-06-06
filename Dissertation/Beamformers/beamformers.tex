@@ -1,12 +1,12 @@
 \chapter{Beamformers}\label{ch:beamformers}
 \section{Introduction}
-A fundamental part of signal processing in general, 
-and so does in the case of speech signals, 
-is the involvement of filtering in one way or another.  
+In general, a fundamental part of signal processing 
+involvements filtering in one way or another,
+and same is the case for speech signals processing.
 The motivation to filter incoming signals 
 is to form a given signal so that the unwanted components, 
-referred to as interferences, are eliminated. 
-In contrast, the desired component of the signal remains.
+referred to as interferences, are eliminated,
+and the desired component of the signal remains.
 
 A filter can be in the form of an analog or digital circuit. 
 In the sense of a digital filter, 
@@ -17,27 +17,27 @@ These coefficients are preset according
 to desired characteristics of the desired output signal.
 
 Since speech signals can vary in tone, pitch, 
-formants' frequencies, and other , setting the filter's 
-coefficients statically won't be sufficient 
+formants, and frequencies, statically setting the filter's 
+coefficients won't be sufficient 
 and robust enough.
-To that end, the coefficients should be set dynamically
+To that end the coefficients should be set dynamically
 to suit the input signal or the model to be generalized 
-to a great end, hence the filter's performance 
+to a great end; hence, the filter's performance 
 would be suitable for a wide range of inputs rather than
-a singularity case scenario.
+a singular case scenario.
 Changing the filter's coefficients dynamically in accordance
-with the input or the use case is called \emph{adaptive filtering}.
-In opposed to the case of \emph{static filtering} where 
-the coefficients are computed once and are set statically. 
+with the input or the use case is called ``adaptive filtering''.
+In opposed to the case of ``static filtering'' where 
+the coefficients are computed once. 
 
-In a case where multiple sources are present
-as a sensors array, a \emph{spatial factor} is introduced
+In a case where multiple sources are presented such
+as a sensors array, a ``spatial factor'' is introduced
 such that the filtered signal is the outcome of
 a combination of all the receiving elements
-in the array, set to maximize the filtering effect.
-That \emph{spatial filtering} in the presence of
-multiple sensors is called \emph{Beamforming}.
-The guideline of Beamforming is the optimization of
+in the array, that maximize the filtering effect.
+That ``spatial filtering'' in the presence of
+multiple sensors is called ``beamforming''.
+The guideline of beamforming is the optimization of
 the received signal utilizing all the sensors
 to maximize, in most cases, the SNR.
 In this research, we show that in E2E-ASR systems,
@@ -45,18 +45,14 @@ the introduction of beamformers at the front-end before
 the ASR model manifests in higher detection results
 and better model accuracy.
 
-The Beamforming principle relies on 
+The beamforming principle relies on 
 acknowledging that the desired signal 
 is absorbed and received by multiple sensors 
 along with the unwanted interferences. 
-In the case of speech signals beamforming, 
+In the case of beamforming speech signals, 
 the sensors (microphones) are spread in space in 
 a dedicated formation and set at a 
 known distance from each other.
-Extraction of the magnitude and phase 
-differences between the received signals from all sensors 
-and accordingly deliberately manipulating the signals is the 
-beamforming procedure's key action. 
 Each sensor's input can be filtered, delayed, amplified, 
 or undergo any form of manipulation 
 until eventually summing up with the other sensors' inputs.
@@ -66,7 +62,7 @@ to ``form'' a given signal
 utilizing the properties of constructive and destructive
 interferences. 
 
-Beamforming is applied in the frequency domain: 
+We apply the beamforming in the frequency domain: 
 \begin{align}
     Y(j\omega) = \mathbf{W}^H(j\omega)\mathbf{X}(j\omega)
 \end{align}
@@ -93,7 +89,7 @@ The DOA with the maximum power is selected as the DOA of sound:
 A multi-microphone array is often named multi-sensors. Every sensor
 absorbs the speech differently due to the sensor's spatial location
 relatively to the speech source. 
-Spacing between sensors and the array's 
+In this work, spacing between sensors and the array's 
 formation are pre-known and permanent. 
 Knowing the microphone array's shape, 
 forming a constructive interference 
@@ -101,16 +97,18 @@ is only a matter of the direction of
 arrival since all the other parameters are static.
 
 
-The human speech frequencies are considered ``long-length''. 
-It means that the wavelength of the 
+The human speech frequencies are considered ``long-length'',
+which means that the wavelength of the 
 frequencies in the audible band is 
 between single centimeters to several meters. 
 A speaker standing in front of a microphone typically stands 
-at a distance that does not exceed several meters afar, nor is it 
+at a distance that does not exceed several meters, nor is it 
 millimeters away. In either situation, the absorbed speech
 will be distorted or barely usable. As a result, the propagated speech
 waves arrive in a planar shape once they reach the microphone.
-In a microphone array, these characteristics become handy when applying DOA and 
+In a microphone array, 
+these characteristics become handy when applying 
+Direction Of Arrival (DOA) and 
 Time Difference Of Arrival (TDOA) applications.
 
 A planar wave propagating towards a microphone array 
@@ -120,6 +118,7 @@ is depicted in Figure\;\ref{fig:mic_arr_plan}.
     \centering
     \includegraphics[width=\linewidth]{Beamformers/images/mic_array.png}
     \caption{Microphone array planar wave scenario}\label{fig:mic_arr_plan}
+    % \source{Adapted from \citep{MIC_ARRAY}}
 \end{figure}
 
 We distinguish between two possible scenarios 
@@ -129,7 +128,7 @@ In one case, multiple connected microphones
 are placed in space, forming a microphone array, 
 and in the same space, only a single speaker is present.
 The other case is where multiple speakers are present. 
-Naming these use cases, we say that a speaker is 
+Naming these use cases, we say that a speaker
 is referred to as the input to the system, and the microphone array
 stands for the system's multiple outputs.
 Therefore, we name the single speaker 
@@ -148,6 +147,7 @@ Figures\;\ref{fig:simo_scen} and
     \subfloat[\label{fig:mimo_scen}]{%
         \includegraphics[width=0.45\linewidth]{Beamformers/images/mimo_mic_array_proc.png}}
     \caption{(a) Single Input Multiple Output (SIMO) scenario; (b) Multiple Inputs Multiple Output (MIMO) scenario}
+    % \source{Adapted from \citep{ADI_MIMO}}
 \end{figure}
 
 
@@ -167,6 +167,7 @@ The general architecture for a DAS beamformer is given in Figure\;\ref{fig:das_a
     \centering
     \includegraphics[width=0.85\linewidth]{Beamformers/images/DAS_arch.png}
     \caption{Delay-and-Sum Beamformer architecture}\label{fig:das_arch}
+    % \source{Adapted from \citep{ADI_MIMO}}
 \end{figure}
 
 Combining the DAS architecture with the microphone array as the input
@@ -185,10 +186,10 @@ The coefficients for a DAS beamformer are chosen such that:
 \end{equation}
 
 Where \(M\) is a calculated weight given to each coefficient, and
-\(A\) is the steering vector that points 
+\(\mathbf{A}\) is the steering vector that points 
 to the same direction as the direction of arrival.
 
-\subsection{MVDR --- Minimum Variance Distortionless Response}
+\subsection{MVDR -- Minimum Variance Distortionless Response}
 Another type of beamformer is the MVDR beamformer.
 These beamformers aim to minimize the 
 sampled variance at the beamformer's output. 
@@ -210,7 +211,7 @@ the model for absorbed propagation sound as:
 \begin{equation}\label{eq:mic_disc}
     r_{_{m}}[n] = h_{_{m}}[n]\star s[n] + n_{_{m}}[n]
 \end{equation}
-Transofrming Equation\;\ref{eq:mic_disc} to frequency domain,
+Transforming Equation\;\ref{eq:mic_disc} to frequency domain,
 we get:
 \begin{equation}\label{eq:mic_disc}
     \mathbf{R}_{_{m}}(j\omega;t) = \mathbf{H}_{_{m}}(j\omega)\mathbf{S}(j\omega;t) + \mathbf{N}_{_{m}}(j\omega;t)
@@ -222,7 +223,7 @@ speech and noise variations at the inputs.
 Therefore, we need a notation for the variances 
 and covariances to model the MVDR beamformer. 
 
-In Equation\;\ref{eq:mvdr_cov}, listed the covariance matrices of the
+Equation\;\ref{eq:mvdr_cov} lists the covariance matrices of the
 speech, noise, and the extracted room impulse response, respectively.
 \begin{align}\label{eq:mvdr_cov}
     \mathbf{R}_{_{SS}} &= \frac{1}{T}\sum_{t=1}^{T}\mathbf{S}(j\omega;t)\mathbf{S}^{\acute{H}}(j\omega;t) \nonumber \\
@@ -237,7 +238,7 @@ Hence, an MVDR beamformers coefficients can be selected following:
 Similar to the DAS beamformer, here,
 \(\mathbf{A}(j\omega)\) denotes the steering vector.
 
-\subsection{GEV --- Generalized Eigenvalue}
+\subsection{GEV -- Generalized Eigenvalue}
 The GEV beamformer is based on the principle of
 generalized eigenvalues decomposition so that the beamformer's
 coefficients are set accordingly by the extraction of 

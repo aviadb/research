@@ -209,39 +209,34 @@
 
 \chapter{Features}\label{ch:features}
 \section{Introduction}
-In data analysis craftsmanship, 
-prominence importance exists 
-about how to characterize the data so that 
-variations in data characteristics would 
-be noticeable and more 
-easily discernible during the analysis process.
+In data analysis craftsmanship,
+it is important to characterize the data so that
+variations are noticeable and more easily discernible
+during the analysis process.
 To that end, the input data being analyzed is reorganized
 according to selected features on which
 conclusions and distinctive deductions can be made.
-
 Similarly, in a supervised learning 
-procedure of a machine, 
+procedure, data reorganization is needed
 in order to make classification decisions accurately. 
-The need for such features arises to 
-aid the learning algorithm in focusing on the 
-same features that probably were selected manually.
+
 An intelligent choice of the learnable features 
 \cite{7845025} 
 can drastically change a given model's outcomes quality.
-In a supervised learning, the 
+In supervised learning, the 
 feature selection and extraction process withal,
 are preparatory steps to the learning or classification
 stages coming next.
 As a rule of thumb, the more features, the better accuracy
 a learning model can yield theoretically\cite{lessIsMore}.
 That saying holds true to a great degree
-as long as often sudden fluctuations do not characterize the data.
-In a case of heavy fluctuating characterizations of the data,
+as long as the amount of sudden fluctuations do not characterize the data.
+In a case of heavy fluctuating data,
 or alternatively, in the case of a 
 massive number of features, 
 that some of which have minor contributions 
 to the classification part of the output,
-increase in the number of features may become deteriorative.
+an increase in the number of features may become deteriorative.
 In terms of performance, 
 enlarging the number of features leads to a bigger model, 
 an increased number of learnable parameters, 
@@ -276,8 +271,8 @@ a single character, making them distinguishable
 from other input streams. 
 
 \section{Spectral Features}
-\subsection{FB --- FilterBanks}
-FilterBanks is a very common technique
+\subsection{FB -- FilterBanks}
+Utilizing FilterBanks is a very common technique
 for spectral mapping of speech signals.
 By dividing the audio spectrum into multiple 
 sub-domains with a defined level of overlap, 
@@ -323,13 +318,13 @@ the higher hearable frequency ranges.
 One way of mapping the audio spectrum is according to the Mel
 scale. This scaling method is described in Chapter\;\ref{ch:scaling_methods}.
 First, the center frequencies and the bandwidths are received by the transformation
-between Herz to Mels. Then a set of Bartlett
+between Hertz to Mels. Then a set of Bartlett
 filters with those center frequencies are generated
 with an overlap of 50\% between adjacent filters. 
 
 
-The amplitude of the filters is bounded to \(1\) 
-to maintain NOLA compatibility.
+The amplitude of the filters is bounded to ``\(1\)''
+to maintain Nonzero Overlap Add (NOLA) compatibility.
 An example of a Mel Filterbank constructed by Bartlett filters
 is shown in Figure~\ref{fig:sb_mel_fb}.
 \begin{figure}[H]
@@ -380,7 +375,7 @@ is shown in Figure~\ref{fig:sb_fb_gauss}.
 
 
 \section{Cepstral Features}
-\subsection{MFCCs --- Mel-Frequency Cepstral Coefficients}
+\subsection{MFCCs -- Mel-Frequency Cepstral Coefficients}
 
 % https://link.springer.com/content/pdf/bbm%3A978-3-319-03116-3/1.pdf
 \subsubsection{Pre-emphasis}
@@ -396,13 +391,13 @@ the higher\cite{7489370} frequencies responses.
 \subsubsection{Framing}
 Speech signals vary in time. 
 Although the variation over time is relatively slow, 
-a speech signal is a non-pure stationary process 
+a speech signal is not a pure stationary process 
 but a quasi-stationary. 
 Therefore, analysis of speech signals 
 is taken on small portions of the 
 signal to be less affected by randomness effects.
 To that end, a preliminary framing action is applied
-to to speech signals in the time domain.
+to speech signals in the time domain.
 Framing means dividing the signal 
 into small fragments(frames) with some overlapping in between.
 Each time frame is assumed to be stationary,
@@ -482,7 +477,7 @@ and \(R\) represents the hopping size.
     \centering
     \includegraphics[width=\linewidth]{Features/images/iscola_stft}
     \caption{STFT demonstration diagram}\label{fig:iscola_stft}
-    \source{Adapted from Matlab's STFT documentation}
+    \source{Adapted from Matlab's STFT documentation\cite{matlabStftDoc}}
 \end{figure}
 
 \subsubsection{Mel-spectrum}
@@ -492,7 +487,7 @@ A comprehensive description of the Mel Scale
 is detailed in Chapter\;\ref{ch:scaling_methods}.
 
 Next, the cepstral coefficients are extracted from each frequency bin, 
-by taking the energies sum of each filter and multiplying it
+by taking the energies summed of each filter and multiplying it
 with the Discrete Cosine Transform (DCT).
 \begin{align}\label{eq:mfcc}
     MFCC[n] & = \sqrt{\frac{2}{K}} \sum_{k=1}^{K} \left\{ 
@@ -514,7 +509,7 @@ and then have Equation\;\ref{eq:mfcc} written as:
 % Take from PyAudioAnalysis
 % PyAudioProcessing
 
-\subsection{RFCCs --- Root-Frequency Cepstral Coefficients}
+\subsection{RFCCs -- Root-Frequency Cepstral Coefficients}
 An alternative to the log-Mel 
 extraction of the cepstral coefficients
 has been suggested in \cite{rmfcc1} and \cite{1415167}.
@@ -523,20 +518,20 @@ technique under test is that the root
 function can be less computationally demanding 
 than the traditional log function..
 \begin{align}
-    RCC[n] & = \sqrt{\frac{2}{N}} \sum_{k=1}^{K} \left\{ 
+    RFCC[n] & = \sqrt{\frac{2}{N}} \sum_{k=1}^{K} \left\{ 
         \left( e[k] \right)^{\gamma} \cdot \cos \left( \frac{\pi n}{K} (k+0.5) \right)
      \right\}
 \end{align}
 
-\subsection{GFCCs --- Gammatone-Frequency Cepstral Coefficients}
-GFCCs follow the basic steps same as the MFCCs extraction.
+\subsection{GFCCs -- Gammatone-Frequency Cepstral Coefficients}
+GFCCs follow the same basic steps as the MFCCs extraction.
 But, instead of translating the frequencies to Mels,
 the spectrum is translated to the ERB scale.
 ERB scale implies a Gammatone Filterbank as described in Chapter \ref{ch:scaling_methods}.
 
 
-\subsection{BFCCs --- Bark-Frequency Cepstral Coefficients}
-Like the Gammatone-FCCs (GFCCs), the BFCCs follow the Bark Scale.
+\subsection{BFCCs -- Bark-Frequency Cepstral Coefficients}
+Like the Gammatone-FCCs (GFCCs), the BFCCs follow the Bark scale.
 
 % \subsection{LFCCs --- Linear-Frequency Cepstral Coefficients}
 % \subsection{LPC --- Linear Predictive Coefficients}
@@ -556,7 +551,7 @@ These time unit fragments are called frames.
 Each frame spans over a finite time duration.
 The extracted cepstral coefficients are computed statically
 for a given frame. However, the original speech
-is framed in multiple numbers of frames. 
+is framed in multiple number of frames. 
 Therefore, coefficients extractions
 have to be dynamic for the entire signal, i.e., all frames.
 
@@ -565,8 +560,7 @@ changes between adjacent coefficients can also be extracted
 to include the dynamics and transitions within a frame.
 
 \subsubsection{Deltas}
-The first derivate of the cepstral coefficients
-,\(\Delta\) (Deltas),
+The first derivate of the cepstral coefficients, known as the Deltas (\(\Delta\)),
 represents the velocity of the MFCCs' dynamics and 
 is a sub-set of the cepstral coefficients.
 
@@ -593,11 +587,11 @@ with the first-order derivatives \(\Delta[n]\).
 
 \subsection{Temporal Context}
 Temporal context is an attachment of raw unprocessed 
-features' data from adjacent
+feature data from adjacent
 frames together with the currently selected feature. 
 Whether spectral, cepstral, or spatial features,
 the concatenation of past and future 
-features can infer decisions based on a memory effect.
+features can infer decisions based on a memorized characteristics.
 Furthermore, different languages
 introduce contextual constraints such as relative positions
 of adjectives or nouns to verbs, plurals, affiliations,
@@ -609,7 +603,7 @@ It is plain to understand
 one would not want to exaggerate and excessively use
 redundant frames that do not have any significant impact
 on the accuracy of detection. 
-The downside of overly using temporal context frames is obvious, 
+The downside of overly using temporal context frames is potentially having 
 orders of magnitude larger amounts of information to process.
 
 % \section{Spatial Features}

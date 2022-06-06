@@ -1,6 +1,6 @@
 \chapter{E2E Evaluation Metrics}\label{ch:metrics}
 \section{Audio Metrics}
-\subsection{SNR - Signal to Noise Ratio}
+\subsection{SNR -- Signal to Noise Ratio}
 The signal-to-noise ratio (SNR) metric evaluates how
 distinct the desired signal is out of the overall noise.
 
@@ -69,9 +69,9 @@ The SNR is therefore given by:
     SNR & = 10\log_{10} \left( \frac{ \| x_{_{s}}\|^{2}}{\|\widehat{x} - x_{_{s}} \|^{2}}  \right) \nonumber \\
     & =  10\log_{10} \left( \frac{ \| x_{_{s}} \|^{2}}{\| r \|^{2}} \right)
 \end{align}
-\subsection{SI-SNR --- Scale Invariant SNR}
+\subsection{SI-SNR -- Scale Invariant SNR}
 To ensure that the SNR is susceptible to scale invariance\cite{roux2018sdr},
-both the target and estimated signals are normalized to \underline{zero-mean}.
+both the target and estimated signals are normalized to zero-mean.
 
 \begin{align}
     SI-SNR & = 10\log_{10} \left( \frac{\left\| x_{_{s}} - \mathbf{E}[x_{_{s}}]\right\|^{2}}
@@ -140,7 +140,7 @@ Due to that limitation, an alignment process should be applied
 prior to taking the Segmental SNR calculation. These alignments usually 
 have a small marginal error that spans over a few sampling points.
 
-\subsection{STOI --- Short-Time Objective Intelligibility}
+\subsection{STOI -- Short-Time Objective Intelligibility}
 STOI\cite{5495701} is a metric that is used to evaluate 
 the intelligibility of a speech signal.
 The intelligibility is measured by taking the correlation
@@ -149,9 +149,9 @@ and degraded speech. In our case, the term degraded might
 be confusing since the degraded speech input
 is actually the outcome of the beamformer
 following the T-F masking at the front-end.
-However, relatively to the clean speech, 
+However, relative to the clean speech, 
 the beamformer's output is indeed degraded, altough
-being considered as an enhanced version of the noisy mixture.
+it is considered an enhanced version of the noisy mixture.
 
 The naming convention \emph{Short-Time} comes from the time frame length
 of the overlapping segments, which is \(384 ms\).  
@@ -204,7 +204,7 @@ as in Equation\;\ref{eq:stop_dist_avg}.
 Where \(J\) presents the total number of one-third octave bands,
 and the averaging overlaps \(M\) number of time frames.
 
-\subsection{PESQ --- Perceptual Evaluation of Speech Quality}
+\subsection{PESQ -- Perceptual Evaluation of Speech Quality}
 PESQ\cite{941023} is a measuring method adopted by 
 the ITU (International Telecommunication Union) to
 test the speech quality of telephony and mobile stations.
@@ -236,7 +236,7 @@ clean reference.
 \end{figure}
 
 \section{ASR Metrics}
-\subsection{WER - Word Error Rate}
+\subsection{WER -- Word Error Rate}
 WER\cite{KLAKOW200219} metric is probably the most used evaluation
 technique for speech recognition systems.
 
@@ -263,7 +263,7 @@ and \(S,D,I\) are the number of \emph{Substitutions} (wrong word detection),
 \emph{Deletions} (Omitting words),
 and \emph{Insertions} (Wrong words insertions).
 
-\subsection{CER - Character Error Rate}
+\subsection{CER -- Character Error Rate}
 CER is another metric with some similarities to the 
 WER evaluation metric but with a narrower resolution.
 The change in resolution is due to comparing characters instead of words.
@@ -369,9 +369,9 @@ The overall leakage power is a function
 of the total number of voltage sources and their voltage levels, 
 the physical dimensions of the CMOS device, 
 and the threshold value set to switch between on-off states.
-\begin{align}
-    P_{leak} & = \mathcal{F} (V_{_{DD}}, V_{_{th}}, \frac{\mu_{n}\varepsilon_{ox} W}{L})
-\end{align}
+% \begin{align}\label{eq:}
+%     P_{leak} & = \mathcal{F} (V_{_{DD}}, V_{_{th}}, \frac{\mu_{n}\varepsilon_{ox} W}{L})
+% \end{align}
 
 \subsubsection{Internal Power}
 A CMOS device is a formation of two complementary MOS transistors,
