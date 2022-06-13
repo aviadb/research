@@ -1,7 +1,7 @@
 \chapter{Audio Frequency Scaling methods}\label{ch:scaling_methods}
 \section{Introduction}
-The human hearing system can detect 
-acoustic vibrations and translate 
+The human hearing system detects
+acoustic vibrations and translates 
 those vibrations into sounds.
 The detectable range of frequencies by the human ear
 is referred to as audio or sonic. This range
@@ -12,8 +12,8 @@ starting at \(20Hz\) to about \(20kHz\)
 As a result of aging, the hearing system's dynamic range 
 as to the detectable bandwidth decreases,
 and by middle-age are set at about
-\(20Hz \div 14KHz\)\cite{Wiley2008ChangesIH}.
-As such, the maximum hearable frequency
+\(20Hz\) to  \(14KHz\)\cite{Wiley2008ChangesIH}.
+That is, the maximum hearable frequency
 declines with age.
 
 The human ear's ability to distinguish 
@@ -51,8 +51,8 @@ Beranek in 1949 \cite{beranek1988acoustical}
 and the second by Umesh et al. in 1999 \cite{fitmelscale}.
 
 The most popular equation that models the Mel-scale
-is given by \cite{o1987speech} and is typically referenced as
-the "Logarithm based Mel scale":
+is typically referenced as
+the "Logarithm based Mel scale"\cite{o1987speech}:
 \begin{equation}\label{eq:mel_1}
     Mel = \ln \left( 1 + \frac{f}{700} \right) \cdot \frac{1000}{\ln(1+\frac{1000}{700})} 
 \end{equation}
@@ -400,20 +400,20 @@ Hence, the results are unique to that specific
 HW device and probably change for other 
 FPGA devices and development boards.
 
-Latencies were simulated with Xilinx Vivado Suit
+Latencies were simulated with Xilinx Vivado Suite
 for an operating clock frequency of \(225MHz\).
 In this operating condition, no timing violations were reported.
 
 Tables\;\ref{tbl:mel_resource_util} and \ref{tbl:mel_scale_pwr_tbl}
 show the synthesis and implementation results 
 plus the power estimation reports. 
-These reports were taken from the Xilinx Vivado Suit application.
+These reports were taken from the Xilinx Vivado Suite application.
 
 \section{Bark-Scaling}
 Another scaling method is the Bark scale which is based on
-the same principle of retaining the same perceptual distances.
+the same principle of retaining perceptual distances.
 The Bark scale is divided into critical 
-bands corresponding to the critical hearing bands. 
+bands corresponding to the critical hearing bands in humans. 
 Each band has a bandwidth similar 
 to the psychoacoustic band of the corresponding 
 ``filter'' in the human hearing system 
@@ -512,7 +512,7 @@ bark scaling methods.
 We see in Figure \ref{fig:bark_comparison} that Schroeder's bark scale
 has a large error term when compared to the other suggested bark scales.
 On the other hand, when we omit Schroeder's scale
-and measure the maximum distance between the other three,
+and measure the maximum distance between the other threesuggested scales,
 we see that the error is comparatively lower. 
 % Thus, we deduce that these three are very close in value and just differ
 % in their mathimatical expression.
@@ -665,6 +665,14 @@ is shown in Figure \ref{fig:bark_traunmuller_no_fix}.
 \label{tbl:bark_scale_pwr_tbl}
 \end{table}
 
+Table\;\ref{tbl:bark_implementations_performance} summarizes
+the performance comparison between the different Bark scaling
+implementation approaches. 
+
+Tables\;\ref{tbl:Bark_resource_util} and \ref{tbl:bark_scale_pwr_tbl}
+show the synthesis and implementation results 
+plus the power estimation reports. 
+These reports were taken from the Xilinx Vivado Suite application.
 
 \section{ERB - Equivalent Rectangular Bandwidth}
 Like the Bark scaling method, the ERB scale aims 
@@ -847,7 +855,9 @@ Equation\;\ref{eq:cams_hz} can be used to convert Cams to Hz.
 \label{tbl:erb_scale_pwr_tbl}
 \end{table}
 
-
+Tables\;\ref{tbl:ERB_resource_util} and \ref{tbl:erb_scale_pwr_tbl}
+show the synthesis and implementation results 
+plus the power estimation reports for the ERB implementations. 
 
 
 % \begin{table}[H]
@@ -869,6 +879,11 @@ Equation\;\ref{eq:cams_hz} can be used to convert Cams to Hz.
 
 \section{Summary}
 
+The following tables\;\ref{tbl:IQRD_perf}, 
+\;\ref{tbl:scale_performance_tbl} and \;\ref{tbl:sum_scale_pwr_tbl},
+provide a summary of the
+resource utilization, timing and accuracy performances, and lastly 
+the power consumption of each scaling implementation.
 
 \begin{table}[H]
     % for more info see: https://www.overleaf.com/learn/latex/tables
@@ -911,81 +926,10 @@ Equation\;\ref{eq:cams_hz} can be used to convert Cams to Hz.
     \hline
 \end{tabular}
 \arrayrulecolor{black}
-\caption{Mel-Approx, log-based Mel, Bark Scale}
+\caption{Mel-Approx, log-based Mel, Bark Scale, and approximated ERB resources utilization comparison}
 \label{tbl:IQRD_perf}
 \end{table}
 
-
-
-\begin{table}[H]
-    % for more info see: https://www.overleaf.com/learn/latex/tables
-    % \centering
-    \hspace*{-1cm}
-    \arrayrulecolor{gtblborder}
-\begin{tabular}{ |l|ccccc| } 
-    \hline
-
-    \hline
-    \rowcolor{gtblcaption} \color{white}\bf{Parameter} 
-    & \color{white}\bf{Mel LUT}
-    & \color{white}\bf{Mel Gen}
-    & \color{white}\bf{Bark w/}
-    & \color{white}\bf{Bark w/o}
-    & \color{white}\bf{Approx. ERB} \\
-    \hline\hline
-    \rowcolor{wtbl}\multicolumn{6}{|c|}{\bf{Dynamic Power [W]}}\\
-    \hline
-    \rowcolor{gtbl} Signals & 4.947 & 2.916 & 2.380 & 2.192 & 5.525  \\
-    \hline
-    
-    \hline
-    \rowcolor{wtbl} Logic & 6.50 & 3.070 & 3.079 & 2.957 & 7.478  \\
-    \hline
-
-    \hline
-    \rowcolor{gtbl} DSP & 0.014 & 0.014 & 1.445 & 0.014 & 0.049  \\
-    \hline
-    
-    \hline
-    \rowcolor{wtbl} I/O & 18.236 & 6.378 & 4.022 & 4.022 & 17.373  \\
-    \hline
-    
-    \hline
-    \rowcolor{gtbl} \(\mathbf{P_{dynmic}}\) & \textbf{29.697} & \textbf{12.379} & \textbf{10.923} & \textbf{9.186} & \textbf{31.519}  \\
-    \hline
-
-    % \hline
-    % \rowcolor{gtbl} Bark Scale      & 56(0.02\%) & 218(\%) & 1(<1\%)   \\
-    % % \cline{2-8}
-    % % \multirow{-2}{*}{\cellcolor{ytbl}\#1(5)}   & 14.03/17.78 & 27.06 & 13.73 & - & - & - & 7.72 \\ 
-    \hline\hline
-    \rowcolor{wtbl}\multicolumn{6}{|c|}{\bf{Static Power [W]}}   \\
-    \hline
-
-    \hline
-    \rowcolor{gtbl} PL Static               & 2.364 & 0.499 & 0.469 & 0.437 & 1.510  \\
-    \hline
-    
-    \hline
-    \rowcolor{wtbl} PS Static               & 0.068 & 0.018 & 0.017 & 0.016 & 0.046  \\
-    \hline
-
-    \hline
-    \rowcolor{gtbl} \(\mathbf{P_{static}}\) & \textbf{2.432} & \textbf{0.517} & \textbf{0.486} & \textbf{0.453} & \textbf{1.556}  \\
-    \hline
-
-    \hline\hline
-    \rowcolor{wtbl}\multicolumn{6}{|c|}{\bf{Total Power [W]}}   \\
-    \hline
-
-    \hline
-    \rowcolor{gtbl} \(\mathbf{P_{total}}\)  & \textbf{32.13} & \textbf{12.896} & \textbf{11.412} & \textbf{9.639} & \textbf{33.075}  \\
-    \hline
-\end{tabular}
-\arrayrulecolor{black}
-\caption{Mel-Approx, log-based Mel, Bark Scale Power consumption}
-\label{tbl:sum_scale_pwr_tbl}
-\end{table}
 
 
 
@@ -1072,8 +1016,90 @@ Equation\;\ref{eq:cams_hz} can be used to convert Cams to Hz.
 \end{tabular}
 \arrayrulecolor{black}
 \caption{Mel-Approx, log-based Mel, Bark Scale performance comparison}
-\label{tbl:scale_pwr_tbl}
+\label{tbl:scale_performance_tbl}
 \end{table}
 
 
+\begin{table}[H]
+    % for more info see: https://www.overleaf.com/learn/latex/tables
+    % \centering
+    \hspace*{-1cm}
+    \arrayrulecolor{gtblborder}
+\begin{tabular}{ |l|ccccc| } 
+    \hline
 
+    \hline
+    \rowcolor{gtblcaption} \color{white}\bf{Parameter} 
+    & \color{white}\bf{Mel LUT}
+    & \color{white}\bf{Mel Gen}
+    & \color{white}\bf{Bark w/}
+    & \color{white}\bf{Bark w/o}
+    & \color{white}\bf{Approx. ERB} \\
+    \hline\hline
+    \rowcolor{wtbl}\multicolumn{6}{|c|}{\bf{Dynamic Power [W]}}\\
+    \hline
+    \rowcolor{gtbl} Signals & 4.947 & 2.916 & 2.380 & 2.192 & 5.525  \\
+    \hline
+    
+    \hline
+    \rowcolor{wtbl} Logic & 6.50 & 3.070 & 3.079 & 2.957 & 7.478  \\
+    \hline
+
+    \hline
+    \rowcolor{gtbl} DSP & 0.014 & 0.014 & 1.445 & 0.014 & 0.049  \\
+    \hline
+    
+    \hline
+    \rowcolor{wtbl} I/O & 18.236 & 6.378 & 4.022 & 4.022 & 17.373  \\
+    \hline
+    
+    \hline
+    \rowcolor{gtbl} \(\mathbf{P_{dynmic}}\) & \textbf{29.697} & \textbf{12.379} & \textbf{10.923} & \textbf{9.186} & \textbf{31.519}  \\
+    \hline
+
+    % \hline
+    % \rowcolor{gtbl} Bark Scale      & 56(0.02\%) & 218(\%) & 1(<1\%)   \\
+    % % \cline{2-8}
+    % % \multirow{-2}{*}{\cellcolor{ytbl}\#1(5)}   & 14.03/17.78 & 27.06 & 13.73 & - & - & - & 7.72 \\ 
+    \hline\hline
+    \rowcolor{wtbl}\multicolumn{6}{|c|}{\bf{Static Power [W]}}   \\
+    \hline
+
+    \hline
+    \rowcolor{gtbl} PL Static               & 2.364 & 0.499 & 0.469 & 0.437 & 1.510  \\
+    \hline
+    
+    \hline
+    \rowcolor{wtbl} PS Static               & 0.068 & 0.018 & 0.017 & 0.016 & 0.046  \\
+    \hline
+
+    \hline
+    \rowcolor{gtbl} \(\mathbf{P_{static}}\) & \textbf{2.432} & \textbf{0.517} & \textbf{0.486} & \textbf{0.453} & \textbf{1.556}  \\
+    \hline
+
+    \hline\hline
+    \rowcolor{wtbl}\multicolumn{6}{|c|}{\bf{Total Power [W]}}   \\
+    \hline
+
+    \hline
+    \rowcolor{gtbl} \(\mathbf{P_{total}}\)  & \textbf{32.13} & \textbf{12.896} & \textbf{11.412} & \textbf{9.639} & \textbf{33.075}  \\
+    \hline
+\end{tabular}
+\arrayrulecolor{black}
+\caption{Mel-Approx, log-based Mel, Bark Scale, and approximated ERB Power consumption}
+\label{tbl:sum_scale_pwr_tbl}
+\end{table}
+\vspace{-0.8cm}
+We see that the implementations of the 
+approximated Mel scale generic and
+the Traunmuller's bark scaling approaches 
+were synthesized to the smallest amount of
+physical hardware resources. This also supports
+the measured power consumptions we see in
+Table\;\ref{tbl:sum_scale_pwr_tbl}, where
+these scaling implementations 
+proved to be the most efficient.
+
+Based on these results, we conducted the research using
+these most prominent implementations in the feature extraction modules
+and the ASR engine's internal acoustic scaling.

@@ -27,7 +27,7 @@ variabilities depending on many
 factors that make a speech signal 
 classified as non-stationary and inconsistent. 
 Natural speech heavily depends on the speaker's gender, 
-whether a male or a female and the speaker's age. 
+whether a male or a female, and the speaker's age. 
 Moreover, different speakers of the same 
 gender and age range may still present variances 
 in the vocal range, pitch, and formant frequencies.
@@ -76,8 +76,10 @@ In that way, a much smaller set of dedicated phonemes can be used to construct t
 The system presented in Figure\;\ref{fig:asr_blocks} 
 shows a pipeline that starts with a pre-emphasis and features
 extraction modules. 
-The pre-emphasis accounts for the speech analysis, noise cancellation, speech enhancements, windowing, and framing of the speech into sub-frames in which it is closer in characteristics to a stationary signal.
-The feature extraction module extracts the individual features representing the speech from the incoming frames as MFCCs, FilterBanks, and others.
+The pre-emphasis includes the speech analysis, noise cancellation, speech enhancements, windowing, and framing of the speech into sub-frames in which it is closer in characteristics to a stationary signal.
+The feature extraction module extracts the individual 
+features representing the speech from the incoming frames 
+as MFCCs, FilterBanks, and other techniques.
 
 The next module in line is the decoder. The decoder's responsibility is to take the features, convert them to a set of phonemes and chain them together to detectable words, composing the transcript at the output.
 A decoder is built from three sub-models tied

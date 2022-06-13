@@ -4,18 +4,18 @@
 The signal-to-noise ratio (SNR) metric evaluates how
 distinct the desired signal is out of the overall noise.
 
-Let \(y(t)\) denote a mixed time-domain signal consisting of
-the desired speech signal, and some interferences
-referred to as noise.
-That mixture is given by:
+Let \(y(t)\) denote a time-domain signal consisting of
+the desired speech signal \(x(t)\), and some interferences,
+referred to as noise\(n(t)\).
+That signal is given by:
 \begin{align}
     y(t) = x(t) + n(t)
 \end{align}
 
-Where \(x(t)\) and \(n(t)\) denote the speech signal and the
-interference noise.
+% Where \(x(t)\) and \(n(t)\) denote the speech signal and the
+% interference noise.
 
-Ideal speech separation of the mixture is characterized by
+Ideal speech separation of a noisy mixture signal is characterized by
 a perfect match between the predicted speech signal, \(\widehat{x}(t)\), 
 and the original (reference) speech signal \(x(t)\).
 % Separating the speech out of the mixture,
@@ -31,8 +31,8 @@ by the MSE (L2) (Mean Square Error) loss function as follows:
 
 The term \(\sum_{t} |r(t)|^{2}\) 
 is the total energy of the residual error between 
-the predicted signal and the target speech,
-which translates to additive noise.
+the predicted signal and the desired target speech,
+which is related to the additive noise.
 
 First, let's break \(\widehat{x}(t)\) to its fundamental components\cite{1643671}.
 \begin{align}
@@ -57,7 +57,7 @@ in the frequency domain\cite{1643671009}.
     \sum_{t} |r(t)|^{2} & = \frac{1}{T}\sum_{\tau=0}^{T-1}\sum_{f=0}^{T-1} \left[ \widehat{X}(\tau, f) - X(\tau, f)\right]^{2}
 \end{align}
 
-Since the residual energy is referred to as the noise,
+Since the residual energy over time is referred to as the noise power,
 minimizing the residual,
 which is minimizing the MSE loss function,
 translates into an increase in SNR.
@@ -70,7 +70,7 @@ The SNR is therefore given by:
     & =  10\log_{10} \left( \frac{ \| x_{_{s}} \|^{2}}{\| r \|^{2}} \right)
 \end{align}
 \subsection{SI-SNR -- Scale Invariant SNR}
-To ensure that the SNR is susceptible to scale invariance\cite{roux2018sdr},
+To ensure that the SNR is amenable to scale invariance\cite{roux2018sdr},
 both the target and estimated signals are normalized to zero-mean.
 
 \begin{align}
@@ -88,25 +88,26 @@ especially in the case of speech signals,
 where there are gaps between phonemes, 
 articulation stops, and air aspiration breaks. As a result,
 the SNR calculation may be impacted, and
-it actually depends on
+it depends on
 the length of the empty sections with respect 
 to the length of
 the other sections where speech is present.
 
 With Segmental SNR\cite{10.5555/912256}, instead of taking the entire signal,
 the signal is segmented to relatively small chunks (segments), 
-each in length usually set to \(25ms\) long
+each in length usually set to a frame of (typically) \(25ms\) long
 with the option of setting an overlap
 between segments.
-Then, each SNR of each segment is extracted and, finally,
+Then, each SNR of each segment is calculated and, finally,
 are averaged. 
 If the energy of the speech reference 
-in a segment is negligible, that segment is excluded,
+in a segment is below some threshold or duration,
+that segment is negligible and is excluded,
 thus limiting the evaluation only to sections 
-where speech is present. 
+where significant speech is present. 
 
 
-Equation~\ref{eq:snr_equation} can be extended to:
+Equation~\ref{eq:snr_equation} can be rewritten as:
 \begin{align}
     SEG-SNR & = \frac{1}{M}\sum_{m=1}^{M}
                 10\log_{10} 
@@ -123,6 +124,7 @@ suffers from a limitation that can affect the actual results severely.
 In speech enhancement evaluations, the signal's predicted (enhanced) version is 
 compared to a clean reference signal 
 concerning the noisy mixture.
+
 Unfortunately, speech analysis for the extraction of
 the Segmental SNR causes misalignments between 
 the reconstructed signal and the clean reference. 
@@ -150,7 +152,7 @@ be confusing since the degraded speech input
 is actually the outcome of the beamformer
 following the T-F masking at the front-end.
 However, relative to the clean speech, 
-the beamformer's output is indeed degraded, altough
+the beamformer's output is indeed degraded, although
 it is considered an enhanced version of the noisy mixture.
 
 The naming convention \emph{Short-Time} comes from the time frame length
@@ -178,7 +180,7 @@ This clipped normalized version then be:
         \Bigg\}
 \end{align}
 
-Thus, the correlation coefficient can be noted as the
+Thus, the correlation coefficient can be expressed as the
 distance given in Equation\;\ref{eq:stoi_correl}.
 \begin{align}\label{eq:stoi_correl}
     d_{_{j,m}} & = \frac{
@@ -206,7 +208,7 @@ and the averaging overlaps \(M\) number of time frames.
 
 \subsection{PESQ -- Perceptual Evaluation of Speech Quality}
 PESQ\cite{941023} is a measuring method adopted by 
-the ITU (International Telecommunication Union) to
+the ITU (International Telecommunication Union, ITU-T P.862) to
 test the speech quality of telephony and mobile stations.
 
 This measuring metric evolved from different previous 
@@ -220,9 +222,10 @@ communication channel that considers
 the entire link rather than particular parts.
 
 The evaluation of a speech signal quality by PESQ
-follows the MOS (Mean Opinion Scores) model, where
+follows the MOS (Mean Opinion Scores) scoring model, where
 the actual speech quality is ranked in-between 1 to 5 
-by a group of listeners.
+by a group of listeners. The MOS is a subjective measure,
+while the PESQ is an objective measure.
 
 Figure \ref{fig:pesq_blocks_diagram} shows the data flow
 of the PESQ computation for a predicted signal, with respect to the
@@ -388,7 +391,7 @@ the amount of internal dissipated power in highly toggled
 designs becomes significant over time. 
 To minimize the internal dissipated power, 
 or in other words, minimizing the time duration where 
-both devices are active and current flows from Vdd to GND, 
+both devices are active and current flows from \(V_{dd}\) to GND, 
 the transition times (both rising and falling) are set to be very fast.
 
 \begin{figure}[H]

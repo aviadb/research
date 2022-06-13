@@ -224,12 +224,12 @@ An intelligent choice of the learnable features
 \cite{7845025} 
 can drastically change a given model's outcomes quality.
 In supervised learning, the 
-feature selection and extraction process withal,
+feature selection and extraction process,
 are preparatory steps to the learning or classification
 stages coming next.
-As a rule of thumb, the more features, the better accuracy
+As a rule of thumb, the more features, the better the accuracy
 a learning model can yield theoretically\cite{lessIsMore}.
-That saying holds true to a great degree
+That holds true to a great degree
 as long as the amount of sudden fluctuations do not characterize the data.
 In a case of heavy fluctuating data,
 or alternatively, in the case of a 
@@ -255,13 +255,14 @@ More or less useful, different speech features
 may better fit certain use-cases or fulfill 
 a particular unerring task. 
 Features for speech (including audio) 
-are mainly from the following domains:
-\begin{enumerate}
-    \item Spectral Features
-    \item Cepstral Features
-    \item Time domain Features
-    \item Spatial Features
-\end{enumerate}
+are mainly from the following domains: spectral features,
+cepstral features, time domain features, and spatial features.
+% \begin{enumerate}
+%     \item Spectral Features
+%     \item Cepstral Features
+%     \item Time domain Features
+%     \item Spatial Features
+% \end{enumerate}
 
 Speech features are selected 
 to give the maximal accuracy in detecting utterances.
@@ -272,14 +273,14 @@ from other input streams.
 
 \section{Spectral Features}
 \subsection{FB -- FilterBanks}
-Utilizing FilterBanks is a very common technique
+FilterBanks is a very common technique
 for spectral mapping of speech signals.
 By dividing the audio spectrum into multiple 
-sub-domains with a defined level of overlap, 
+frequency bins with a pre-defined percentage of overlap, 
 the spectrum is 
 ``framed'' according to frequency. 
-Thus, by a set of band-pass filters,
-each frame contains the confined 
+Thus, by a set of bandpass filters,
+each of which contain the confined 
 information of the speech signal 
 that corresponds to the filter's specific 
 range of frequencies.
@@ -293,8 +294,9 @@ or in other better spectral resolution.
 
 Filterbanks by themselves are not the desired speech feature,
 but only the mean for feature extraction. 
-The most common feature extracted by a Filterbank set
+The most common feature extracted by a filterbank set
 is the total sum of energy bounded by the filter's frequency response.
+
 A set of filters is computed per 
 frequency bin and remains the same for 
 the entire signal length over time.
@@ -304,11 +306,11 @@ speech over a finite defined duration of time.
 
 The human hearing system is less sensitive to high frequencies
 than lower band frequencies, as described in Chapter\;\ref{ch:scaling_methods}.
-Therefore, in an attempt to emulate the same natural behavior and
-resemble the hearing ``filters'' as much as possible, 
-the Filterbank set of filters is set with center frequencies
+Therefore, in an attempt to emulate that same natural behavior and
+to resemble human hearing ``filters'' as much as possible, 
+the filterbank set of filters is set with center frequencies
 according to the different scaling 
-methods described in Chapter\;\ref{ch:scaling_methods}.
+methods noted in Chapter\;\ref{ch:scaling_methods}.
 In that way, narrow-band filters are assigned to 
 lower frequency ranges. 
 Similarly, wide-band filters are for 
@@ -390,7 +392,7 @@ the higher\cite{7489370} frequencies responses.
 
 \subsubsection{Framing}
 Speech signals vary in time. 
-Although the variation over time is relatively slow, 
+Although the variation over time can be relatively slow, 
 a speech signal is not a pure stationary process 
 but a quasi-stationary. 
 Therefore, analysis of speech signals 
@@ -411,14 +413,14 @@ characteristics of speech.
 
 A very common sampling frequency of audio signals
 is \(16KHz\). 
-As a result, and in order to work with 
+In order to work with 
 a round number of sampling points, 
 the frame lengths 
 and the hopping lengths 
 are set to \(25ms\), and 
 \(6.25ms\) or \(10ms\) for hopping size. 
 These values translate to a frame length
-equals 400 sampling points, and hopping size
+equals 400 sampling points at \(16KHz\), and hopping size
 equals 100 or 160 sampling points, respectively.
 Another advantage of setting the hopping length
 as \(6.25ms\) is that it gives
@@ -427,7 +429,7 @@ by definition.
 
 \subsubsection{Windowing}
 In order to extract each frame only 
-whilst also minimizing the Gibbs effects as much as possible,
+whilst also minimizing the Gibbs phenomenon as much as possible,
 a windowing function is applied.
 As a result, the information confined 
 in a given frame is extracted while the 
@@ -454,7 +456,8 @@ Equations\;\ref{eq:hammwin} and \ref{eq:hannwin}, respectively.
 \subsubsection{DFT spectrum}
 Each one of the windowed frames is
 converted to the frequency domain by applying the 
-Discrete Fourier Transform (DFT).
+Discrete-Time Fourier Transform (DTFT). Later the DTFT
+results are discretized giving the Discrete Fourier Transform (DFT).
 The composition of both windowed framing 
 and the DFT is referred to as the 
 Short-Time Fourier Transform (STFT).
@@ -463,7 +466,7 @@ called a spectrogram. The STFT outcome contains
 multiple frequency bins per time frame,
 making it a function of \(f, t\).
 
-The DFT is given by:
+The DTFT is given by:
 \begin{align}
     X_{m}(f) = \sum_{n=-\infty}^{\infty} x[n]g[n-mR]e^{-j2\pi fn}
 \end{align}
@@ -484,7 +487,7 @@ and \(R\) represents the hopping size.
 Once the spectrogram is received, 
 the frequencies are rescaled in accordance with the Mel Scale.
 A comprehensive description of the Mel Scale 
-is detailed in Chapter\;\ref{ch:scaling_methods}.
+was detailed in Chapter\;\ref{ch:scaling_methods}.
 
 Next, the cepstral coefficients are extracted from each frequency bin, 
 by taking the energies summed of each filter and multiplying it
