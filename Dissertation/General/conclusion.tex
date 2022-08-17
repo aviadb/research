@@ -38,13 +38,15 @@ get. For example, slim models for the
 beamformer, masking or the ASR engine 
 would be ranked higher than heavy and 
 larger models
-when the target device has limited
-scanty memory resources. 
-Alternatively, when storage memory is
-not considered an issue, a better performing
-algorithm would be more preferable
-for higher detection rates.
-
+when the target device has limited memory resources.
+Alternatively, when storage memory is not considered an issue, 
+a better performing algorithm may 
+be achieved using additional memory. 
+Such an algorithm would yield higher detection rates.
+% Alternatively, when storage memory is
+% not considered an issue, a better performing
+% algorithm would be more preferable
+% for higher detection rates.
 \bigskip
 
 To evaluate the End-to-End speech enhancement
@@ -74,7 +76,8 @@ or the usage of only FilterBanks.
 Adding temporal context to the mixture,
 resulted in a slightly better ASR performance.
 These insights reflected mainly in 
-the effort of model's simplifications.
+the effort of simplifying our ASR model
+and reducing its memory footprints.
 In accordance, simplifications such as
 approximations for the scaling methods
 and the reduction in filters and coefficients

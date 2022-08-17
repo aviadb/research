@@ -18,8 +18,9 @@ compared to the conventional HMM-GMM
 based speech recognition approach\cite{7472778, 6296526}.
 In addition, integration with deep beamformers,
 which are also DNN-based, improves
-the front-end (FE) performance in a way that is
-eventually projected to lower error rates in results.
+the front-end (FE) performance.
+That performance improvement paves the way 
+to lower error rates in results.
 Different neural network (NN) 
 architectures can be used to
 implement ASR engine building blocks.
@@ -36,19 +37,6 @@ The E2E approach consists of the ``complete'' pipeline process, starting with
 the audio domain physical signal reception up to the 
 output of the recognition engine.
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\linewidth]{Introduction/images/asr_blocks}
-	\caption{General E2E ASR System Blocks Diagram}\label{fig:asr_blocks_diagram}
-\end{figure}
-% \begin{figure}[H]
-% 	\centering
-% 	\includegraphics[width=0.99\textwidth]
-% 	{./images/asr_blocks}
-% 	\caption{General E2E ASR System Blocks Diagram}\label{fig:asr_blocks_diagram}
-% \end{figure}
-\vspace{-0.5cm}
-
 Figure~\ref{fig:asr_blocks_diagram} shows 
 a general skeleton of
 an E2E ASR system. This general form describes the
@@ -61,6 +49,19 @@ as ``Audio-Enhancement'' and ``Speech-Enhancement'', respectively.
 Because there can be an overlap between
 the two regions, ``Audio-related'' 
 and ``Speech-related'' are probably the more precise terms.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{Introduction/images/asr_blocks}
+	\caption{General E2E ASR System Blocks Diagram}\label{fig:asr_blocks_diagram}
+\end{figure}
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[width=0.99\textwidth]
+% 	{./images/asr_blocks}
+% 	\caption{General E2E ASR System Blocks Diagram}\label{fig:asr_blocks_diagram}
+% \end{figure}
+\vspace{-0.5cm}
 
 % Notwithstanding the acknowledgment that 
 % the name references describe each domain's 
@@ -126,11 +127,12 @@ improve or degrade performance.
 On the other hand,
 performance increase in one metric can cause 
 a degradation in other metrics.
-Hence, some cross-correlation and trade-off estimations
-over the given metric constrains should be performed
+Hence, there is a great need 
+to perform cross-correlation and trade-off estimations 
+over the given metric constraints 
 before and during the design stage of an E2E ASR system. 
-The outcomes may pour light on what would be a better
-and sufficient solution for a given use case. 
+The outcomes can help in advancing a better approach
+which may be a promising solution for a given use case. 
 Furthermore, other performance metrics can be examined.
 For example, metrics like computation time and resources utilization
 can assist in having a more comprehensive overview of how the system operates given a
@@ -445,7 +447,7 @@ Figure~\ref{fig:proj_blocks}.
 	\centering
 	\includegraphics[width=\textwidth]
 	{Introduction/images/proj_blocks2}
-	\caption{Project's Architecture}\label{fig:proj_blocks}
+	\caption{Project Architecture}\label{fig:proj_blocks}
 \end{figure}
 
 
@@ -467,10 +469,16 @@ the evaluation metrics that we described in Chapter~\ref{ch:metrics}.
 
 The understanding of audio frequency scaling and 
 the differences between scaling methods
-are essential for Chapter~\ref{ch:features}. 
-Key aspects of feature analysis is given in this chapter along with
-the considerations and the importance of every feature
-for the sake of accurate speech classification and audio processing. 
+are essential for Chapter~\ref{ch:features}.
+
+In Chapter~\ref{ch:features}, 
+presents key aspects of feature analysis 
+along with the considerations 
+and importance of every feature.
+We conclude that chapter indicating 
+that a wise feature selection 
+is essential for the sake of 
+accurate speech classification and audio processing. 
 
 Chapter~\ref{ch:tf_mask_ch} surrounds Time-Frequency (TF) 
 masking techniques which is a preliminary process taken prior

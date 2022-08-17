@@ -6,7 +6,7 @@ distinct the desired signal is out of the overall noise.
 
 Let \(y(t)\) denote a time-domain signal consisting of
 the desired speech signal \(x(t)\), and some interferences,
-referred to as noise\(n(t)\).
+referred to as noise \(n(t)\).
 That signal is given by:
 \begin{align}
     y(t) = x(t) + n(t)
@@ -22,12 +22,28 @@ and the original (reference) speech signal \(x(t)\).
 % the predicted speech signal, \(\widehat{x(t)}\), has to match the
 % original (target) speech signal \(x(t)\).
 
-Such a problem can be modeled and optimized 
-by the MSE (L2) (Mean Square Error) loss function as follows:
-\begin{align}
+
+Properly modeling the problem,
+we can optimize it using the 
+MSE (Mean Square Error) loss function,
+also noted as the L2 function.
+The L2 loss function is given in Equation~\ref{eq:l2_func}:
+\begin{align}\label{eq:l2_func}
     \ell(\widehat{x}, x) & = \sum_{t=0}^{T-1} \left[\widehat{x}(t) - x(t)\right]^{2} \\
     & = \sum_{t=0}^{T-1} |r(t)|^{2}
 \end{align}
+
+% Optimization of such a problem
+% is possible using the MSE (Mean Square Error) loss function
+% to model the ,
+% also sometimes refered as the L2 loss function. 
+
+% Such a problem can be modeled and optimized 
+% by the MSE (L2) (Mean Square Error) loss function as follows:
+% \begin{align}
+%     \ell(\widehat{x}, x) & = \sum_{t=0}^{T-1} \left[\widehat{x}(t) - x(t)\right]^{2} \\
+%     & = \sum_{t=0}^{T-1} |r(t)|^{2}
+% \end{align}
 
 The term \(\sum_{t} |r(t)|^{2}\) 
 is the total energy of the residual error between 
@@ -49,18 +65,22 @@ in \(\widehat{x}(t)\), and the \(e_{_{artif}}\)
 represents any other artifacts that cause
 distortions in the prediction of \(x_{_{s}}\).
 
-According to Parseval's theorem, the residual energy in time equals the sum of
-the power difference between the predicted magnitude 
-and the magnitude of target speech 
-in the frequency domain\cite{1643671009}.
-\begin{align}
-    \sum_{t} |r(t)|^{2} & = \frac{1}{T}\sum_{\tau=0}^{T-1}\sum_{f=0}^{T-1} \left[ \widehat{X}(\tau, f) - X(\tau, f)\right]^{2}
-\end{align}
+According to Parseval's theorem, the total residual energy 
+in time equals the sum of
+the spectral power in the frequency domain
+resulting from the squared difference 
+between the magnitudes of the predicted and target speech 
+\cite{1643671009}.
 
 Since the residual energy over time is referred to as the noise power,
 minimizing the residual,
 which is minimizing the MSE loss function,
 translates into an increase in SNR.
+\begin{align}
+    \sum_{t} |r(t)|^{2} & = \sum_{\tau=0}^{T-1}\sum_{f=0}^{T-1} \left[ \widehat{X}(\tau, f) - X(\tau, f)\right]^{2}
+\end{align}
+%\frac{1}{T}
+
 
 
 
@@ -93,13 +113,14 @@ the length of the empty sections with respect
 to the length of
 the other sections where speech is present.
 
-With Segmental SNR\cite{10.5555/912256}, instead of taking the entire signal,
+With Segmental SNR\cite{10.5555/912256}, 
+instead of taking the entire signal,
 the signal is segmented to relatively small chunks (segments), 
-each in length usually set to a frame of (typically) \(25ms\) long
+each in length usually set to a frame of (typically) \(25\;ms\) long
 with the option of setting an overlap
 between segments.
-Then, each SNR of each segment is calculated and, finally,
-are averaged. 
+Per segment, the SNR is calculated, and then averaged across
+all the segments.
 If the energy of the speech reference 
 in a segment is below some threshold or duration,
 that segment is negligible and is excluded,
@@ -126,8 +147,9 @@ compared to a clean reference signal
 concerning the noisy mixture.
 
 Unfortunately, speech analysis for the extraction of
-the Segmental SNR causes misalignments between 
-the reconstructed signal and the clean reference. 
+the Segmental SNR causes misalignment in time 
+due to a lack of common reference time between 
+the reconstructed signal and the clean reference.
 Moreover, the reconstructed signal is not aligned 
 with the noisy mixture either. 
 These misalignments 
@@ -290,7 +312,7 @@ word, even in cases where only single characters or worse,
 punctuation marks are not correctly placed, CER can lead to 
 more accurate grading per word.
 
-\section{HW Metrics}
+\section{Hardware Metrics}
 % \subsection{Computation time}
 % \subsection{Utilization Ratio}
 \subsection{Power Estimation}
