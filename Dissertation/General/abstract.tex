@@ -6,26 +6,31 @@ speech into text,
 is on the rise today and is required for 
 various use-cases,
 scenarios, and applications.
-However, 
-an ASR engine by itself will face difficulties 
-performing decently, 
+An ASR engine by itself faces difficulties 
+when encountering live input of audio data, 
 regardless of how sophisticated and advanced it may be.
-That is true, 
-especially under the circumstances 
-such as having a noisy ambient environment,
+That is especially true, 
+under the circumstances 
+such as a noisy ambient environment,
 multiple speakers, or faulty microphones.
 These kinds of challenges characterize 
 a realistic scenario for an ASR system.
 
-In time, the idea of ASR functionality evolved
-to a more comprehensive, End-to-End (E2E) solution.
-One that is robust, to some extent, to 
-external interferences, 
-flexible, so that it can be extended 
-to adapt to new scenarios or for performance increase,
-and modular enough to 
-conveniently reform and be compatible 
-with new applications.
+% In time, the idea of ASR functionality evolved
+% to a more comprehensive, End-to-End (E2E) solution.
+% An E2E solution that is robust, to some extent, to 
+% external interferences, 
+% flexible, so that it can be extended 
+% to adapt to new scenarios or for performance increase,
+% and modular enough to 
+% conveniently reform and be compatible 
+% with new applications.
+ASR functionality continues to evolve 
+toward more comprehensive End-to-End (E2E) solutions.
+E2E solution development focuses on three significant characteristics. 
+The solution has to be robust enough to show endurance against external interferences. 
+Also, it has to maintain flexibility, so it can easily extend in expectation of adapting to new scenarios or in order to achieve better performance.
+Lastly, we expect the solution to be modular enough to fit into new applications conveniently.
 Such an E2E ASR solution may include 
 several additional micro-modules 
 of speech enhancements besides the ASR engine, 
@@ -44,7 +49,8 @@ By offloading the complex computations to a server
 on the cloud, 
 the system can fit more easily in less capable computing devices. 
 Nevertheless, that compute offloading comes with the cost of
-giving up on real-time analysis. 
+giving up on real-time analysis,
+and increaing the overall system bandwidth. 
 In addition, offloading to a server must have
 connectivity to the cloud over the internet.
 
@@ -68,7 +74,7 @@ targeted for mobile,
 resource-limited devices. 
 First, we describe evaluation metrics for each domain of interest, 
 spread over vast engineering subjects. 
-Then, we emphasize any bindings between the metrics 
+Here, we emphasize any bindings between the metrics 
 across domains and the degree of impact 
 derived from a change in the system's specifications or constraints. 
 Second, we present the effectiveness

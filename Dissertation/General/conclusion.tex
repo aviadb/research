@@ -23,7 +23,7 @@ are ASR metrics.
 
 \bigskip
 
-We also present 
+We also presented
 the magnitude of influence
 that different scaling methods have 
 on ASR system's performance and requirements,
@@ -38,13 +38,15 @@ get. For example, slim models for the
 beamformer, masking or the ASR engine 
 would be ranked higher than heavy and 
 larger models
-when the target device has limited
-scanty memory resources. 
-Alternatively, when storage memory is
-not considered an issue, a better performing
-algorithm would be more preferable
-for higher detection rates.
-
+when the target device has limited memory resources.
+Alternatively, when storage memory is not considered an issue, 
+a better performing algorithm may 
+be achieved using additional memory. 
+Such an algorithm would yield higher detection rates.
+% Alternatively, when storage memory is
+% not considered an issue, a better performing
+% algorithm would be more preferable
+% for higher detection rates.
 \bigskip
 
 To evaluate the End-to-End speech enhancement
@@ -74,7 +76,8 @@ or the usage of only FilterBanks.
 Adding temporal context to the mixture,
 resulted in a slightly better ASR performance.
 These insights reflected mainly in 
-the effort of model's simplifications.
+the effort of simplifying our ASR model
+and reducing its memory footprints.
 In accordance, simplifications such as
 approximations for the scaling methods
 and the reduction in filters and coefficients
@@ -146,3 +149,34 @@ in this research, speech to text systems can be optimized
 by wise selection 
 of configurations for certain
 modules and yet achieving desired quality of performance.
+
+
+\section{Future work}
+In this research we based our ASR engine
+architecture on the transformer model.
+Other advanced ASR engine models are available
+such as CTC based Seq2Seq and the transducer model.
+Also, modern techniques of introducing 
+additional acoustic information to the ASR training process
+like the wav2vec outputs are expected to improve the results presented
+in this research. 
+
+Besides the ASR, further optimizations in hardware
+can be applied with dedicated HW based accelerators,
+which are now built-in inside new AI capable FPGA devices.
+These hardware accelerators are tailor made for
+neural networks, mainly CNNs. 
+The systolic-array architecture that is very common
+for such accelerators provide much lesser computing times
+when compared to conventional piped-line hardware architectures.
+Furthermore, the computing efficiency measured in
+tera-operations per energy or power units
+\([\sfrac{TFLOPS}{Joule}, \sfrac{TFLOPS}{Watt}]\) of such accelerators
+is tens to hundreds times higher.
+
+Going forward, combining both
+the alternative ASR engine models 
+and more expanded optimizations in hardware,
+this research can be more comprehensive in terms of
+the possibilities laid in front of a system designer
+for taking trade-offs based on the system's requirements.

@@ -18,8 +18,9 @@ compared to the conventional HMM-GMM
 based speech recognition approach\cite{7472778, 6296526}.
 In addition, integration with deep beamformers,
 which are also DNN-based, improves
-the front-end (FE) performance in a way that is
-eventually projected to lower error rates in results.
+the front-end (FE) performance.
+That performance improvement paves the way 
+to lower error rates in results.
 Different neural network (NN) 
 architectures can be used to
 implement ASR engine building blocks.
@@ -29,24 +30,12 @@ in the implementation of the
 front-end components, microphones, channel management,
 and beamformers.
 
-In recent years, the latest research 
+In recent years, the research
 interest has been in 
 End-to-End (E2E) ASR systems\cite{boeddeker2018exploring}.
 The E2E approach consists of the ``complete'' pipeline process, starting with
-the audio domain physical signal reception up to the recognition engine.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\linewidth]{Introduction/images/asr_blocks}
-	\caption{General E2E ASR System Blocks Diagram}\label{fig:asr_blocks_diagram}
-\end{figure}
-% \begin{figure}[H]
-% 	\centering
-% 	\includegraphics[width=0.99\textwidth]
-% 	{./images/asr_blocks}
-% 	\caption{General E2E ASR System Blocks Diagram}\label{fig:asr_blocks_diagram}
-% \end{figure}
-\vspace{-0.5cm}
+the audio domain physical signal reception up to the 
+output of the recognition engine.
 
 Figure~\ref{fig:asr_blocks_diagram} shows 
 a general skeleton of
@@ -61,6 +50,19 @@ Because there can be an overlap between
 the two regions, ``Audio-related'' 
 and ``Speech-related'' are probably the more precise terms.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{Introduction/images/asr_blocks}
+	\caption{General E2E ASR System Blocks Diagram}\label{fig:asr_blocks_diagram}
+\end{figure}
+% \begin{figure}[H]
+% 	\centering
+% 	\includegraphics[width=0.99\textwidth]
+% 	{./images/asr_blocks}
+% 	\caption{General E2E ASR System Blocks Diagram}\label{fig:asr_blocks_diagram}
+% \end{figure}
+\vspace{-0.5cm}
+
 % Notwithstanding the acknowledgment that 
 % the name references describe each domain's 
 % primary intention, they actually overlap.
@@ -71,7 +73,7 @@ and ``Speech-related'' are probably the more precise terms.
 
 
 % Although overlap exists between the two domains,
-The distinction between the two can be characterized
+The distinction between the two is characterized
 by different metrics.
 Typically, speech-recognition performance is evaluated
 using the Word Error Rate (WER) and
@@ -81,8 +83,8 @@ measured on the enhanced version of the input signal,
 whether it be speech separated or noise suppressed,
 is evaluated using different metrics.
 If such audio enhancement processing is applied,
-metrics like Clarity, Definition,
-Reverberation-Time, and other standard signal processing metrics
+metrics like Clarity\cite{c50}, Definition\cite{c50d50t50},
+Reverberation-Time\cite{c50d50t50}, and other standard signal processing metrics
 such as Signal to Noise Ratio (SNR) 
 and Signal to Distortion Ratio (SDR) are used.
 
@@ -125,11 +127,12 @@ improve or degrade performance.
 On the other hand,
 performance increase in one metric can cause 
 a degradation in other metrics.
-Hence, some cross-correlation and trade-off estimations
-over the given metric constrains should be performed
+Hence, there is a great need 
+to perform cross-correlation and trade-off estimations 
+over the given metric constraints 
 before and during the design stage of an E2E ASR system. 
-The outcomes may pour light on what would be a better
-and sufficient solution for a given usecase. 
+The outcomes can help in advancing a better approach
+which may be a promising solution for a given use case. 
 Furthermore, other performance metrics can be examined.
 For example, metrics like computation time and resources utilization
 can assist in having a more comprehensive overview of how the system operates given a
@@ -194,7 +197,7 @@ application requirements or resource-limited platforms.
 References~\cite{7472778, 7952160} are 
 two pioneering research papers focusing on 
 studying neural networks usages
-for beamforming in the front-end, right
+for beamforming in the front-end,
 before the acoustic features extraction and
 recognition engine stages in E2E ASR systems.
 In both papers, the researchers built their architecture
@@ -344,7 +347,7 @@ However, this paper does not include an E2E pipeline nor the recognition engine.
 In other words, this research focuses on the ``Audio-related'' domain.
 Indeed, SNR belongs to the
 ``Audio-related' metric set rather than the
-``Seech-related'' metric set,
+``Speech-related'' metric set,
 as shown in Figure~\ref{fig:asr_blocks_diagram}.
 \bigskip
 
@@ -444,7 +447,7 @@ Figure~\ref{fig:proj_blocks}.
 	\centering
 	\includegraphics[width=\textwidth]
 	{Introduction/images/proj_blocks2}
-	\caption{Project's Architecture}\label{fig:proj_blocks}
+	\caption{Project Architecture}\label{fig:proj_blocks}
 \end{figure}
 
 
@@ -466,10 +469,16 @@ the evaluation metrics that we described in Chapter~\ref{ch:metrics}.
 
 The understanding of audio frequency scaling and 
 the differences between scaling methods
-are essential for Chapter~\ref{ch:features}. 
-Key features analysis is given in this chapter along with
-the considerations and the importance of every feature
-for the sake of accurate speech classification and audio processing. 
+are essential for Chapter~\ref{ch:features}.
+
+In Chapter~\ref{ch:features}, 
+presents key aspects of feature analysis 
+along with the considerations 
+and importance of every feature.
+We conclude that chapter indicating 
+that a wise feature selection 
+is essential for the sake of 
+accurate speech classification and audio processing. 
 
 Chapter~\ref{ch:tf_mask_ch} surrounds Time-Frequency (TF) 
 masking techniques which is a preliminary process taken prior
@@ -492,11 +501,11 @@ by the T-F masking DNN system.
 General background about 
 ASR systems is given in
 Chapter~\ref{ch:asr_ch}.
-After that we go thorugh history in the evolvment process
-of ASR systems to what we know today as E2E ASR system.
+We then go through history in the development
+of ASR systems to the E2E ASR systems.
 We emphasize the benefits of using E2E solutions
 and what other advancements were done in this field of research.
-Then, we present our general approach of an ASR engine implementation,
+Here, we present our general approach of an ASR engine implementation,
 followed by multiple variants of 
 suggested ASR engines and their measurement evaluations.
 
@@ -507,5 +516,5 @@ for the T-F masking and beamforming parts,
 and the CommonVoice V7 dataset~\cite{commonVoiceDS}
 for the ASR engine module.
 
-In Chapter~\ref{ch:concl_ch}, we provide conclusions to the study
+In Chapter~\ref{ch:concl_ch}, we state our conclusions for this study
 and our plan for future work.

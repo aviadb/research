@@ -27,7 +27,7 @@ variabilities depending on many
 factors that make a speech signal 
 classified as non-stationary and inconsistent. 
 Natural speech heavily depends on the speaker's gender, 
-whether a male or a female and the speaker's age. 
+whether a male or a female, and the speaker's age. 
 Moreover, different speakers of the same 
 gender and age range may still present variances 
 in the vocal range, pitch, and formant frequencies.
@@ -76,8 +76,10 @@ In that way, a much smaller set of dedicated phonemes can be used to construct t
 The system presented in Figure\;\ref{fig:asr_blocks} 
 shows a pipeline that starts with a pre-emphasis and features
 extraction modules. 
-The pre-emphasis accounts for the speech analysis, noise cancellation, speech enhancements, windowing, and framing of the speech into sub-frames in which it is closer in characteristics to a stationary signal.
-The feature extraction module extracts the individual features representing the speech from the incoming frames as MFCCs, FilterBanks, and others.
+The pre-emphasis includes the speech analysis, noise cancellation, speech enhancements, windowing, and framing of the speech into sub-frames in which it is closer in characteristics to a stationary signal.
+The feature extraction module extracts the individual 
+features representing the speech from the incoming frames 
+as MFCCs, FilterBanks, and other techniques.
 
 The next module in line is the decoder. The decoder's responsibility is to take the features, convert them to a set of phonemes and chain them together to detectable words, composing the transcript at the output.
 A decoder is built from three sub-models tied
@@ -367,7 +369,7 @@ given to the Seq2Seq loss \(\ell_{_{seq}}\).
 
     \hline
     \rowcolor{ytbl}  \#7(22)  
-        & MFCC, \(\Delta\), \(\Delta\Delta\) 
+        & BFCC, \(\Delta\), \(\Delta\Delta\) 
         & 146.0M
         & Bark 
         & Bartlett
@@ -377,7 +379,7 @@ given to the Seq2Seq loss \(\ell_{_{seq}}\).
 
     \hline
     \rowcolor{wtbl}  \#8(23)  
-        & MFCC, \(\Delta\), \(\Delta\Delta\) 
+        & GFCC, \(\Delta\), \(\Delta\Delta\) 
         & 146.0M
         & ERB
         & Gammatone
@@ -415,8 +417,8 @@ given to the Seq2Seq loss \(\ell_{_{seq}}\).
 ASR engines \#9, \#10 were heavily 
 optimized in terms of the neural network structures, 
 leading to smaller models having two times fewer learnable parameters.
-For comparison, differences between ASR engines 101
-and 72 are summarized in
+For comparison, differences between ASR engines \#10
+and \#6 are summarized in
 Table\;\ref{tbl:engine_101_72}.
 \begin{table}[H]
     % for more info see: https://www.overleaf.com/learn/latex/tables
@@ -822,6 +824,226 @@ and test datasets are presented in Figure\;\ref{fig:wer_13}.
     \includegraphics[width=0.95\linewidth]{ASR/images/asr13_wer.png}
     \caption{ASR \#4 WER, CER evaluation plot}\label{fig:wer_13}
 \end{figure}
+
+\section{Chapter Summary}
+In this chapter, we covered the great advantage 
+the E2E ASR system has over the traditional ASR system. 
+Later, we reviewed different algorithms 
+and techniques like the CTC and Seq2Seq 
+that improve ASR performance. 
+Following that, we presented the selected 
+architecture for the ASR engine, 
+which includes CNN networks at the front-end 
+followed by an attention-based 
+encoder-decoder transformer 
+that uses the abovementioned algorithms.
+
+During experiments, our focus was on the ASR 
+performance according to WER and CER metrics.
+When training a model using a large dataset, 
+we preserved that the loss function decreases over time. 
+Thus, the engine's model reaches better 
+detection rates and higher accuracy.
+
+In our experiments, we tested multiple engine configurations. 
+However, we consider only ten selected engines as meaningful. 
+These ten engines are described in Table~\ref{tbl:asr_engines}.
+The baseline architecture is the same for all the tested engines. 
+The differences between the engines are the selected features for analysis, 
+the scaling method, 
+and mainly the technique of cepstral coefficient extraction.
+
+Using various configurations, we covered a vast spectrum of parameters, 
+indicating each parameter's impact on performance.
+In doing so, from the measured results, 
+we could deduce that the Mel and Bark scale scaling methods 
+yield better results than the ERB scale. 
+Moreover, we discovered that simplifying the cepstral coefficients
+calculations is possible by reducing the 
+number of filters or coefficients per T-F bin.
+A distinct example of this conclusion 
+is the comparison between engines \#5 and \#6.
+
+We also examined the change in performance 
+due to root frequency cepstral coefficients.
+The RFCCs replace the conventional cepstral coefficient extractions, 
+which usually involve complex trigonometric functions 
+such as inverse tangence and logarithms.
+The RFCCs results matched the conventional methods, and  
+computation-wise, root-square is more efficient than logarithms.
+However, after introducing the traditional methods simplifications 
+such as the Mel and Bark approximations, 
+we see no advantage in using RFCCs.
+
+In the last trials, we tried to optimize 
+the engine in terms of computation time, 
+memory footprints, hardware resources, and the derived power consumptions.
+Our most prominent finding is deduced 
+from comparing engines 9 and 10 with engine 6. 
+We simplified the ASR engine's model by reducing 
+the number of filters and coefficients. 
+We also changed the bit precision for the feature extractions section 
+and slimmed down the model's CNN and transformer layers.
+
+Although detecting degradation in ASR performance 
+has been seen due to these optimizations, 
+we managed to compensate for it by adding an extra feature. 
+With the added temporal context feature, we matched the 
+WER and CER detection ratios we had before the optimization. 
+
+In conclusion, since the Mel and Bark approximations show significant 
+improvement in execution time, 
+hardware resources utilization, and therefore less power consumption, 
+we chose them in favor of the logarithm-based calculations. 
+Combining that with the previously mentioned optimizations, 
+we ended with a more capable model.
+The received model produces the same results in less execution time and consumes less power. 
+In addition, synthesis results point to lower resource utilization ratios, 
+enabling fitting the model into smaller, cheaper devices. 
+Overall we successfully reduced the model's size by approximately half, 
+from 146.2 million learnable parameters to 78.8 million.
+
+Table~\ref{tbl:asr_perf_summary} summarizes the results of our experiments.
+
+\begin{table}[H]
+    % for more info see: https://www.overleaf.com/learn/latex/tables
+    % \centering
+    \hspace*{-2.8cm}
+    \arrayrulecolor{ytblborder}
+\begin{tabular}{ !{\color{ytblborder}\vrule}l!{\color{ytblborder}\vrule}lrllrr| } 
+    \hline
+
+    \hline
+    \rowcolor{ytblcaption} \color{white}\bf{Id(seed)} 
+    & \color{white}\bf{Feature(s)} 
+    & \color{white}\bf{Params} 
+    & \color{white}\bf{Scale} 
+    & \color{white}\bf{Fbank} 
+    & \color{white}\bf{\#Filt.} 
+    & \color{white}\bf{\#Coeff.} \\
+    % & \color{white}\bf{ORM} 
+    % & \color{white}\bf{Clean} \\
+    \hline
+
+    \hline\hline
+    \rowcolor{wtbl}\multicolumn{7}{|c|}{\bf{Root Mean Cepstral Coefficients}}   \\
+    \hline
+
+    \hline
+    \rowcolor{ytbl}  \#1(5)  
+        & RMFCC(0.1), \(\Delta\), \(\Delta\Delta\) 
+        & 146.2M
+        & Mel 
+        & Bartlett
+        & 80 
+        & 20 \\
+    \hline
+    
+    \hline
+    \rowcolor{wtbl}  \#2(15)  
+        & RMFCC(0.08), \(\Delta\), \(\Delta\Delta\) 
+        & 146.2M
+        & Mel 
+        & Bartlett
+        & 80 
+        & 20 \\
+    \hline
+    
+    \hline
+    \rowcolor{ytbl}  \#3(12)  
+        & RBFCC(0.1), \(\Delta\), \(\Delta\Delta\) 
+        & 146.0M
+        & Bark 
+        & Bartlett
+        & 28 
+        & 18 \\
+    \hline
+
+    \hline
+    \rowcolor{wtbl}  \#4(13)  
+        & RGFCC(0.1), \(\Delta\), \(\Delta\Delta\) 
+        & 146.0M
+        & ERB
+        & Gammatone
+        & 28 
+        & 18 \\
+    \hline
+
+    \hline\hline
+    \rowcolor{wtbl}\multicolumn{7}{|c|}{\bf{Conventional Cepstral Coefficients}}   \\
+    \hline
+
+    \hline
+    \rowcolor{ytbl}  \#5(70)  
+        & MFCC, \(\Delta\), \(\Delta\Delta\) 
+        & 146.2M
+        & Mel 
+        & Bartlett
+        & 80 
+        & 20 \\
+    \hline
+    
+    \hline
+    \rowcolor{wtbl}  \#6(72)  
+        & MFCC, \(\Delta\), \(\Delta\Delta\) 
+        & 146.0M
+        & Mel 
+        & Bartlett
+        & 28 
+        & 18 \\
+    \hline
+
+    \hline
+    \rowcolor{ytbl}  \#7(22)  
+        & BFCC, \(\Delta\), \(\Delta\Delta\) 
+        & 146.0M
+        & Bark 
+        & Bartlett
+        & 28 
+        & 18 \\
+    \hline
+
+    \hline
+    \rowcolor{wtbl}  \#8(23)  
+        & GFCC, \(\Delta\), \(\Delta\Delta\) 
+        & 146.0M
+        & ERB
+        & Gammatone
+        & 28 
+        & 18 \\
+    \hline
+
+    \hline
+    \rowcolor{ytbl}  \#9(100)  
+        & MFCC, \(\Delta\), \(\Delta\Delta\), Context(3, 3)
+        & 78.8M
+        & Mel 
+        & Bartlett
+        & 26 
+        & 26 \\
+    \hline
+
+    \hline
+    \rowcolor{wtbl}  \#10(101)
+        & MFCC, \(\Delta\), \(\Delta\Delta\), Context(3, 3)
+        & 78.8M
+        & Mel Approx.
+        & Bartlett
+        & 26 
+        & 26 \\
+    \hline
+
+    \hline
+\end{tabular}
+\arrayrulecolor{black}
+\caption{ASR Engines Table}
+\label{tbl:asr_engines}
+\end{table}
+
+
+
+
+
 
 
 % \begin{figure}[H]

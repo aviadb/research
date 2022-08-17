@@ -1,7 +1,7 @@
 \chapter{Beamformers}\label{ch:beamformers}
 \section{Introduction}
 In general, a fundamental part of signal processing 
-involvements filtering in one way or another,
+involves filtering in one way or another,
 and same is the case for speech signals processing.
 The motivation to filter incoming signals 
 is to form a given signal so that the unwanted components, 
@@ -9,7 +9,7 @@ referred to as interferences, are eliminated,
 and the desired component of the signal remains.
 
 A filter can be in the form of an analog or digital circuit. 
-In the sense of a digital filter, 
+In the sense of a fixed-tap or static digital filter, 
 the discrete signal samples are tapered 
 due to a convolutional multiplication with 
 the filter's weighted coefficients.
@@ -223,7 +223,7 @@ speech and noise variations at the inputs.
 Therefore, we need a notation for the variances 
 and covariances to model the MVDR beamformer. 
 
-Equation\;\ref{eq:mvdr_cov} lists the covariance matrices of the
+Equation\;\ref{eq:mvdr_cov} shows the covariance matrices of the
 speech, noise, and the extracted room impulse response, respectively.
 \begin{align}\label{eq:mvdr_cov}
     \mathbf{R}_{_{SS}} &= \frac{1}{T}\sum_{t=1}^{T}\mathbf{S}(j\omega;t)\mathbf{S}^{\acute{H}}(j\omega;t) \nonumber \\
